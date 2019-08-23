@@ -202,7 +202,6 @@ void SpeechgrinderClient::Exit()
 		{
 			if (CanRead())
 			{
-				SluResponse Response;
 				StreamRead(&Response);
 			}
 
