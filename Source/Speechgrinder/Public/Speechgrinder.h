@@ -139,7 +139,7 @@ public:
 
 	/** Connect to Speechgrinder, must be called before other functions */
 	UFUNCTION(BlueprintCallable)
-	void Connect(const FString& DeviceId, const FString& AppId, const FString& LanguageCode);
+	void Connect(const FString& AppId, const FString& LanguageCode);
     
 	/** Start a new Speechgrinder utterance */
     UFUNCTION(BlueprintCallable)

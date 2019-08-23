@@ -18,7 +18,7 @@ USpeechgrinder::~USpeechgrinder()
     }
 }
 
-void USpeechgrinder::Connect(const FString& DeviceId, const FString& AppId, const FString& LanguageCode)
+void USpeechgrinder::Connect(const FString& AppId, const FString& LanguageCode)
 {
 	Recorder.Stop();
     if (ClientThread)
@@ -26,6 +26,7 @@ void USpeechgrinder::Connect(const FString& DeviceId, const FString& AppId, cons
         ClientThread->Kill(true);
         ClientThread = nullptr;
     }
+	FString DeviceId = FGenericPlatformMisc::GetDeviceId();
 	Client.Reset(new SpeechgrinderClient("api.speechgrinder.com", std::string(TCHAR_TO_UTF8(*DeviceId)), std::string(TCHAR_TO_UTF8(*AppId)), std::string(TCHAR_TO_UTF8(*LanguageCode)), sg::kSampleRate));
     ClientThread = FRunnableThread::Create(Client.Get(), TEXT("SpeechgrinderClient"), 0);
 }
