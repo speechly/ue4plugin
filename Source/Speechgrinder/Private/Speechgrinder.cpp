@@ -161,15 +161,13 @@ void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 	{
 		CharAudio.SetNumUninitialized(OutputAudioLength);
 	}
+	uint16* ShortAudio = reinterpret_cast<uint16*>(CharAudio.GetData());
 	for (int32 i = 0; i < AudioLength; ++i)
 	{
-		int16 Sample = static_cast<int16>(Audio[i] * (Audio[i] < 0.f ? 0x8000 : 0x7fff));
-		// First convert to 8-bit halves in an unsigned format to get raw bytes
-		unsigned char A = static_cast<unsigned char>(Sample & 0xff);
-		unsigned char B = static_cast<unsigned char>((Sample >> 8) & 0xff);
-		// Then convert to platform signedness
-		CharAudio[i * 2] = static_cast<char>(A);
-		CharAudio[i * 2 + 1] = static_cast<char>(B);
+		int32 ScaledSample = static_cast<int32>(Audio[i] * (Audio[i] < 0.f ? 32768.f : 32767.f));
+		ScaledSample = FPlatformMath::Max(-32768, FPlatformMath::Min(32767, ScaledSample));
+		int16 Sample = static_cast<int16>(ScaledSample);
+		ShortAudio[i] = Sample;
 	}
 	SluRequest Request;
 	Request.set_audio(CharAudio.GetData(), OutputAudioLength);

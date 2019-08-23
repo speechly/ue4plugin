@@ -20,6 +20,7 @@ void FSpeechRecorder::Start()
 	if (!AudioCapture.IsStreamOpen())
 	{
 		AudioCapture.GetDefaultCaptureDeviceInfo(OutInfo);
+		SampleRatio = static_cast<float>(OutInfo.PreferredSampleRate) / SampleRate;
 		generateFilter();
 		FAudioCaptureStreamParam StreamParam;
 		StreamParam.Callback = this;
@@ -47,6 +48,11 @@ void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 Nu
 		return;
 	}
 
+	if (bOverflow)
+	{
+		UE_LOG(LogSG, Warning, TEXT("Audio buffer overflow"));
+	}
+
 	// Pick the first channel
 	for (int32 i = 0; i < NumFrames; ++i)
 	{
@@ -67,18 +73,14 @@ void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 Nu
 	}
 
 	int32 RemainingOffset = FGenericPlatformMath::RoundToInt(SampleRatio * OutputLength);
-	if (RemainingOffset < NumFrames)
+	if (RemainingOffset < Buffer.Num())
 	{
-		Buffer.Empty(NumFrames);
-		for (int32 i = RemainingOffset; i < NumFrames; ++i)
+		// Move left over buffer to be the start of the next round
+		for (int32 i = RemainingOffset, j = 0; i < Buffer.Num(); ++i, ++j)
 		{
-			float Frame = 0.0f;
-			for (int32 channel = 0; channel < NumChannels; ++channel)
-			{
-				Frame += AudioData[i * (channel + 1)];
-			}
-			Buffer.Add(Frame / NumChannels);
+			Buffer[j] = Buffer[i];
 		}
+		Buffer.SetNum(Buffer.Num() - RemainingOffset);
 	}
 	else
 	{
@@ -92,7 +94,6 @@ void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 Nu
 void FSpeechRecorder::generateFilter()
 {
 	int32 PreferredSampleRate = OutInfo.PreferredSampleRate;
-	SampleRatio = static_cast<float>(PreferredSampleRate) / SampleRate;
 	int32 FilterLength = 23;
 	Filter.Empty(FilterLength);
 	auto Sinc = [](float x) {
@@ -106,7 +107,7 @@ void FSpeechRecorder::generateFilter()
 	float Sum = 0;
 	for (int32 i = 0; i < FilterLength; ++i)
 	{
-		float x = Sinc(SampleRate * 2.0f / PreferredSampleRate * (i - (FilterLength - 1) / 2.0f));
+		float x = Sinc((static_cast<float>(SampleRate) / PreferredSampleRate) * (i - (FilterLength - 1) / 2.0f));
 		Filter.Add(x);
 		Sum += x;
 	}
