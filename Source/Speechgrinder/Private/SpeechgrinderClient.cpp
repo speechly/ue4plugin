@@ -1,5 +1,12 @@
 #include "SpeechgrinderClient.h"
 
+#include "Runtime/Core/Public/Misc/Paths.h"
+#include "Runtime/Core/Public/Misc/FileHelper.h"
+
+namespace {
+	static const int kSampleRate = 16000;
+};
+
 SpeechgrinderClient::SpeechgrinderClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }
 {
 	FString Pem;

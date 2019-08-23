@@ -1,6 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Runnable.h"
+#include "Containers/Queue.h"
 
 #include <memory>
 #include <string>

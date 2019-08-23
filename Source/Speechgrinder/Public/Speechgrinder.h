@@ -1,52 +1,15 @@
 #pragma once
 
-#include "CoreMinimal.h"
-#include "AudioCapture.h"
-#include "HAL/RunnableThread.h"
-#include "Runnable.h"
-#include "LogMacros.h"
-#include "Containers/Queue.h"
-
 #include "SpeechgrinderClient.h"
+#include "SpeechRecorder.h"
+
+#include "CoreMinimal.h"
+#include "HAL/RunnableThread.h"
+#include "LogMacros.h"
 
 #include "Speechgrinder.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogSG, Log, All);
-
-using namespace Audio;
-
-class ISpeechAudioCallback
-{
-public:
-	virtual void OnSpeechAudio(const float* Audio, const int32 AudioLength) = 0;
-	virtual ~ISpeechAudioCallback() {}
-};
-
-// Audio recorder with downsampling to 8000hz
-class FSpeechRecorder : public IAudioCaptureCallback
-{
-public:
-    FSpeechRecorder();
-    virtual ~FSpeechRecorder();
-    void Start();
-    void Stop();
-
-    virtual void OnAudioCapture(float* AudioData, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverflow) override;
-	ISpeechAudioCallback* Callback;
-
-private:
-	void generateFilter();
-
-	TArray<float> Filter;
-	float SampleRatio;
-	TArray<float> Buffer;
-	TArray<float> Output;
-    bool bIsCapturing{false};
-    FAudioCapture AudioCapture;
-    FCaptureDeviceInfo OutInfo;
-    FCriticalSection CriticalSection;
-
-};
 
 USTRUCT(BlueprintType)
 struct FSpeechgrinderToken
