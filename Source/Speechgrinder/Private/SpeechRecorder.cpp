@@ -1,10 +1,10 @@
 #include "SpeechRecorder.h"
 
-namespace {
-	static const int kNumFramesDesired = 1024;
-};
+#include "GenericPlatformMath.h"
 
-FSpeechRecorder::FSpeechRecorder()
+FSpeechRecorder::FSpeechRecorder(int NumFramesDesired, int SampleRate)
+	: NumFramesDesired{NumFramesDesired},
+	  SampleRate{SampleRate}
 {
 }
 
@@ -23,7 +23,7 @@ void FSpeechRecorder::Start()
 		generateFilter();
 		FAudioCaptureStreamParam StreamParam;
 		StreamParam.Callback = this;
-		StreamParam.NumFramesDesired = kNumFramesDesired;
+		StreamParam.NumFramesDesired = NumFramesDesired;
 		verifyf(AudioCapture.OpenDefaultCaptureStream(StreamParam), TEXT("Could not open capture stream"));
 		AudioCapture.StartStream();
 	}
@@ -53,20 +53,20 @@ void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 Nu
 		Buffer.Add(AudioData[i * NumChannels]);
 	}
 
-	int32 OutputLength = ceilf((Buffer.Num() - Filter.Num()) / SampleRatio);
-	Output.Empty(kNumFramesDesired);
+	int32 OutputLength = FGenericPlatformMath::CeilToInt((Buffer.Num() - Filter.Num()) / SampleRatio);
+	Output.Empty(NumFramesDesired);
 
 	for (int32 i = 0; i < OutputLength; ++i)
 	{
 		Output.Add(0.0f);
-		int32 Offset = roundf(SampleRatio * i);
+		int32 Offset = FGenericPlatformMath::RoundToInt(SampleRatio * i);
 		for (int32 j = 0; j < Filter.Num(); ++j)
 		{
 			Output[i] += Buffer[Offset + j] * Filter[j];
 		}
 	}
 
-	int32 RemainingOffset = roundf(SampleRatio * OutputLength);
+	int32 RemainingOffset = FGenericPlatformMath::RoundToInt(SampleRatio * OutputLength);
 	if (RemainingOffset < NumFrames)
 	{
 		Buffer.Empty(NumFrames);
@@ -82,7 +82,7 @@ void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 Nu
 	}
 	else
 	{
-		Buffer.Empty(kNumFramesDesired);
+		Buffer.Empty(NumFramesDesired);
 	}
 
 	verifyf(Callback, TEXT("Audio callback not defined"));
@@ -91,9 +91,8 @@ void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 Nu
 
 void FSpeechRecorder::generateFilter()
 {
-	int32 SampleRate = OutInfo.PreferredSampleRate;
-	int32 Cutoff = kSampleRate;
-	SampleRatio = static_cast<float>(SampleRate) / Cutoff;
+	int32 PreferredSampleRate = OutInfo.PreferredSampleRate;
+	SampleRatio = static_cast<float>(PreferredSampleRate) / SampleRate;
 	int32 FilterLength = 23;
 	Filter.Empty(FilterLength);
 	auto Sinc = [](float x) {
@@ -102,12 +101,12 @@ void FSpeechRecorder::generateFilter()
 			return 1.0f;
 		}
 		float PIx = PI * x;
-		return sin(PIx) / PIx;
+		return FGenericPlatformMath::Sin(PIx) / PIx;
 	};
 	float Sum = 0;
 	for (int32 i = 0; i < FilterLength; ++i)
 	{
-		float x = Sinc(Cutoff * 2.0f / SampleRate * (i - (FilterLength - 1) / 2.0f));
+		float x = Sinc(SampleRate * 2.0f / PreferredSampleRate * (i - (FilterLength - 1) / 2.0f));
 		Filter.Add(x);
 		Sum += x;
 	}

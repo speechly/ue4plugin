@@ -17,7 +17,7 @@ public:
 class FSpeechRecorder : public IAudioCaptureCallback
 {
 public:
-	FSpeechRecorder();
+	FSpeechRecorder(int NumFramesDesired, int SampleRate);
 	virtual ~FSpeechRecorder();
 	void Start();
 	void Stop();
@@ -28,6 +28,8 @@ public:
 private:
 	void generateFilter();
 
+	int NumFramesDesired;
+	int SampleRate;
 	TArray<float> Filter;
 	float SampleRatio;
 	TArray<float> Buffer;
@@ -36,5 +38,4 @@ private:
 	FAudioCapture AudioCapture;
 	FCaptureDeviceInfo OutInfo;
 	FCriticalSection CriticalSection;
-
 };

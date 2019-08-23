@@ -20,7 +20,7 @@ using namespace speechgrinder::sgapi::v1;
 class SPEECHGRINDER_API SpeechgrinderClient : public FRunnable
 {
 public:
-	SpeechgrinderClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode);
+	SpeechgrinderClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate);
 	bool Write(const SluRequest& Request);
 	bool Read(SluResponse& OutResponse);
 	bool HasError() const
@@ -47,6 +47,7 @@ private:
 	std::string DeviceId;
 	std::string AppId;
 	std::string LanguageCode;
+	int SampleRate;
 	std::shared_ptr<grpc::ChannelCredentials> Credentials;
 	std::shared_ptr<grpc::Channel> Channel;
 	std::unique_ptr<Slu::Stub> SluStub;

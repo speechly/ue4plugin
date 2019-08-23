@@ -11,6 +11,12 @@
 
 DECLARE_LOG_CATEGORY_EXTERN(LogSG, Log, All);
 
+// Can't use an anonymous namespace because of Unity build
+namespace sg {
+	static const int kSampleRate = 16000;
+	static const int kNumFramesDesired = 1024;
+};
+
 USTRUCT(BlueprintType)
 struct FSpeechgrinderToken
 {
@@ -155,7 +161,7 @@ private:
 	FString LastUtteranceId;
 	TUniquePtr<SpeechgrinderClient> Client;
     FRunnableThread* ClientThread;
-    FSpeechRecorder Recorder;
+	FSpeechRecorder Recorder{1024, 16000};
 	TArray<char> CharAudio; // as a field to reduce allocations
 
 	// Inherited via ISpeechAudioCallback
