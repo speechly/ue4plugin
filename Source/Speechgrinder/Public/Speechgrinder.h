@@ -155,7 +155,7 @@ public:
     
 	/** Returns true if connected to Speechgrinder */
 	UFUNCTION(BlueprintCallable)
-	bool isConnected() const;
+	bool IsConnected() const;
 
 private:
 	FString LastUtteranceId;

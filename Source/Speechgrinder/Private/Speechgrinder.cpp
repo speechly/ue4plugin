@@ -33,7 +33,7 @@ void USpeechgrinder::Connect(const FString& AppId, const FString& LanguageCode)
 
 bool USpeechgrinder::Start()
 {
-    if (isConnected())
+    if (IsConnected())
     {
         SluRequest Request;
         Request.mutable_event()->set_event(SluEvent_Event_START);
@@ -51,7 +51,7 @@ bool USpeechgrinder::Start()
 bool USpeechgrinder::Stop()
 {
     Recorder.Stop();
-    if (isConnected())
+    if (IsConnected())
     {
         SluRequest Request;
         Request.mutable_event()->set_event(SluEvent_Event_STOP);
@@ -67,7 +67,7 @@ bool USpeechgrinder::Stop()
 
 bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool& OutError)
 {
-	if (!isConnected())
+	if (!IsConnected())
 	{
 		OutError = true;
 		return false;
@@ -140,14 +140,14 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
     return bSuccess;
 }
 
-bool USpeechgrinder::isConnected() const
+bool USpeechgrinder::IsConnected() const
 {
 	return Client.IsValid() && !Client->HasError();
 }
 
 void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 {
-	if (!isConnected())
+	if (!IsConnected())
 	{
 		Recorder.Stop();
 		return;
