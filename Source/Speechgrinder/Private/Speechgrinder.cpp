@@ -162,7 +162,7 @@ void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 	}
 	for (int32 i = 0; i < AudioLength; ++i)
 	{
-		int16 Sample = static_cast<int16>(Audio[i] * (1 << 15));
+		int16 Sample = static_cast<int16>(Audio[i] * (Audio[i] < 0.f ? 0x8000 : 0x7fff));
 		// First convert to 8-bit halves in an unsigned format to get raw bytes
 		unsigned char A = static_cast<unsigned char>(Sample & 0xff);
 		unsigned char B = static_cast<unsigned char>((Sample >> 8) & 0xff);
