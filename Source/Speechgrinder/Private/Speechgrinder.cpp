@@ -67,6 +67,7 @@ bool USpeechgrinder::Stop()
 
 bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool& OutError)
 {
+	OutError = false;
 	if (!IsConnected())
 	{
 		OutError = true;
@@ -112,7 +113,10 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
 				}
 				OutSpeechgrinderResponse.Utterance.Alternatives.Add(Alternative);
 			}
-			OutSpeechgrinderResponse.Utterance.Alternatives.Sort([](const auto & A, const auto & B) { return A.Confidence < B.Confidence; });
+			if (OutSpeechgrinderResponse.Utterance.bIsFinal)
+			{
+				OutSpeechgrinderResponse.Utterance.Alternatives.Sort([](const auto& A, const auto& B) { return A.Confidence < B.Confidence; });
+			}
 		}
 		else if (Response.has_finished())
 		{
@@ -138,6 +142,54 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
         }
     }
     return bSuccess;
+}
+
+UFUNCTION(BlueprintCallable)
+bool USpeechgrinder::ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeechgrinderResponses, bool& OutError)
+{
+	OutSpeechgrinderResponses.Empty();
+	OutError = false;
+	if (!IsConnected())
+	{
+		OutError = true;
+		return false;
+	}
+
+	TMap<FString, FSpeechgrinderResponse> IdToResponse;
+	while (true)
+	{
+		FSpeechgrinderResponse Response;
+		bool bError;
+		bool bGotResult = Read(Response, bError);
+		if (!bGotResult)
+		{
+			break;
+		}
+		if (bError)
+		{
+  			OutError = true;
+			return false;
+		}
+
+		if (Response.Event == ESpeechgrinderResponseType::Utterance)
+		{
+			IdToResponse.Add(Response.UtteranceId, Response);
+		}
+		else
+		{
+			for (const auto& pair : IdToResponse)
+			{
+				OutSpeechgrinderResponses.Add(pair.Value);
+			}
+			IdToResponse.Empty();
+			OutSpeechgrinderResponses.Add(Response);
+		}
+	}
+	for (const auto& pair : IdToResponse)
+	{
+		OutSpeechgrinderResponses.Add(pair.Value);
+	}
+	return OutSpeechgrinderResponses.Num() > 0;
 }
 
 bool USpeechgrinder::IsConnected() const
