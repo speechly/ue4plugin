@@ -35,12 +35,17 @@ bool USpeechgrinder::Start()
 {
     if (IsConnected())
     {
+		bIsBuffering = true;
+		AudioBuffer.Empty();
+		Recorder.Start();
+
         SluRequest Request;
         Request.mutable_event()->set_event(SluEvent_Event_START);
         bool bSuccess = Client->Write(Request);
         if (!bSuccess)
         {
             Client.Reset();
+			Recorder.Stop();
         }
         
         return bSuccess;
@@ -83,7 +88,7 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
         {
 			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Started;
 			OutSpeechgrinderResponse.UtteranceId = Response.started().utterance_id().c_str();
-            Recorder.Start();
+			DrainBuffer();
         }
         else if (Response.has_utterance())
         {
@@ -221,7 +226,29 @@ void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 		int16 Sample = static_cast<int16>(ScaledSample);
 		ShortAudio[i] = Sample;
 	}
+
+	if (bIsBuffering)
+	{
+		AudioBuffer.Append(CharAudio.GetData(), OutputAudioLength);
+	}
+	else
+	{
+		SluRequest Request;
+		Request.set_audio(CharAudio.GetData(), OutputAudioLength);
+		Client->Write(Request);
+	}
+}
+
+void USpeechgrinder::DrainBuffer()
+{
+	if (!bIsBuffering)
+	{
+		return;
+	}
+	bIsBuffering = false;
+
 	SluRequest Request;
-	Request.set_audio(CharAudio.GetData(), OutputAudioLength);
+	Request.set_audio(AudioBuffer.GetData(), AudioBuffer.Num());
 	Client->Write(Request);
+	AudioBuffer.Empty();
 }

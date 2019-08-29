@@ -167,7 +167,11 @@ private:
     FRunnableThread* ClientThread;
 	FSpeechRecorder Recorder{1024, 16000};
 	TArray<char> CharAudio; // as a field to reduce allocations
+	TArray<char> AudioBuffer; // Used to buffer start of audio until server is ready
+	bool bIsBuffering;
 
 	// Inherited via ISpeechAudioCallback
 	virtual void OnSpeechAudio(const float* Audio, const int32 AudioLength) override;
+
+	void DrainBuffer();
 };
