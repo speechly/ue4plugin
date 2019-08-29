@@ -150,14 +150,14 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
 }
 
 UFUNCTION(BlueprintCallable)
-bool USpeechgrinder::ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeechgrinderResponses, bool& OutError)
+void USpeechgrinder::ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeechgrinderResponses, bool& OutError)
 {
 	OutSpeechgrinderResponses.Empty();
 	OutError = false;
 	if (!IsConnected())
 	{
 		OutError = true;
-		return false;
+		return;
 	}
 
 	TMap<FString, FSpeechgrinderResponse> IdToResponse;
@@ -173,7 +173,7 @@ bool USpeechgrinder::ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeech
 		if (bError)
 		{
   			OutError = true;
-			return false;
+			return;
 		}
 
 		if (Response.Event == ESpeechgrinderResponseType::Utterance)
@@ -194,7 +194,6 @@ bool USpeechgrinder::ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeech
 	{
 		OutSpeechgrinderResponses.Add(pair.Value);
 	}
-	return OutSpeechgrinderResponses.Num() > 0;
 }
 
 bool USpeechgrinder::IsConnected() const
