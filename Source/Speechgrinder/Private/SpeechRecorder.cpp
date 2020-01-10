@@ -20,6 +20,7 @@ void FSpeechRecorder::Start()
 	if (!AudioCapture.IsStreamOpen())
 	{
 		AudioCapture.GetCaptureDeviceInfo(OutInfo, INDEX_NONE);
+		UE_LOG(LogSG, Verbose, TEXT("Chosen audio device: %s"), *OutInfo.DeviceName);
 		SampleRatio = static_cast<float>(OutInfo.PreferredSampleRate) / SampleRate;
 		generateFilter();
 
