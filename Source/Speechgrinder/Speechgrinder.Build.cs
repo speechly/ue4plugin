@@ -37,8 +37,9 @@ public class Speechgrinder : ModuleRules
                 "CoreUObject",
                 "Projects",
                 "Engine",
-                "AudioCapture"
-			}
+                "AudioCapture",
+                "AudioCaptureCore"
+            }
             );
 
         AddEngineThirdPartyPrivateStaticDependencies(Target, "OpenSSL");

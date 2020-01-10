@@ -19,13 +19,18 @@ void FSpeechRecorder::Start()
 	FScopeLock Lock(&CriticalSection);
 	if (!AudioCapture.IsStreamOpen())
 	{
-		AudioCapture.GetDefaultCaptureDeviceInfo(OutInfo);
+		AudioCapture.GetCaptureDeviceInfo(OutInfo, INDEX_NONE);
 		SampleRatio = static_cast<float>(OutInfo.PreferredSampleRate) / SampleRate;
 		generateFilter();
-		FAudioCaptureStreamParam StreamParam;
-		StreamParam.Callback = this;
-		StreamParam.NumFramesDesired = NumFramesDesired;
-		verifyf(AudioCapture.OpenDefaultCaptureStream(StreamParam), TEXT("Could not open capture stream"));
+
+		FAudioCaptureDeviceParams DeviceParams;
+		DeviceParams.bUseHardwareAEC = true;
+		DeviceParams.DeviceIndex = INDEX_NONE;
+		FOnCaptureFunction OnCaptureFunction = [this](const float* InAudio, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverFlow) {
+			return this->OnAudioCapture(InAudio, NumFrames, NumChannels, StreamTime, bOverFlow);
+		};
+		verifyf(AudioCapture.OpenCaptureStream(DeviceParams, OnCaptureFunction, NumFramesDesired), TEXT("Could not open capture stream"));
+
 		AudioCapture.StartStream();
 	}
 	verifyf(AudioCapture.IsStreamOpen(), TEXT("Stream was not opened"));
@@ -40,7 +45,7 @@ void FSpeechRecorder::Stop()
 	Buffer.Empty();
 }
 
-void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverflow)
+void FSpeechRecorder::OnAudioCapture(const float* InAudio, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverflow)
 {
 	FScopeLock Lock(&CriticalSection);
 	if (!bIsCapturing)
@@ -56,7 +61,7 @@ void FSpeechRecorder::OnAudioCapture(float* AudioData, int32 NumFrames, int32 Nu
 	// Pick the first channel
 	for (int32 i = 0; i < NumFrames; ++i)
 	{
-		Buffer.Add(AudioData[i * NumChannels]);
+		Buffer.Add(InAudio[i * NumChannels]);
 	}
 
 	int32 OutputLength = FGenericPlatformMath::CeilToInt((Buffer.Num() - Filter.Num()) / SampleRatio);

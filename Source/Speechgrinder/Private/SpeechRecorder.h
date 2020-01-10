@@ -13,16 +13,16 @@ public:
 	virtual ~ISpeechAudioCallback() {}
 };
 
-// Audio recorder with downsampling to 8000hz
-class FSpeechRecorder : public IAudioCaptureCallback
+// Audio recorder with downsampling to 16000hz
+class FSpeechRecorder
 {
 public:
 	FSpeechRecorder(int NumFramesDesired, int SampleRate);
 	virtual ~FSpeechRecorder();
 	void Start();
 	void Stop();
+	void OnAudioCapture(const float* InAudio, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverflow);
 
-	virtual void OnAudioCapture(float* AudioData, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverflow) override;
 	ISpeechAudioCallback* Callback;
 
 private:
