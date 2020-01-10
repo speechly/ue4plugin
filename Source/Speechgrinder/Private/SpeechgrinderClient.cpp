@@ -18,7 +18,7 @@ SpeechgrinderClient::SpeechgrinderClient(const std::string& Address, const std::
 	}
 }
 
-bool SpeechgrinderClient::Write(const SluRequest& Request)
+bool SpeechgrinderClient::Write(const SLURequest& Request)
 {
 	if (bHasError || !bIsRunning)
 	{
@@ -28,7 +28,7 @@ bool SpeechgrinderClient::Write(const SluRequest& Request)
 	return RequestQueue.Enqueue(Request);
 }
 
-bool SpeechgrinderClient::Read(SluResponse& OutResponse)
+bool SpeechgrinderClient::Read(SLUResponse& OutResponse)
 {
 	if (bHasError || !bIsRunning)
 	{
@@ -65,10 +65,10 @@ bool SpeechgrinderClient::Init()
 
 uint32 SpeechgrinderClient::Run()
 {
-	SluStub = Slu::NewStub(Channel);
+	SLUStub = SLU::NewStub(Channel);
 
 	uintptr_t StreamSeq = ++Seq;
-	Stream = SluStub->AsyncStream(&Context, &CompletionQueue, reinterpret_cast<void*>(StreamSeq));
+	Stream = SLUStub->AsyncStream(&Context, &CompletionQueue, reinterpret_cast<void*>(StreamSeq));
 
 	// Wait for Stream to open
 	{
@@ -93,8 +93,8 @@ uint32 SpeechgrinderClient::Run()
 
 	// Configure stream
 	{
-		SluRequest Request;
-		SluConfig* Config = Request.mutable_config();
+		SLURequest Request;
+		SLUConfig* Config = Request.mutable_config();
 		Config->set_channels(1);
 		Config->set_sample_rate_hertz(SampleRate);
 		Config->set_language_code(LanguageCode);
@@ -122,7 +122,7 @@ uint32 SpeechgrinderClient::Run()
 	{
 		if (CanWrite())
 		{
-			SluRequest Request;
+			SLURequest Request;
 			if (RequestQueue.Dequeue(Request))
 			{
 				StreamWrite(Request);
@@ -301,7 +301,7 @@ bool SpeechgrinderClient::CanRead()
 	return bReadAllowed;
 }
 
-void SpeechgrinderClient::StreamWrite(const SluRequest& Request)
+void SpeechgrinderClient::StreamWrite(const SLURequest& Request)
 {
 	check(Stream);
 	check(CanWrite());
@@ -309,7 +309,7 @@ void SpeechgrinderClient::StreamWrite(const SluRequest& Request)
 	bWriteAllowed = false;
 }
 
-void SpeechgrinderClient::StreamRead(SluResponse* OutResponse)
+void SpeechgrinderClient::StreamRead(SLUResponse* OutResponse)
 {
 	check(Stream);
 	check(CanRead());

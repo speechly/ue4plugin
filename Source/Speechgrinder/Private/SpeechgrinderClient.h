@@ -10,19 +10,19 @@
 #include "IncludeBegin.h"
 THIRD_PARTY_INCLUDES_START
 #include "grpc++/grpc++.h"
-#include "sg.grpc.pb.h"
+#include "speechly.grpc.pb.h"
 THIRD_PARTY_INCLUDES_END
 #include "IncludeEnd.h"
 
-using namespace speechgrinder::sgapi::v1;
+using namespace v1;
 
 // GRPC threaded client
 class SPEECHGRINDER_API SpeechgrinderClient : public FRunnable
 {
 public:
 	SpeechgrinderClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate);
-	bool Write(const SluRequest& Request);
-	bool Read(SluResponse& OutResponse);
+	bool Write(const SLURequest& Request);
+	bool Read(SLUResponse& OutResponse);
 	bool HasError() const
 	{
 		return bHasError;
@@ -37,8 +37,8 @@ private:
 	// GRPC abstractions
 	bool CanWrite();
 	bool CanRead();
-	void StreamWrite(const SluRequest& Request);
-	void StreamRead(SluResponse* OutResponse);
+	void StreamWrite(const SLURequest& Request);
+	void StreamRead(SLUResponse* OutResponse);
 	void HandleTag(void* Tag);
 	void SetError(const FString& Message);
 
@@ -50,8 +50,8 @@ private:
 	int SampleRate;
 	std::shared_ptr<grpc::ChannelCredentials> Credentials;
 	std::shared_ptr<grpc::Channel> Channel;
-	std::unique_ptr<Slu::Stub> SluStub;
-	std::unique_ptr<grpc::ClientAsyncReaderWriterInterface<SluRequest, SluResponse>> Stream;
+	std::unique_ptr<SLU::Stub> SLUStub;
+	std::unique_ptr<grpc::ClientAsyncReaderWriterInterface<SLURequest, SLUResponse>> Stream;
 
 	// GRPC shared state to be able to cleanup memory used in Run() at Exit()
 	// Otherwise not meant to be used outside of Run()
@@ -62,10 +62,10 @@ private:
 	uintptr_t LastReadSeq{ 0 };
 	bool bWriteAllowed{ true };
 	bool bReadAllowed{ true };
-	SluResponse Response;
+	SLUResponse Response;
 
 	bool bIsRunning{ true };
 	bool bHasError{ false };
-	TQueue<SluRequest, EQueueMode::Mpsc> RequestQueue;
-	TQueue<SluResponse, EQueueMode::Mpsc> ResponseQueue;
+	TQueue<SLURequest, EQueueMode::Mpsc> RequestQueue;
+	TQueue<SLUResponse, EQueueMode::Mpsc> ResponseQueue;
 };

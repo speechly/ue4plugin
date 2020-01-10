@@ -18,72 +18,30 @@ namespace sg {
 };
 
 USTRUCT(BlueprintType)
-struct FSpeechgrinderToken
+struct FSpeechgrinderTranscript
 {
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadOnly)
-	FString Text;
+	int32 SegmentId;
 
 	UPROPERTY(BlueprintReadOnly)
-	FString TextWithTrailingSpace;
+	FString Word;
 
 	UPROPERTY(BlueprintReadOnly)
-	FString Lemma;
+	int32 Index;
 
 	UPROPERTY(BlueprintReadOnly)
-	FString Pos;
+	int32 StartTime;
 
 	UPROPERTY(BlueprintReadOnly)
-	FString Tag;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString Case;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString Number;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString EntityType;
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 PositionInEntity; // outsideOf = 0; startOf = 1; insideOf = 2;
-
-	UPROPERTY(BlueprintReadOnly)
-	bool bIsSegmentStart;
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 TrailingSilence;
-};
-
-USTRUCT(BlueprintType)
-struct FSpeechgrinderAlternative
-{
-	GENERATED_BODY()
-
-	UPROPERTY(BlueprintReadOnly)
-	float Confidence;
-
-	UPROPERTY(BlueprintReadOnly)
-	TArray<FSpeechgrinderToken> Tokens;
-};
-
-USTRUCT(BlueprintType)
-struct FSpeechgrinderUtterance
-{
-	GENERATED_BODY()
-
-	UPROPERTY(BlueprintReadOnly)
-	bool bIsFinal;
-
-	UPROPERTY(BlueprintReadOnly)
-	TArray<FSpeechgrinderAlternative> Alternatives;
+	int32 EndTime;
 };
 
 UENUM()
 enum class ESpeechgrinderResponseType : uint8
 {
-	Started, Utterance, Finished, Unknown
+	Started, Transcript, Finished, Unknown
 };
 
 USTRUCT(BlueprintType)
@@ -95,7 +53,7 @@ struct FSpeechgrinderResponse
 	ESpeechgrinderResponseType Event;
 
 	UPROPERTY(BlueprintReadOnly)
-	FString UtteranceId;
+	FString AudioContext;
 
 	UPROPERTY(BlueprintReadOnly)
 	bool bHasError;
@@ -107,7 +65,7 @@ struct FSpeechgrinderResponse
 	FString ErrorMessage;
 
 	UPROPERTY(BlueprintReadOnly)
-	FSpeechgrinderUtterance Utterance;
+	FSpeechgrinderTranscript Transcript;
 };
 
 /**
@@ -162,7 +120,7 @@ public:
 	bool IsConnected() const;
 
 private:
-	FString LastUtteranceId;
+	FString LastAudioContext;
 	TUniquePtr<SpeechgrinderClient> Client;
     FRunnableThread* ClientThread;
 	FSpeechRecorder Recorder{1024, 16000};

@@ -39,8 +39,8 @@ bool USpeechgrinder::Start()
 		AudioBuffer.Empty();
 		Recorder.Start();
 
-        SluRequest Request;
-        Request.mutable_event()->set_event(SluEvent_Event_START);
+        SLURequest Request;
+        Request.mutable_event()->set_event(SLUEvent_Event_START);
         bool bSuccess = Client->Write(Request);
         if (!bSuccess)
         {
@@ -58,8 +58,8 @@ bool USpeechgrinder::Stop()
     Recorder.Stop();
     if (IsConnected())
     {
-        SluRequest Request;
-        Request.mutable_event()->set_event(SluEvent_Event_STOP);
+        SLURequest Request;
+        Request.mutable_event()->set_event(SLUEvent_Event_STOP);
         bool bSuccess = Client->Write(Request);
         if (!bSuccess)
         {
@@ -80,54 +80,32 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
 	}
 
 	OutSpeechgrinderResponse.bHasError = false;
-    SluResponse Response;
+    SLUResponse Response;
     bool bSuccess = Client->Read(Response);
     if (bSuccess)
     {
         if (Response.has_started())
         {
 			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Started;
-			OutSpeechgrinderResponse.UtteranceId = Response.started().utterance_id().c_str();
+			OutSpeechgrinderResponse.AudioContext = Response.started().audio_context().c_str();
 			DrainBuffer();
         }
-        else if (Response.has_utterance())
+        else if (Response.has_transcript())
         {
-			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Utterance;
-			auto Utterance = Response.utterance();
-			OutSpeechgrinderResponse.UtteranceId = Utterance.utterance_id().c_str();
-			OutSpeechgrinderResponse.Utterance.bIsFinal = Utterance.type() == "finalItem";
-			for (auto Alt : Utterance.alternatives())
-			{
-				FSpeechgrinderAlternative Alternative;
-				Alternative.Confidence = Alt.confidence();
-				for (auto Tok : Alt.tokens())
-				{
-					FSpeechgrinderToken Token;
-					Token.Text = Tok.text().c_str();
-					Token.TextWithTrailingSpace = Tok.text().c_str();
-					Token.Lemma = Tok.lemma().c_str();
-					Token.Pos = Tok.pos().c_str();
-					Token.Tag = Tok.tag().c_str();
-					Token.Case = Tok.case_().c_str();
-					Token.Number = Tok.number().c_str();
-					Token.EntityType = Tok.entity_type().c_str();
-					Token.PositionInEntity = Tok.position_in_entity();
-					Token.bIsSegmentStart = Tok.is_segment_start();
-					Token.TrailingSilence = Tok.trailing_silence();
-					Alternative.Tokens.Add(Token);
-				}
-				OutSpeechgrinderResponse.Utterance.Alternatives.Add(Alternative);
-			}
-			if (OutSpeechgrinderResponse.Utterance.bIsFinal)
-			{
-				OutSpeechgrinderResponse.Utterance.Alternatives.Sort([](const auto& A, const auto& B) { return A.Confidence < B.Confidence; });
-			}
+			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Transcript;
+			auto Transcript = Response.transcript();
+			OutSpeechgrinderResponse.AudioContext = Transcript.audio_context().c_str();
+			OutSpeechgrinderResponse.Transcript.SegmentId = Transcript.segment_id();
+			OutSpeechgrinderResponse.Transcript.Word = Transcript.word().c_str();
+			OutSpeechgrinderResponse.Transcript.Index = Transcript.index();
+			OutSpeechgrinderResponse.Transcript.StartTime = Transcript.start_time();
+			OutSpeechgrinderResponse.Transcript.EndTime = Transcript.end_time();
 		}
 		else if (Response.has_finished())
 		{
 			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Finished;
 			auto finished = Response.finished();
-			OutSpeechgrinderResponse.UtteranceId = finished.utterance_id().c_str();
+			OutSpeechgrinderResponse.AudioContext = finished.audio_context().c_str();
 			OutSpeechgrinderResponse.bHasError = finished.has_error();
 			if (finished.has_error())
 			{
@@ -136,7 +114,7 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
 			}
 
 			// Stop recording if currently active UtteranceId was finished
-			if (OutSpeechgrinderResponse.UtteranceId == LastUtteranceId)
+			if (OutSpeechgrinderResponse.AudioContext == LastAudioContext)
 			{
 				Recorder.Stop();
 			}
@@ -176,9 +154,9 @@ void USpeechgrinder::ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeech
 			return;
 		}
 
-		if (Response.Event == ESpeechgrinderResponseType::Utterance)
+		if (Response.Event == ESpeechgrinderResponseType::Transcript)
 		{
-			IdToResponse.Add(Response.UtteranceId, Response);
+			IdToResponse.Add(Response.AudioContext, Response);
 		}
 		else
 		{
@@ -203,7 +181,7 @@ bool USpeechgrinder::IsConnected() const
 
 void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 {
-	if (!IsConnected())
+ 	if (!IsConnected())
 	{
 		Recorder.Stop();
 		return;
@@ -232,7 +210,7 @@ void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 	}
 	else
 	{
-		SluRequest Request;
+		SLURequest Request;
 		Request.set_audio(CharAudio.GetData(), OutputAudioLength);
 		Client->Write(Request);
 	}
@@ -246,7 +224,7 @@ void USpeechgrinder::DrainBuffer()
 	}
 	bIsBuffering = false;
 
-	SluRequest Request;
+	SLURequest Request;
 	Request.set_audio(AudioBuffer.GetData(), AudioBuffer.Num());
 	Client->Write(Request);
 	AudioBuffer.Empty();
