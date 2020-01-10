@@ -200,7 +200,11 @@ void SpeechgrinderClient::Exit()
 		// - CQ shutdown cannot be started if we are enqueueing requests
 
 		// Activate cancellation as we don't want to wait for server to close the connection
-		Context.TryCancel();
+		// But if we have already errored out, don't cancel so we can get the status
+		if (!bHasError)
+		{
+			Context.TryCancel();
+		}
 
 		// Drain requests and launch reads until stopped from cancellation
 		while (true)
@@ -254,6 +258,12 @@ void SpeechgrinderClient::Exit()
 			{
 				break;
 			}
+		}
+
+		if (bHasError && !Status.ok())
+		{
+			FString Message = Status.error_message().c_str();
+			UE_LOG(LogSG, Error, TEXT("Speechgrinder non-ok exit status: '%s'"), *Message);
 		}
 
 		CompletionQueue.Shutdown();
