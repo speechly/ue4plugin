@@ -54,6 +54,8 @@ bool SpeechgrinderClient::Init()
 	grpc::Status Status = IdentityStub->Login(&IdentityContext, Request, &LoginResponse);
 	if (!Status.ok())
 	{
+		UE_LOG(LogSG, Error, TEXT("Could not call login"));
+		SetError("Could not login");
 		Channel.reset();
 		return false;
 	}
