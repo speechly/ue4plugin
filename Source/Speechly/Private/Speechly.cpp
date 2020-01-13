@@ -82,16 +82,16 @@ bool USpeechly::Read(FSpeechlyResponse& OutSpeechlyResponse, bool& OutError)
 	OutSpeechlyResponse.bHasError = false;
     SLUResponse Response;
     bool bSuccess = Client->Read(Response);
-    if (bSuccess)
-    {
-        if (Response.has_started())
-        {
+	if (bSuccess)
+	{
+		if (Response.has_started())
+		{
 			OutSpeechlyResponse.Event = ESpeechlyResponseType::Started;
 			OutSpeechlyResponse.AudioContext = Response.started().audio_context().c_str();
 			DrainBuffer();
-        }
-        else if (Response.has_transcript())
-        {
+		}
+		else if (Response.has_transcript())
+		{
 			OutSpeechlyResponse.Event = ESpeechlyResponseType::Transcript;
 			auto Transcript = Response.transcript();
 			OutSpeechlyResponse.AudioContext = Transcript.audio_context().c_str();
@@ -100,6 +100,32 @@ bool USpeechly::Read(FSpeechlyResponse& OutSpeechlyResponse, bool& OutError)
 			OutSpeechlyResponse.Transcript.Index = Transcript.index();
 			OutSpeechlyResponse.Transcript.StartTime = Transcript.start_time();
 			OutSpeechlyResponse.Transcript.EndTime = Transcript.end_time();
+		}
+		else if (Response.has_entity())
+		{
+			auto Entity = Response.entity();
+			OutSpeechlyResponse.Event = ESpeechlyResponseType::Entity;
+			OutSpeechlyResponse.AudioContext = Entity.audio_context().c_str();
+			OutSpeechlyResponse.Entity.SegmentId = Entity.segment_id();
+			OutSpeechlyResponse.Entity.Entity = Entity.entity().c_str();
+			OutSpeechlyResponse.Entity.Value = Entity.value().c_str();
+			OutSpeechlyResponse.Entity.StartPosition = Entity.start_position();
+			OutSpeechlyResponse.Entity.EndPosition = Entity.end_position();
+		}
+		else if (Response.has_intent())
+		{
+			auto Intent = Response.intent();
+			OutSpeechlyResponse.Event = ESpeechlyResponseType::Intent;
+			OutSpeechlyResponse.AudioContext = Intent.audio_context().c_str();
+			OutSpeechlyResponse.Intent.SegmentId = Intent.segment_id();
+			OutSpeechlyResponse.Intent.Intent = Intent.intent().c_str();
+		}
+		else if (Response.has_segment_end())
+		{
+			auto SegmentEnd = Response.segment_end();
+			OutSpeechlyResponse.Event = ESpeechlyResponseType::SegmentEnd;
+			OutSpeechlyResponse.AudioContext = SegmentEnd.audio_context().c_str();
+			OutSpeechlyResponse.SegmentEnd.SegmentId = SegmentEnd.segment_id();
 		}
 		else if (Response.has_finished())
 		{

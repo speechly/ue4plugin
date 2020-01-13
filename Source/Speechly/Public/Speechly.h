@@ -38,10 +38,52 @@ struct FSpeechlyTranscript
 	int32 EndTime;
 };
 
+USTRUCT(BlueprintType)
+struct FSpeechlyEntity
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 SegmentId;
+
+	UPROPERTY(BlueprintReadOnly)
+	FString Entity;
+
+	UPROPERTY(BlueprintReadOnly)
+	FString Value;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 StartPosition;
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 EndPosition;
+};
+
+USTRUCT(BlueprintType)
+struct FSpeechlyIntent
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 SegmentId;
+
+	UPROPERTY(BlueprintReadOnly)
+	FString Intent;
+};
+
+USTRUCT(BlueprintType)
+struct FSpeechlySegmentEnd
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadOnly)
+	int32 SegmentId;
+};
+
 UENUM(BlueprintType)
 enum class ESpeechlyResponseType : uint8
 {
-	Started, Transcript, Finished, Unknown
+	Started, Transcript, Entity, Intent, SegmentEnd, Finished, Unknown
 };
 
 USTRUCT(BlueprintType)
@@ -66,6 +108,15 @@ struct FSpeechlyResponse
 
 	UPROPERTY(BlueprintReadOnly)
 	FSpeechlyTranscript Transcript;
+
+	UPROPERTY(BlueprintReadOnly)
+	FSpeechlyEntity Entity;
+
+	UPROPERTY(BlueprintReadOnly)
+	FSpeechlyIntent Intent;
+
+	UPROPERTY(BlueprintReadOnly)
+	FSpeechlySegmentEnd SegmentEnd;
 };
 
 /**
