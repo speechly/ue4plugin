@@ -1,9 +1,9 @@
-#include "SpeechgrinderClient.h"
+#include "SpeechlyClient.h"
 
 #include "Runtime/Core/Public/Misc/Paths.h"
 #include "Runtime/Core/Public/Misc/FileHelper.h"
 
-SpeechgrinderClient::SpeechgrinderClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }, SampleRate{ SampleRate }
+SpeechlyClient::SpeechlyClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }, SampleRate{ SampleRate }
 {
 	FString Pem;
 	FString PemPath = FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()).Append(TEXT("NonUFS/roots.pem"));
@@ -18,27 +18,27 @@ SpeechgrinderClient::SpeechgrinderClient(const std::string& Address, const std::
 	}
 }
 
-bool SpeechgrinderClient::Write(const SLURequest& Request)
+bool SpeechlyClient::Write(const SLURequest& Request)
 {
 	if (bHasError || !bIsRunning)
 	{
-		UE_LOG(LogSG, Error, TEXT("Tried to write to SpeechgrinderClient that is not running"));
+		UE_LOG(LogSG, Error, TEXT("Tried to write to SpeechlyClient that is not running"));
 		return false;
 	}
 	return RequestQueue.Enqueue(Request);
 }
 
-bool SpeechgrinderClient::Read(SLUResponse& OutResponse)
+bool SpeechlyClient::Read(SLUResponse& OutResponse)
 {
 	if (bHasError || !bIsRunning)
 	{
-		UE_LOG(LogSG, Error, TEXT("Tried to read from SpeechgrinderClient that is not running"));
+		UE_LOG(LogSG, Error, TEXT("Tried to read from SpeechlyClient that is not running"));
 		return false;
 	}
 	return ResponseQueue.Dequeue(OutResponse);
 }
 
-bool SpeechgrinderClient::Init()
+bool SpeechlyClient::Init()
 {
 	Channel = grpc::CreateChannel(Address, Credentials);
 
@@ -63,7 +63,7 @@ bool SpeechgrinderClient::Init()
 	return true;
 }
 
-uint32 SpeechgrinderClient::Run()
+uint32 SpeechlyClient::Run()
 {
 	SLUStub = SLU::NewStub(Channel);
 
@@ -144,7 +144,7 @@ uint32 SpeechgrinderClient::Run()
 			{
 				if (!Ok)
 				{
-					SetError("Speechgrinder Write failed");
+					SetError("Speechly Write failed");
 					return 1;
 				}
 			}
@@ -152,7 +152,7 @@ uint32 SpeechgrinderClient::Run()
 			{
 				if (!Ok)
 				{
-					SetError("Speechgrinder Read failed");
+					SetError("Speechly Read failed");
 					return 1;
 				}
 				else
@@ -162,7 +162,7 @@ uint32 SpeechgrinderClient::Run()
 			}
 			else
 			{
-				UE_LOG(LogSG, Warning, TEXT("Speechgrinder unknown tag"));
+				UE_LOG(LogSG, Warning, TEXT("Speechly unknown tag"));
 				if (!Ok)
 				{
 					SetError("Unknown tag with an error");
@@ -184,7 +184,7 @@ uint32 SpeechgrinderClient::Run()
 	return 0;
 }
 
-void SpeechgrinderClient::Exit()
+void SpeechlyClient::Exit()
 {
 	if (Stream)
 	{
@@ -251,7 +251,7 @@ void SpeechgrinderClient::Exit()
 			}
 			else if (NextStatus == grpc::CompletionQueue::TIMEOUT)
 			{
-				UE_LOG(LogSG, Warning, TEXT("Speechgrinder finish timed out, this can result in a memory leak"));
+				UE_LOG(LogSG, Warning, TEXT("Speechly finish timed out, this can result in a memory leak"));
 				break;
 			}
 			else if (NextStatus == grpc::CompletionQueue::SHUTDOWN)
@@ -263,7 +263,7 @@ void SpeechgrinderClient::Exit()
 		if (bHasError && !Status.ok())
 		{
 			FString Message = Status.error_message().c_str();
-			UE_LOG(LogSG, Error, TEXT("Speechgrinder non-ok exit status: '%s'"), *Message);
+			UE_LOG(LogSG, Error, TEXT("Speechly non-ok exit status: '%s'"), *Message);
 		}
 
 		CompletionQueue.Shutdown();
@@ -274,7 +274,7 @@ void SpeechgrinderClient::Exit()
 			grpc::CompletionQueue::NextStatus NextStatus = CompletionQueue.AsyncNext(&Tag, &Ok, Deadline);
 			if (NextStatus == grpc::CompletionQueue::TIMEOUT)
 			{
-				UE_LOG(LogSG, Warning, TEXT("Speechgrinder shutdown timed out, this can result in a memory leak"));
+				UE_LOG(LogSG, Warning, TEXT("Speechly shutdown timed out, this can result in a memory leak"));
 				return;
 			}
 			else if (NextStatus == grpc::CompletionQueue::SHUTDOWN)
@@ -286,22 +286,22 @@ void SpeechgrinderClient::Exit()
 	}
 }
 
-void SpeechgrinderClient::Stop()
+void SpeechlyClient::Stop()
 {
 	bIsRunning = false;
 }
 
-bool SpeechgrinderClient::CanWrite()
+bool SpeechlyClient::CanWrite()
 {
 	return bWriteAllowed;
 }
 
-bool SpeechgrinderClient::CanRead()
+bool SpeechlyClient::CanRead()
 {
 	return bReadAllowed;
 }
 
-void SpeechgrinderClient::StreamWrite(const SLURequest& Request)
+void SpeechlyClient::StreamWrite(const SLURequest& Request)
 {
 	check(Stream);
 	check(CanWrite());
@@ -309,7 +309,7 @@ void SpeechgrinderClient::StreamWrite(const SLURequest& Request)
 	bWriteAllowed = false;
 }
 
-void SpeechgrinderClient::StreamRead(SLUResponse* OutResponse)
+void SpeechlyClient::StreamRead(SLUResponse* OutResponse)
 {
 	check(Stream);
 	check(CanRead());
@@ -317,7 +317,7 @@ void SpeechgrinderClient::StreamRead(SLUResponse* OutResponse)
 	bReadAllowed = false;
 }
 
-void SpeechgrinderClient::HandleTag(void* Tag)
+void SpeechlyClient::HandleTag(void* Tag)
 {
 	if (Tag == reinterpret_cast<void*>(LastWriteSeq))
 	{
@@ -329,7 +329,7 @@ void SpeechgrinderClient::HandleTag(void* Tag)
 	}
 }
 
-void SpeechgrinderClient::SetError(const FString& Message)
+void SpeechlyClient::SetError(const FString& Message)
 {
 	UE_LOG(LogSG, Error, TEXT("%s"), *Message);
 	bHasError = true;

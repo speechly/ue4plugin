@@ -17,10 +17,10 @@ THIRD_PARTY_INCLUDES_END
 using namespace v1;
 
 // GRPC threaded client
-class SPEECHGRINDER_API SpeechgrinderClient : public FRunnable
+class SPEECHLY_API SpeechlyClient : public FRunnable
 {
 public:
-	SpeechgrinderClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate);
+	SpeechlyClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate);
 	bool Write(const SLURequest& Request);
 	bool Read(SLUResponse& OutResponse);
 	bool HasError() const

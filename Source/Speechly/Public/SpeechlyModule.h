@@ -2,7 +2,7 @@
 
 #include "Modules/ModuleManager.h"
 
-class FSpeechgrinderModule : public IModuleInterface
+class FSpeechlyModule : public IModuleInterface
 {
 public:
 	virtual void StartupModule() override {}

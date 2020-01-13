@@ -1,13 +1,13 @@
 #pragma once
 
-#include "SpeechgrinderClient.h"
+#include "SpeechlyClient.h"
 #include "SpeechRecorder.h"
 
 #include "CoreMinimal.h"
 #include "HAL/RunnableThread.h"
 #include "LogMacros.h"
 
-#include "Speechgrinder.generated.h"
+#include "Speechly.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogSG, Log, All);
 
@@ -18,7 +18,7 @@ namespace sg {
 };
 
 USTRUCT(BlueprintType)
-struct FSpeechgrinderTranscript
+struct FSpeechlyTranscript
 {
 	GENERATED_BODY()
 
@@ -39,18 +39,18 @@ struct FSpeechgrinderTranscript
 };
 
 UENUM()
-enum class ESpeechgrinderResponseType : uint8
+enum class ESpeechlyResponseType : uint8
 {
 	Started, Transcript, Finished, Unknown
 };
 
 USTRUCT(BlueprintType)
-struct FSpeechgrinderResponse
+struct FSpeechlyResponse
 {
     GENERATED_BODY()
     
 	UPROPERTY(BlueprintReadOnly)
-	ESpeechgrinderResponseType Event;
+	ESpeechlyResponseType Event;
 
 	UPROPERTY(BlueprintReadOnly)
 	FString AudioContext;
@@ -65,11 +65,11 @@ struct FSpeechgrinderResponse
 	FString ErrorMessage;
 
 	UPROPERTY(BlueprintReadOnly)
-	FSpeechgrinderTranscript Transcript;
+	FSpeechlyTranscript Transcript;
 };
 
 /**
- * UE4 specific wrapper for Speechgrinder SLU
+ * UE4 specific wrapper for Speechly SLU
  *
  * Call Connect(DeviceId, AppId, LanguageCode) first to create a network connection.
  * 
@@ -81,43 +81,43 @@ struct FSpeechgrinderResponse
  * read everything call Read() until it returns False.
  */
 UCLASS(Blueprintable)
-class SPEECHGRINDER_API USpeechgrinder : public UObject, public ISpeechAudioCallback
+class SPEECHLY_API USpeechly : public UObject, public ISpeechAudioCallback
 {
 	GENERATED_BODY()
 
 public:
-	USpeechgrinder();
-	virtual ~USpeechgrinder();
+	USpeechly();
+	virtual ~USpeechly();
 
 	UFUNCTION(BlueprintCallable)
-	static USpeechgrinder* SpawnSpeechgrinder()
+	static USpeechly* SpawnSpeechly()
     {
-		return NewObject<USpeechgrinder>(USpeechgrinder::StaticClass());
+		return NewObject<USpeechly>(USpeechly::StaticClass());
 	}
 
-	/** Connect to Speechgrinder, must be called before other functions */
+	/** Connect to Speechly, must be called before other functions */
 	UFUNCTION(BlueprintCallable)
 	void Connect(const FString& AppId, const FString& LanguageCode);
     
-	/** Start a new Speechgrinder utterance */
+	/** Start a new Speechly utterance */
     UFUNCTION(BlueprintCallable)
     bool Start();
 
-	/** Stop the current Speechgrinder utterance */
+	/** Stop the current Speechly utterance */
     UFUNCTION(BlueprintCallable)
     bool Stop();
 
-	/** Read Speechgrinder results, if there are any */
+	/** Read Speechly results, if there are any */
     UFUNCTION(BlueprintCallable)
-    bool Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool& OutError);
+    bool Read(FSpeechlyResponse& OutSpeechlyResponse, bool& OutError);
 
-	/** Returns true if connected to Speechgrinder */
+	/** Returns true if connected to Speechly */
 	UFUNCTION(BlueprintCallable)
 	bool IsConnected() const;
 
 private:
 	FString LastAudioContext;
-	TUniquePtr<SpeechgrinderClient> Client;
+	TUniquePtr<SpeechlyClient> Client;
     FRunnableThread* ClientThread;
 	FSpeechRecorder Recorder{1024, 16000};
 	TArray<char> CharAudio; // as a field to reduce allocations

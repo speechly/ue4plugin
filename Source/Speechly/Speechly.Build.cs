@@ -4,9 +4,9 @@ using System;
 using System.IO;
 using UnrealBuildTool;
 
-public class Speechgrinder : ModuleRules
+public class Speechly : ModuleRules
 {
-    public Speechgrinder(ReadOnlyTargetRules Target) : base(Target)
+    public Speechly(ReadOnlyTargetRules Target) : base(Target)
     {
         PublicDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI");
         PublicDefinitions.Add("GPR_FORBID_UNREACHABLE_CODE");
@@ -15,7 +15,7 @@ public class Speechgrinder : ModuleRules
 
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         //PCHUsage = ModuleRules.PCHUsageMode.NoSharedPCHs;
-        //PrivatePCHHeaderFile = "Public/Speechgrinder.h";
+        //PrivatePCHHeaderFile = "Public/Speechly.h";
 
         string PluginPath = Path.GetFullPath(Path.Combine(ModuleDirectory, "..", ".."));
         string IncludePath = Path.GetFullPath(Path.Combine(PluginPath, "GrpcIncludes"));

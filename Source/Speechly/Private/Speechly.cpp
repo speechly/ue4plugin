@@ -1,14 +1,14 @@
-#include "Speechgrinder.h"
+#include "Speechly.h"
 
 DEFINE_LOG_CATEGORY(LogSG);
 
-USpeechgrinder::USpeechgrinder() : ClientThread{}
+USpeechly::USpeechly() : ClientThread{}
 {
-    verifyf(FPlatformProcess::SupportsMultithreading(), TEXT("Speechgrinder requires multithreading"));
+    verifyf(FPlatformProcess::SupportsMultithreading(), TEXT("Speechly requires multithreading"));
 	Recorder.Callback = this;
 }
 
-USpeechgrinder::~USpeechgrinder()
+USpeechly::~USpeechly()
 {
 	Recorder.Stop();
 	if (ClientThread)
@@ -18,7 +18,7 @@ USpeechgrinder::~USpeechgrinder()
     }
 }
 
-void USpeechgrinder::Connect(const FString& AppId, const FString& LanguageCode)
+void USpeechly::Connect(const FString& AppId, const FString& LanguageCode)
 {
 	Recorder.Stop();
     if (ClientThread)
@@ -27,11 +27,11 @@ void USpeechgrinder::Connect(const FString& AppId, const FString& LanguageCode)
         ClientThread = nullptr;
     }
 	FString DeviceId = FGenericPlatformMisc::GetDeviceId();
-	Client.Reset(new SpeechgrinderClient("api.speechly.com", std::string(TCHAR_TO_UTF8(*DeviceId)), std::string(TCHAR_TO_UTF8(*AppId)), std::string(TCHAR_TO_UTF8(*LanguageCode)), sg::kSampleRate));
-    ClientThread = FRunnableThread::Create(Client.Get(), TEXT("SpeechgrinderClient"), 0);
+	Client.Reset(new SpeechlyClient("api.speechly.com", std::string(TCHAR_TO_UTF8(*DeviceId)), std::string(TCHAR_TO_UTF8(*AppId)), std::string(TCHAR_TO_UTF8(*LanguageCode)), sg::kSampleRate));
+    ClientThread = FRunnableThread::Create(Client.Get(), TEXT("SpeechlyClient"), 0);
 }
 
-bool USpeechgrinder::Start()
+bool USpeechly::Start()
 {
     if (IsConnected())
     {
@@ -53,7 +53,7 @@ bool USpeechgrinder::Start()
     return false;
 }
 
-bool USpeechgrinder::Stop()
+bool USpeechly::Stop()
 {
     Recorder.Stop();
     if (IsConnected())
@@ -70,7 +70,7 @@ bool USpeechgrinder::Stop()
     return false;
 }
 
-bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool& OutError)
+bool USpeechly::Read(FSpeechlyResponse& OutSpeechlyResponse, bool& OutError)
 {
 	OutError = false;
 	if (!IsConnected())
@@ -79,60 +79,60 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
 		return false;
 	}
 
-	OutSpeechgrinderResponse.bHasError = false;
+	OutSpeechlyResponse.bHasError = false;
     SLUResponse Response;
     bool bSuccess = Client->Read(Response);
     if (bSuccess)
     {
         if (Response.has_started())
         {
-			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Started;
-			OutSpeechgrinderResponse.AudioContext = Response.started().audio_context().c_str();
+			OutSpeechlyResponse.Event = ESpeechlyResponseType::Started;
+			OutSpeechlyResponse.AudioContext = Response.started().audio_context().c_str();
 			DrainBuffer();
         }
         else if (Response.has_transcript())
         {
-			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Transcript;
+			OutSpeechlyResponse.Event = ESpeechlyResponseType::Transcript;
 			auto Transcript = Response.transcript();
-			OutSpeechgrinderResponse.AudioContext = Transcript.audio_context().c_str();
-			OutSpeechgrinderResponse.Transcript.SegmentId = Transcript.segment_id();
-			OutSpeechgrinderResponse.Transcript.Word = Transcript.word().c_str();
-			OutSpeechgrinderResponse.Transcript.Index = Transcript.index();
-			OutSpeechgrinderResponse.Transcript.StartTime = Transcript.start_time();
-			OutSpeechgrinderResponse.Transcript.EndTime = Transcript.end_time();
+			OutSpeechlyResponse.AudioContext = Transcript.audio_context().c_str();
+			OutSpeechlyResponse.Transcript.SegmentId = Transcript.segment_id();
+			OutSpeechlyResponse.Transcript.Word = Transcript.word().c_str();
+			OutSpeechlyResponse.Transcript.Index = Transcript.index();
+			OutSpeechlyResponse.Transcript.StartTime = Transcript.start_time();
+			OutSpeechlyResponse.Transcript.EndTime = Transcript.end_time();
 		}
 		else if (Response.has_finished())
 		{
-			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Finished;
+			OutSpeechlyResponse.Event = ESpeechlyResponseType::Finished;
 			auto finished = Response.finished();
-			OutSpeechgrinderResponse.AudioContext = finished.audio_context().c_str();
-			OutSpeechgrinderResponse.bHasError = finished.has_error();
+			OutSpeechlyResponse.AudioContext = finished.audio_context().c_str();
+			OutSpeechlyResponse.bHasError = finished.has_error();
 			if (finished.has_error())
 			{
-				OutSpeechgrinderResponse.ErrorCode = finished.error().code().c_str();
-				OutSpeechgrinderResponse.ErrorMessage = finished.error().message().c_str();
+				OutSpeechlyResponse.ErrorCode = finished.error().code().c_str();
+				OutSpeechlyResponse.ErrorMessage = finished.error().message().c_str();
 			}
 
 			// Stop recording if currently active UtteranceId was finished
-			if (OutSpeechgrinderResponse.AudioContext == LastAudioContext)
+			if (OutSpeechlyResponse.AudioContext == LastAudioContext)
 			{
 				Recorder.Stop();
 			}
 		}
         else
         {
-			OutSpeechgrinderResponse.Event = ESpeechgrinderResponseType::Unknown;
+			OutSpeechlyResponse.Event = ESpeechlyResponseType::Unknown;
         }
     }
     return bSuccess;
 }
 
-bool USpeechgrinder::IsConnected() const
+bool USpeechly::IsConnected() const
 {
 	return Client.IsValid() && !Client->HasError();
 }
 
-void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
+void USpeechly::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 {
  	if (!IsConnected())
 	{
@@ -169,7 +169,7 @@ void USpeechgrinder::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 	}
 }
 
-void USpeechgrinder::DrainBuffer()
+void USpeechly::DrainBuffer()
 {
 	if (!bIsBuffering)
 	{
