@@ -111,10 +111,6 @@ public:
     UFUNCTION(BlueprintCallable)
     bool Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool& OutError);
 
-	/** Read the latest Speechgrinder results, if there is any */
-	UFUNCTION(BlueprintCallable)
-	void ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeechgrinderResponses, bool& OutError);
-
 	/** Returns true if connected to Speechgrinder */
 	UFUNCTION(BlueprintCallable)
 	bool IsConnected() const;

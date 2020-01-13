@@ -127,53 +127,6 @@ bool USpeechgrinder::Read(FSpeechgrinderResponse& OutSpeechgrinderResponse, bool
     return bSuccess;
 }
 
-UFUNCTION(BlueprintCallable)
-void USpeechgrinder::ReadLatestResults(TArray<FSpeechgrinderResponse>& OutSpeechgrinderResponses, bool& OutError)
-{
-	OutSpeechgrinderResponses.Empty();
-	OutError = false;
-	if (!IsConnected())
-	{
-		OutError = true;
-		return;
-	}
-
-	TMap<FString, FSpeechgrinderResponse> IdToResponse;
-	while (true)
-	{
-		FSpeechgrinderResponse Response;
-		bool bError;
-		bool bGotResult = Read(Response, bError);
-		if (!bGotResult)
-		{
-			break;
-		}
-		if (bError)
-		{
-  			OutError = true;
-			return;
-		}
-
-		if (Response.Event == ESpeechgrinderResponseType::Transcript)
-		{
-			IdToResponse.Add(Response.AudioContext, Response);
-		}
-		else
-		{
-			for (const auto& pair : IdToResponse)
-			{
-				OutSpeechgrinderResponses.Add(pair.Value);
-			}
-			IdToResponse.Empty();
-			OutSpeechgrinderResponses.Add(Response);
-		}
-	}
-	for (const auto& pair : IdToResponse)
-	{
-		OutSpeechgrinderResponses.Add(pair.Value);
-	}
-}
-
 bool USpeechgrinder::IsConnected() const
 {
 	return Client.IsValid() && !Client->HasError();
