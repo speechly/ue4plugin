@@ -174,15 +174,33 @@ void USpeechly::OnSpeechAudio(const float* Audio, const int32 AudioLength)
 	{
 		CharAudio.SetNumUninitialized(OutputAudioLength);
 	}
+	bool bHasAudio = false;
 	uint16* ShortAudio = reinterpret_cast<uint16*>(CharAudio.GetData());
 	for (int32 i = 0; i < AudioLength; ++i)
 	{
+		if (Audio[i] != 0.f)
+		{
+			bHasAudio = true;
+		}
 		int32 ScaledSample = static_cast<int32>(Audio[i] * (Audio[i] < 0.f ? 32768.f : 32767.f));
 		ScaledSample = FPlatformMath::Max(-32768, FPlatformMath::Min(32767, ScaledSample));
 		int16 Sample = static_cast<int16>(ScaledSample);
 		ShortAudio[i] = Sample;
 	}
 
+	if (bHasAudio)
+	{
+		SilenceCount = 0;
+	}
+	else
+	{
+		SilenceCount += AudioLength;
+		if (SilenceCount > sg::kSampleRate * 5)
+		{
+			UE_LOG(LogSG, Warning, TEXT("Recorder complete silence for a while, check your default audio device"));
+			SilenceCount = 0;
+		}
+	}
 	if (bIsBuffering)
 	{
 		AudioBuffer.Append(CharAudio.GetData(), OutputAudioLength);
