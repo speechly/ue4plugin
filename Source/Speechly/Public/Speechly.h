@@ -38,7 +38,7 @@ struct FSpeechlyTranscript
 	int32 EndTime;
 };
 
-UENUM()
+UENUM(BlueprintType)
 enum class ESpeechlyResponseType : uint8
 {
 	Started, Transcript, Finished, Unknown
