@@ -85,6 +85,16 @@ bool USpeechly::IsConnected() const
 	return Client.IsValid() && !Client->HasError();
 }
 
+void USpeechly::SendText(const FString& Text)
+{
+	if (!IsConnected())
+	{
+		return;
+	}
+	WLUResponse Response;
+	Client->WLUSync(std::string(TCHAR_TO_UTF8(*Text)));
+}
+
 bool USpeechly::Tick(float DeltaTime)
 {
 	if (!IsConnected())

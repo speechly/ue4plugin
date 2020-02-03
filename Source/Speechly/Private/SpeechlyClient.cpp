@@ -43,6 +43,31 @@ bool SpeechlyClient::Read(SLUResponse& OutResponse)
 	return ResponseQueue.Dequeue(OutResponse);
 }
 
+bool SpeechlyClient::WLUSync(const std::string& Text)
+{
+	grpc::ClientContext WLUContext;
+	WLUContext.AddMetadata("authorization", "Bearer " + LoginToken);
+
+	auto WLU = WLU::NewStub(Channel);
+	WLURequest Request;
+	Request.set_language_code(LanguageCode);
+	Request.set_text(Text);
+	WLUResponse Response;
+	if (WLU->Text(&WLUContext, Request, &Response).ok())
+	{
+		for (auto& R : Response.responses())
+		{
+			ResponseQueue.Enqueue(R);
+		}
+		SLUResponse FakeEndingResponse;
+		FakeEndingResponse.mutable_finished();
+		ResponseQueue.Enqueue(FakeEndingResponse);
+		return true;
+	}
+	UE_LOG(LogSG, Error, TEXT("Could not send WLU request"));
+	return false;
+}
+
 bool SpeechlyClient::Init()
 {
 	Channel = grpc::CreateChannel(Address, Credentials);
@@ -64,7 +89,8 @@ bool SpeechlyClient::Init()
 		Channel.reset();
 		return false;
 	}
-	Context.AddMetadata("authorization", "Bearer " + LoginResponse.token());
+	LoginToken = LoginResponse.token();
+	Context.AddMetadata("authorization", "Bearer " + LoginToken);
 	return true;
 }
 

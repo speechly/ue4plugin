@@ -27,6 +27,7 @@ public:
 	{
 		return bHasError;
 	}
+	bool WLUSync(const std::string& Text);
 
 	virtual bool Init() override;
 	virtual uint32 Run() override;
@@ -43,6 +44,7 @@ private:
 	void SetError(const FString& Message);
 
 private:
+	std::string LoginToken;
 	std::string Address;
 	std::string DeviceId;
 	std::string AppId;

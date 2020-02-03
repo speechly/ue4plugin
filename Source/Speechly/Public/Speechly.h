@@ -82,6 +82,12 @@ public:
 	UFUNCTION(Category = "Speechly", BlueprintCallable)
 	bool IsConnected() const;
 
+	/** Send text to Speechly (call is blocking and only meant for testing)
+	
+	Results are returned from the OnSpeechlyResponse delegate. */
+	UFUNCTION(Category = "Speechly", BlueprintCallable)
+	void SendText(const FString& Text);
+
 private:
 	bool Tick(float DeltaTime);
 
