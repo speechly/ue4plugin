@@ -18,106 +18,26 @@ namespace sg {
 };
 
 USTRUCT(BlueprintType)
-struct FSpeechlyTranscript
+struct FSpeechlyResponse
 {
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadOnly)
-	int32 SegmentId;
+	FString Transcript;
 
 	UPROPERTY(BlueprintReadOnly)
-	FString Word;
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 Index;
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 StartTime;
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 EndTime;
-};
-
-USTRUCT(BlueprintType)
-struct FSpeechlyEntity
-{
-	GENERATED_BODY()
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 SegmentId;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString Entity;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString Value;
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 StartPosition;
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 EndPosition;
-};
-
-USTRUCT(BlueprintType)
-struct FSpeechlyIntent
-{
-	GENERATED_BODY()
-
-	UPROPERTY(BlueprintReadOnly)
-	int32 SegmentId;
+	TMap<FString, FString> Entities;
 
 	UPROPERTY(BlueprintReadOnly)
 	FString Intent;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsFinal;
 };
 
-USTRUCT(BlueprintType)
-struct FSpeechlySegmentEnd
-{
-	GENERATED_BODY()
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSpeechlyResponse, FString, Key, FSpeechlyResponse, Response);
 
-	UPROPERTY(BlueprintReadOnly)
-	int32 SegmentId;
-};
-
-UENUM(BlueprintType)
-enum class ESpeechlyResponseType : uint8
-{
-	Started, Transcript, Entity, Intent, SegmentEnd, Finished, Unknown
-};
-
-USTRUCT(BlueprintType)
-struct FSpeechlyResponse
-{
-    GENERATED_BODY()
-    
-	UPROPERTY(BlueprintReadOnly)
-	ESpeechlyResponseType Event;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString AudioContext;
-
-	UPROPERTY(BlueprintReadOnly)
-	bool bHasError;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString ErrorCode;
-
-	UPROPERTY(BlueprintReadOnly)
-	FString ErrorMessage;
-
-	UPROPERTY(BlueprintReadOnly)
-	FSpeechlyTranscript Transcript;
-
-	UPROPERTY(BlueprintReadOnly)
-	FSpeechlyEntity Entity;
-
-	UPROPERTY(BlueprintReadOnly)
-	FSpeechlyIntent Intent;
-
-	UPROPERTY(BlueprintReadOnly)
-	FSpeechlySegmentEnd SegmentEnd;
-};
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnSpeechlyError, FString, Key, FString, Error);
 
 /**
  * UE4 specific wrapper for Speechly SLU
@@ -140,33 +60,48 @@ public:
 	USpeechly();
 	virtual ~USpeechly();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(Category = "Speechly", BlueprintCallable)
 	static USpeechly* SpawnSpeechly()
     {
 		return NewObject<USpeechly>(USpeechly::StaticClass());
 	}
 
 	/** Connect to Speechly, must be called before other functions */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(Category = "Speechly", BlueprintCallable)
 	void Connect(const FString& AppId, const FString& LanguageCode);
     
 	/** Start a new Speechly utterance */
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(Category = "Speechly", BlueprintCallable)
     bool Start();
 
 	/** Stop the current Speechly utterance */
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(Category = "Speechly", BlueprintCallable)
     bool Stop();
 
-	/** Read Speechly results, if there are any */
-    UFUNCTION(BlueprintCallable)
-    bool Read(FSpeechlyResponse& OutSpeechlyResponse, bool& OutError);
-
 	/** Returns true if connected to Speechly */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(Category = "Speechly", BlueprintCallable)
 	bool IsConnected() const;
 
 private:
+	bool Tick(float DeltaTime);
+
+	template <typename T>
+	FString KeyOfMessage(const T& Message)
+	{
+		FString Key = FString::Printf(TEXT("%s-%i"), *FString(Message.audio_context().c_str()), Message.segment_id());
+		ContextToKeys.FindOrAdd(Message.audio_context().c_str()).Add(Key);
+		return Key;
+	}
+
+public:
+	UPROPERTY(Category = "Speechly", BlueprintAssignable)
+	FOnSpeechlyResponse OnSpeechlyResponse;
+
+	UPROPERTY(Category = "Speechly", BlueprintAssignable)
+	FOnSpeechlyError OnSpeechlyError;
+
+private:
+	FDelegateHandle TickerHandle;
 	FString LastAudioContext;
 	TUniquePtr<SpeechlyClient> Client;
     FRunnableThread* ClientThread;
@@ -175,10 +110,9 @@ private:
 	TArray<char> AudioBuffer; // Used to buffer start of audio until server is ready
 	bool bIsBuffering;
 	int32 SilenceCount = 0;
-
+	TMap<FString, FSpeechlyResponse> Responses;
+	TMap<FString, TSet<FString>> ContextToKeys;
 
 	// Inherited via ISpeechAudioCallback
 	virtual void OnSpeechAudio(const float* Audio, const int32 AudioLength) override;
-
-	void DrainBuffer();
 };

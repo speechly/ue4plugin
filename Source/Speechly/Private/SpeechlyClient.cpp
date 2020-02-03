@@ -3,19 +3,24 @@
 #include "Runtime/Core/Public/Misc/Paths.h"
 #include "Runtime/Core/Public/Misc/FileHelper.h"
 
-SpeechlyClient::SpeechlyClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }, SampleRate{ SampleRate }
+grpc::SslCredentialsOptions SslCredentialOptions = []()
 {
 	FString Pem;
 	FString PemPath = FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()).Append(TEXT("NonUFS/roots.pem"));
 	if (FFileHelper::LoadFileToString(Pem, *PemPath, {}))
 	{
-		Credentials = grpc::SslCredentials(grpc::SslCredentialsOptions{ std::string(TCHAR_TO_UTF8(*Pem)) });
+		return grpc::SslCredentialsOptions{ std::string(TCHAR_TO_UTF8(*Pem)) };
 	}
 	else
 	{
-		UE_LOG(LogSG, Error, TEXT("Could not read '%s' for root certificates, using system certificates which probably won't work."), *PemPath);
-		Credentials = grpc::SslCredentials(grpc::SslCredentialsOptions{});
+		UE_LOG(LogSG, Warning, TEXT("Could not read '%s' for root certificates, using system certificates which probably won't work."), *PemPath);
+		return grpc::SslCredentialsOptions{};
 	}
+}();
+
+SpeechlyClient::SpeechlyClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }, SampleRate{ SampleRate }
+{
+	Credentials = grpc::SslCredentials(SslCredentialOptions);
 }
 
 bool SpeechlyClient::Write(const SLURequest& Request)

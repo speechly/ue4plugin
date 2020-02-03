@@ -14,6 +14,12 @@ public:
 };
 
 // Audio recorder with downsampling to 16000hz
+//
+// Start and Stop mechanism actually let's the recorder run all the time. What is sent is
+// defined by a bIsCapturing flag. This is because UE4 documentation doesn't really specify
+// what happens on Start/StopStream calls. Does it send the old buffer of audio for example?
+// Which is why we just let it run so the buffer is being drained all the time when not
+// recording.
 class FSpeechRecorder
 {
 public:
