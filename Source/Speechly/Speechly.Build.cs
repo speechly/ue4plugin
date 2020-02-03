@@ -11,6 +11,7 @@ public class Speechly : ModuleRules
         PublicDefinitions.Add("GOOGLE_PROTOBUF_NO_RTTI");
         PublicDefinitions.Add("GPR_FORBID_UNREACHABLE_CODE");
         PublicDefinitions.Add("GRPC_ALLOW_EXCEPTIONS=0");
+        PublicDefinitions.Add("GOOGLE_PROTOBUF_USE_UNALIGNED=0");
         PublicDefinitions.Add("__NVCC__");
 
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;

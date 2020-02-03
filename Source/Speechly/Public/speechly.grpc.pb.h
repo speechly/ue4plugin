@@ -29,22 +29,34 @@
 
 #include "speechly.pb.h"
 
+#include <functional>
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
 #include <grpcpp/impl/codegen/method_handler_impl.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 
-namespace grpc {
+namespace grpc_impl {
 class CompletionQueue;
-class Channel;
 class ServerCompletionQueue;
 class ServerContext;
+}  // namespace grpc_impl
+
+namespace grpc {
+namespace experimental {
+template <typename RequestT, typename ResponseT>
+class MessageAllocator;
+}  // namespace experimental
 }  // namespace grpc
 
 namespace v1 {
@@ -73,6 +85,14 @@ class SLU final {
     std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::v1::SLURequest, ::v1::SLUResponse>> PrepareAsyncStream(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::v1::SLURequest, ::v1::SLUResponse>>(PrepareAsyncStreamRaw(context, cq));
     }
+    class experimental_async_interface {
+     public:
+      virtual ~experimental_async_interface() {}
+      // Starts an SLU bidirectional stream, the input and output
+      // messages explains the details of the call.
+      virtual void Stream(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::v1::SLURequest,::v1::SLUResponse>* reactor) = 0;
+    };
+    virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
     virtual ::grpc::ClientReaderWriterInterface< ::v1::SLURequest, ::v1::SLUResponse>* StreamRaw(::grpc::ClientContext* context) = 0;
     virtual ::grpc::ClientAsyncReaderWriterInterface< ::v1::SLURequest, ::v1::SLUResponse>* AsyncStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
@@ -90,9 +110,21 @@ class SLU final {
     std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>> PrepareAsyncStream(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>>(PrepareAsyncStreamRaw(context, cq));
     }
+    class experimental_async final :
+      public StubInterface::experimental_async_interface {
+     public:
+      void Stream(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::v1::SLURequest,::v1::SLUResponse>* reactor) override;
+     private:
+      friend class Stub;
+      explicit experimental_async(Stub* stub): stub_(stub) { }
+      Stub* stub() { return stub_; }
+      Stub* stub_;
+    };
+    class experimental_async_interface* experimental_async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    class experimental_async async_stub_{this};
     ::grpc::ClientReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>* StreamRaw(::grpc::ClientContext* context) override;
     ::grpc::ClientAsyncReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>* AsyncStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>* PrepareAsyncStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) override;
@@ -130,6 +162,29 @@ class SLU final {
   };
   typedef WithAsyncMethod_Stream<Service > AsyncService;
   template <class BaseClass>
+  class ExperimentalWithCallbackMethod_Stream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_Stream() {
+      ::grpc::Service::experimental().MarkMethodCallback(0,
+        new ::grpc_impl::internal::CallbackBidiHandler< ::v1::SLURequest, ::v1::SLUResponse>(
+          [this] { return this->Stream(); }));
+    }
+    ~ExperimentalWithCallbackMethod_Stream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Stream(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::v1::SLUResponse, ::v1::SLURequest>* stream)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::experimental::ServerBidiReactor< ::v1::SLURequest, ::v1::SLUResponse>* Stream() {
+      return new ::grpc_impl::internal::UnimplementedBidiReactor<
+        ::v1::SLURequest, ::v1::SLUResponse>;}
+  };
+  typedef ExperimentalWithCallbackMethod_Stream<Service > ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_Stream : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -166,6 +221,28 @@ class SLU final {
       ::grpc::Service::RequestAsyncBidiStreaming(0, context, stream, new_call_cq, notification_cq, tag);
     }
   };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_Stream : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_Stream() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(0,
+        new ::grpc_impl::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this] { return this->Stream(); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_Stream() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Stream(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::v1::SLUResponse, ::v1::SLURequest>* stream)  override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* Stream() {
+      return new ::grpc_impl::internal::UnimplementedBidiReactor<
+        ::grpc::ByteBuffer, ::grpc::ByteBuffer>;}
+  };
   typedef Service StreamedUnaryService;
   typedef Service SplitStreamedService;
   typedef Service StreamedService;
@@ -187,6 +264,15 @@ class WLU final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::v1::WLUResponse>> PrepareAsyncText(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::v1::WLUResponse>>(PrepareAsyncTextRaw(context, request, cq));
     }
+    class experimental_async_interface {
+     public:
+      virtual ~experimental_async_interface() {}
+      virtual void Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Text(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Text(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::WLUResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+    };
+    virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::v1::WLUResponse>* AsyncTextRaw(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::v1::WLUResponse>* PrepareAsyncTextRaw(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -201,9 +287,24 @@ class WLU final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::v1::WLUResponse>> PrepareAsyncText(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::v1::WLUResponse>>(PrepareAsyncTextRaw(context, request, cq));
     }
+    class experimental_async final :
+      public StubInterface::experimental_async_interface {
+     public:
+      void Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)>) override;
+      void Text(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)>) override;
+      void Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Text(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::WLUResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+     private:
+      friend class Stub;
+      explicit experimental_async(Stub* stub): stub_(stub) { }
+      Stub* stub() { return stub_; }
+      Stub* stub_;
+    };
+    class experimental_async_interface* experimental_async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    class experimental_async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::v1::WLUResponse>* AsyncTextRaw(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::v1::WLUResponse>* PrepareAsyncTextRaw(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Text_;
@@ -237,6 +338,38 @@ class WLU final {
     }
   };
   typedef WithAsyncMethod_Text<Service > AsyncService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_Text : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_Text() {
+      ::grpc::Service::experimental().MarkMethodCallback(0,
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::v1::WLURequest, ::v1::WLUResponse>(
+          [this](::grpc::ServerContext* context,
+                 const ::v1::WLURequest* request,
+                 ::v1::WLUResponse* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->Text(context, request, response, controller);
+                 }));
+    }
+    void SetMessageAllocatorFor_Text(
+        ::grpc::experimental::MessageAllocator< ::v1::WLURequest, ::v1::WLUResponse>* allocator) {
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::v1::WLURequest, ::v1::WLUResponse>*>(
+          ::grpc::Service::experimental().GetHandler(0))
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_Text() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Text(::grpc::ServerContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void Text(::grpc::ServerContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  typedef ExperimentalWithCallbackMethod_Text<Service > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Text : public BaseClass {
    private:
@@ -273,6 +406,31 @@ class WLU final {
     void RequestText(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_Text : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_Text() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(0,
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->Text(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_Text() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Text(::grpc::ServerContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void Text(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_Text : public BaseClass {
@@ -317,6 +475,17 @@ class Identity final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::v1::LoginResponse>> PrepareAsyncLogin(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::v1::LoginResponse>>(PrepareAsyncLoginRaw(context, request, cq));
     }
+    class experimental_async_interface {
+     public:
+      virtual ~experimental_async_interface() {}
+      // Performs a login for the user, when successful it returns an
+      // access token to access `Slu` service.
+      virtual void Login(::grpc::ClientContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::LoginResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Login(::grpc::ClientContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::LoginResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+    };
+    virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::v1::LoginResponse>* AsyncLoginRaw(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::v1::LoginResponse>* PrepareAsyncLoginRaw(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -331,9 +500,24 @@ class Identity final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::v1::LoginResponse>> PrepareAsyncLogin(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::v1::LoginResponse>>(PrepareAsyncLoginRaw(context, request, cq));
     }
+    class experimental_async final :
+      public StubInterface::experimental_async_interface {
+     public:
+      void Login(::grpc::ClientContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response, std::function<void(::grpc::Status)>) override;
+      void Login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::LoginResponse* response, std::function<void(::grpc::Status)>) override;
+      void Login(::grpc::ClientContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::LoginResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+     private:
+      friend class Stub;
+      explicit experimental_async(Stub* stub): stub_(stub) { }
+      Stub* stub() { return stub_; }
+      Stub* stub_;
+    };
+    class experimental_async_interface* experimental_async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    class experimental_async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::v1::LoginResponse>* AsyncLoginRaw(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::v1::LoginResponse>* PrepareAsyncLoginRaw(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Login_;
@@ -370,6 +554,38 @@ class Identity final {
   };
   typedef WithAsyncMethod_Login<Service > AsyncService;
   template <class BaseClass>
+  class ExperimentalWithCallbackMethod_Login : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithCallbackMethod_Login() {
+      ::grpc::Service::experimental().MarkMethodCallback(0,
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::v1::LoginRequest, ::v1::LoginResponse>(
+          [this](::grpc::ServerContext* context,
+                 const ::v1::LoginRequest* request,
+                 ::v1::LoginResponse* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   return this->Login(context, request, response, controller);
+                 }));
+    }
+    void SetMessageAllocatorFor_Login(
+        ::grpc::experimental::MessageAllocator< ::v1::LoginRequest, ::v1::LoginResponse>* allocator) {
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::v1::LoginRequest, ::v1::LoginResponse>*>(
+          ::grpc::Service::experimental().GetHandler(0))
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_Login() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Login(::grpc::ServerContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void Login(::grpc::ServerContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
+  };
+  typedef ExperimentalWithCallbackMethod_Login<Service > ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_Login : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
@@ -405,6 +621,31 @@ class Identity final {
     void RequestLogin(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_Login : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    ExperimentalWithRawCallbackMethod_Login() {
+      ::grpc::Service::experimental().MarkMethodRawCallback(0,
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+          [this](::grpc::ServerContext* context,
+                 const ::grpc::ByteBuffer* request,
+                 ::grpc::ByteBuffer* response,
+                 ::grpc::experimental::ServerCallbackRpcController* controller) {
+                   this->Login(context, request, response, controller);
+                 }));
+    }
+    ~ExperimentalWithRawCallbackMethod_Login() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Login(::grpc::ServerContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual void Login(::grpc::ServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response, ::grpc::experimental::ServerCallbackRpcController* controller) { controller->Finish(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "")); }
   };
   template <class BaseClass>
   class WithStreamedUnaryMethod_Login : public BaseClass {

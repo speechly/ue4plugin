@@ -157,15 +157,24 @@ typedef struct {
 /** Maximum message length that the channel can send. Int valued, bytes.
     -1 means unlimited. */
 #define GRPC_ARG_MAX_SEND_MESSAGE_LENGTH "grpc.max_send_message_length"
-/** Maximum time that a channel may have no outstanding rpcs. Int valued,
-    milliseconds. INT_MAX means unlimited. */
+/** Maximum time that a channel may have no outstanding rpcs, after which the
+ * server will close the connection. Int valued, milliseconds. INT_MAX means
+ * unlimited. */
 #define GRPC_ARG_MAX_CONNECTION_IDLE_MS "grpc.max_connection_idle_ms"
 /** Maximum time that a channel may exist. Int valued, milliseconds.
  * INT_MAX means unlimited. */
 #define GRPC_ARG_MAX_CONNECTION_AGE_MS "grpc.max_connection_age_ms"
-/** Grace period after the chennel reaches its max age. Int valued,
+/** Grace period after the channel reaches its max age. Int valued,
    milliseconds. INT_MAX means unlimited. */
 #define GRPC_ARG_MAX_CONNECTION_AGE_GRACE_MS "grpc.max_connection_age_grace_ms"
+/** Timeout after the last RPC finishes on the client channel at which the
+ * channel goes back into IDLE state. Int valued, milliseconds. INT_MAX means
+ * unlimited. */
+/** TODO(qianchengz): Currently the default value is INT_MAX, which means the
+ * client idle filter is disabled by default. After the client idle filter
+ * proves no perfomance issue, we will change the default value to a reasonable
+ * value. */
+#define GRPC_ARG_CLIENT_IDLE_TIMEOUT_MS "grpc.client_idle_timeout_ms"
 /** Enable/disable support for per-message compression. Defaults to 1, unless
     GRPC_ARG_MINIMAL_STACK is enabled, in which case it defaults to 0. */
 #define GRPC_ARG_ENABLE_PER_MESSAGE_COMPRESSION "grpc.per_message_compression"
@@ -285,13 +294,15 @@ typedef struct {
 #define GRPC_ARG_SOCKET_MUTATOR "grpc.socket_mutator"
 /** The grpc_socket_factory instance to create and bind sockets. A pointer. */
 #define GRPC_ARG_SOCKET_FACTORY "grpc.socket_factory"
-/** The maximum number of trace events to keep in the tracer for each channel or
- * subchannel. The default is 10. If set to 0, channel tracing is disabled. */
-#define GRPC_ARG_MAX_CHANNEL_TRACE_EVENTS_PER_NODE \
-  "grpc.max_channel_trace_events_per_node"
+/** The maximum amount of memory used by trace events per channel trace node.
+ * Once the maximum is reached, subsequent events will evict the oldest events
+ * from the buffer. The unit for this knob is bytes. Setting it to zero causes
+ * channel tracing to be disabled. */
+#define GRPC_ARG_MAX_CHANNEL_TRACE_EVENT_MEMORY_PER_NODE \
+  "grpc.max_channel_trace_event_memory_per_node"
 /** If non-zero, gRPC library will track stats and information at at per channel
  * level. Disabling channelz naturally disables channel tracing. The default
- * is for channelz to be disabled. */
+ * is for channelz to be enabled. */
 #define GRPC_ARG_ENABLE_CHANNELZ "grpc.enable_channelz"
 /** If non-zero, Cronet transport will coalesce packets to fewer frames
  * when possible. */
@@ -313,8 +324,12 @@ typedef struct {
 #define GRPC_ARG_GRPCLB_CALL_TIMEOUT_MS "grpc.grpclb_call_timeout_ms"
 /* Timeout in milliseconds to wait for the serverlist from the grpclb load
    balancer before using fallback backend addresses from the resolver.
-   If 0, fallback will never be used. Default value is 10000. */
+   If 0, enter fallback mode immediately. Default value is 10000. */
 #define GRPC_ARG_GRPCLB_FALLBACK_TIMEOUT_MS "grpc.grpclb_fallback_timeout_ms"
+/* Timeout in milliseconds to wait for the serverlist from the xDS load
+   balancer before using fallback backend addresses from the resolver.
+   If 0, enter fallback mode immediately. Default value is 10000. */
+#define GRPC_ARG_XDS_FALLBACK_TIMEOUT_MS "grpc.xds_fallback_timeout_ms"
 /** If non-zero, grpc server's cronet compression workaround will be enabled */
 #define GRPC_ARG_WORKAROUND_CRONET_COMPRESSION \
   "grpc.workaround.cronet_compression"
@@ -342,6 +357,31 @@ typedef struct {
   "grpc.disable_client_authority_filter"
 /** If set to zero, disables use of http proxies. Enabled by default. */
 #define GRPC_ARG_ENABLE_HTTP_PROXY "grpc.enable_http_proxy"
+/** If set to non zero, surfaces the user agent string to the server. User
+    agent is surfaced by default. */
+#define GRPC_ARG_SURFACE_USER_AGENT "grpc.surface_user_agent"
+/** If set, inhibits health checking (which may be enabled via the
+ *  service config.) */
+#define GRPC_ARG_INHIBIT_HEALTH_CHECKING "grpc.inhibit_health_checking"
+/** If set, the channel's resolver is allowed to query for SRV records.
+ * For example, this is useful as a way to enable the "grpclb"
+ * load balancing policy. Note that this only works with the "ares"
+ * DNS resolver, and isn't supported by the "native" DNS resolver. */
+#define GRPC_ARG_DNS_ENABLE_SRV_QUERIES "grpc.dns_enable_srv_queries"
+/** If set, determines an upper bound on the number of milliseconds that the
+ * c-ares based DNS resolver will wait on queries before cancelling them.
+ * The default value is 120,000. Setting this to "0" will disable the
+ * overall timeout entirely. Note that this doesn't include internal c-ares
+ * timeouts/backoff/retry logic, and so the actual DNS resolution may time out
+ * sooner than the value specified here. */
+#define GRPC_ARG_DNS_ARES_QUERY_TIMEOUT_MS "grpc.dns_ares_query_timeout"
+/** If set, uses a local subchannel pool within the channel. Otherwise, uses the
+ * global subchannel pool. */
+#define GRPC_ARG_USE_LOCAL_SUBCHANNEL_POOL "grpc.use_local_subchannel_pool"
+/** gRPC Objective-C channel pooling domain string. */
+#define GRPC_ARG_CHANNEL_POOL_DOMAIN "grpc.channel_pooling_domain"
+/** gRPC Objective-C channel pooling id. */
+#define GRPC_ARG_CHANNEL_ID "grpc.channel_id"
 /** \} */
 
 /** Result of a grpc call. If the caller satisfies the prerequisites of a
@@ -465,7 +505,8 @@ typedef struct grpc_event {
       field is guaranteed to be 0 */
   int success;
   /** The tag passed to grpc_call_start_batch etc to start this operation.
-      Only GRPC_OP_COMPLETE has a tag. */
+      *Only* GRPC_OP_COMPLETE has a tag. For all other grpc_completion_type
+      values, tag is uninitialized. */
   void* tag;
 } grpc_event;
 
@@ -657,6 +698,23 @@ typedef enum {
   GRPC_CQ_CALLBACK
 } grpc_cq_completion_type;
 
+/** EXPERIMENTAL: Specifies an interface class to be used as a tag
+    for callback-based completion queues. This can be used directly,
+    as the first element of a struct in C, or as a base class in C++.
+    Its "run" value should be assigned to some non-member function, such as
+    a static method. */
+typedef struct grpc_experimental_completion_queue_functor {
+  /** The run member specifies a function that will be called when this
+      tag is extracted from the completion queue. Its arguments will be a
+      pointer to this functor and a boolean that indicates whether the
+      operation succeeded (non-zero) or failed (zero) */
+  void (*functor_run)(struct grpc_experimental_completion_queue_functor*, int);
+
+  /** The following fields are not API. They are meant for internal use. */
+  int internal_success;
+  struct grpc_experimental_completion_queue_functor* internal_next;
+} grpc_experimental_completion_queue_functor;
+
 /* The upgrade to version 2 is currently experimental. */
 
 #define GRPC_CQ_CURRENT_VERSION 2
@@ -675,7 +733,7 @@ typedef struct grpc_completion_queue_attributes {
   /* EXPERIMENTAL: START OF VERSION 2 CQ ATTRIBUTES */
   /** When creating a callbackable CQ, pass in a functor to get invoked when
    * shutdown is complete */
-  void* cq_shutdown_cb;
+  grpc_experimental_completion_queue_functor* cq_shutdown_cb;
 
   /* END OF VERSION 2 CQ ATTRIBUTES */
 } grpc_completion_queue_attributes;

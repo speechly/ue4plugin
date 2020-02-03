@@ -7,12 +7,15 @@
 #include "speechly.pb.h"
 #include "speechly.grpc.pb.h"
 
+#include <functional>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
+#include <grpcpp/impl/codegen/client_callback.h>
 #include <grpcpp/impl/codegen/method_handler_impl.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace v1 {
@@ -32,15 +35,19 @@ SLU::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   {}
 
 ::grpc::ClientReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>* SLU::Stub::StreamRaw(::grpc::ClientContext* context) {
-  return ::grpc::internal::ClientReaderWriterFactory< ::v1::SLURequest, ::v1::SLUResponse>::Create(channel_.get(), rpcmethod_Stream_, context);
+  return ::grpc_impl::internal::ClientReaderWriterFactory< ::v1::SLURequest, ::v1::SLUResponse>::Create(channel_.get(), rpcmethod_Stream_, context);
+}
+
+void SLU::Stub::experimental_async::Stream(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::v1::SLURequest,::v1::SLUResponse>* reactor) {
+  ::grpc_impl::internal::ClientCallbackReaderWriterFactory< ::v1::SLURequest,::v1::SLUResponse>::Create(stub_->channel_.get(), stub_->rpcmethod_Stream_, context, reactor);
 }
 
 ::grpc::ClientAsyncReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>* SLU::Stub::AsyncStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
-  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::v1::SLURequest, ::v1::SLUResponse>::Create(channel_.get(), cq, rpcmethod_Stream_, context, true, tag);
+  return ::grpc_impl::internal::ClientAsyncReaderWriterFactory< ::v1::SLURequest, ::v1::SLUResponse>::Create(channel_.get(), cq, rpcmethod_Stream_, context, true, tag);
 }
 
 ::grpc::ClientAsyncReaderWriter< ::v1::SLURequest, ::v1::SLUResponse>* SLU::Stub::PrepareAsyncStreamRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncReaderWriterFactory< ::v1::SLURequest, ::v1::SLUResponse>::Create(channel_.get(), cq, rpcmethod_Stream_, context, false, nullptr);
+  return ::grpc_impl::internal::ClientAsyncReaderWriterFactory< ::v1::SLURequest, ::v1::SLUResponse>::Create(channel_.get(), cq, rpcmethod_Stream_, context, false, nullptr);
 }
 
 SLU::Service::Service() {
@@ -79,12 +86,28 @@ WLU::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Text_, context, request, response);
 }
 
+void WLU::Stub::experimental_async::Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Text_, context, request, response, std::move(f));
+}
+
+void WLU::Stub::experimental_async::Text(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Text_, context, request, response, std::move(f));
+}
+
+void WLU::Stub::experimental_async::Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Text_, context, request, response, reactor);
+}
+
+void WLU::Stub::experimental_async::Text(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::WLUResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Text_, context, request, response, reactor);
+}
+
 ::grpc::ClientAsyncResponseReader< ::v1::WLUResponse>* WLU::Stub::AsyncTextRaw(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::v1::WLUResponse>::Create(channel_.get(), cq, rpcmethod_Text_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::v1::WLUResponse>::Create(channel_.get(), cq, rpcmethod_Text_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::v1::WLUResponse>* WLU::Stub::PrepareAsyncTextRaw(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::v1::WLUResponse>::Create(channel_.get(), cq, rpcmethod_Text_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::v1::WLUResponse>::Create(channel_.get(), cq, rpcmethod_Text_, context, request, false);
 }
 
 WLU::Service::Service() {
@@ -124,12 +147,28 @@ Identity::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Login_, context, request, response);
 }
 
+void Identity::Stub::experimental_async::Login(::grpc::ClientContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Login_, context, request, response, std::move(f));
+}
+
+void Identity::Stub::experimental_async::Login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::LoginResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Login_, context, request, response, std::move(f));
+}
+
+void Identity::Stub::experimental_async::Login(::grpc::ClientContext* context, const ::v1::LoginRequest* request, ::v1::LoginResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Login_, context, request, response, reactor);
+}
+
+void Identity::Stub::experimental_async::Login(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::LoginResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Login_, context, request, response, reactor);
+}
+
 ::grpc::ClientAsyncResponseReader< ::v1::LoginResponse>* Identity::Stub::AsyncLoginRaw(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::v1::LoginResponse>::Create(channel_.get(), cq, rpcmethod_Login_, context, request, true);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::v1::LoginResponse>::Create(channel_.get(), cq, rpcmethod_Login_, context, request, true);
 }
 
 ::grpc::ClientAsyncResponseReader< ::v1::LoginResponse>* Identity::Stub::PrepareAsyncLoginRaw(::grpc::ClientContext* context, const ::v1::LoginRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::v1::LoginResponse>::Create(channel_.get(), cq, rpcmethod_Login_, context, request, false);
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::v1::LoginResponse>::Create(channel_.get(), cq, rpcmethod_Login_, context, request, false);
 }
 
 Identity::Service::Service() {
