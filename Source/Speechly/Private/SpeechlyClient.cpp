@@ -52,10 +52,10 @@ bool SpeechlyClient::WLUSync(const std::string& Text)
 	WLURequest Request;
 	Request.set_language_code(LanguageCode);
 	Request.set_text(Text);
-	WLUResponse Response;
-	if (WLU->Text(&WLUContext, Request, &Response).ok())
+	WLUResponse WResponse;
+	if (WLU->Text(&WLUContext, Request, &WResponse).ok())
 	{
-		for (auto& R : Response.responses())
+		for (auto& R : WResponse.responses())
 		{
 			ResponseQueue.Enqueue(R);
 		}
