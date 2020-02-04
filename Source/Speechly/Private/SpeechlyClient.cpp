@@ -3,19 +3,13 @@
 #include "Runtime/Core/Public/Misc/Paths.h"
 #include "Runtime/Core/Public/Misc/FileHelper.h"
 
+std::string RootsPem =
+#include "roots.pem"
+;
+
 grpc::SslCredentialsOptions SslCredentialOptions = []()
 {
-	FString Pem;
-	FString PemPath = FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir()).Append(TEXT("NonUFS/roots.pem"));
-	if (FFileHelper::LoadFileToString(Pem, *PemPath, {}))
-	{
-		return grpc::SslCredentialsOptions{ std::string(TCHAR_TO_UTF8(*Pem)) };
-	}
-	else
-	{
-		UE_LOG(LogSG, Warning, TEXT("Could not read '%s' for root certificates, using system certificates which probably won't work."), *PemPath);
-		return grpc::SslCredentialsOptions{};
-	}
+    return grpc::SslCredentialsOptions{ RootsPem };
 }();
 
 SpeechlyClient::SpeechlyClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }, SampleRate{ SampleRate }
