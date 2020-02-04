@@ -2,6 +2,62 @@
 
 #include "GenericPlatformMath.h"
 
+#if PLATFORM_MAC && !WITH_EDITOR
+#import <AVFoundation/AVFoundation.h>
+#import <objc/objc-sync.h>
+
+bool HasAudioPermission()
+{
+
+    switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio])
+    {
+        case AVAuthorizationStatusAuthorized:
+        {
+            return true;
+        }
+        case AVAuthorizationStatusNotDetermined:
+        {
+            NSCondition *cond = [[NSCondition alloc] init];
+            __block BOOL gotResult = NO;
+            __block BOOL isGranted = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted)
+                {
+                    [cond lock];
+                    isGranted = granted;
+                    gotResult = YES;
+                    [cond signal];
+                    [cond unlock];
+                }];
+            });
+            [cond lock];
+            while (!gotResult)
+            {
+                [cond wait];
+            }
+            [cond unlock];
+            return isGranted == YES;
+        }
+        case AVAuthorizationStatusDenied:
+        {
+            UE_LOG(LogSG, Error, TEXT("macOS denied audio recording"));
+
+            return false;
+        }
+        case AVAuthorizationStatusRestricted:
+        {
+            UE_LOG(LogSG, Error, TEXT("macOS restricted audio recording"));
+            return false;
+        }
+    }
+}
+#else
+bool HasAudioPermission()
+{
+    return true;
+}
+#endif
+
 FSpeechRecorder::FSpeechRecorder(int NumFramesDesired, int SampleRate)
 	: NumFramesDesired{NumFramesDesired},
 	  SampleRate{SampleRate}
@@ -16,7 +72,11 @@ FSpeechRecorder::~FSpeechRecorder()
 
 void FSpeechRecorder::Start()
 {
-	FScopeLock Lock(&CriticalSection);
+    FScopeLock Lock(&CriticalSection);
+    #if PLATFORM_MAC && WITH_EDITOR
+    UE_LOG(LogSG, Error, TEXT("Microphone input does not work on macOS in Unreal Engine editor. Only silence will be recorded."));
+    #endif
+    verifyf(HasAudioPermission(), TEXT("Application does not have audio recording permission"));
 	if (!AudioCapture.IsStreamOpen())
 	{
 		AudioCapture.GetCaptureDeviceInfo(OutInfo, INDEX_NONE);

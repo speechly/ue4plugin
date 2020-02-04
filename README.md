@@ -8,3 +8,25 @@ GrpcPrograms/$PLATFORM/protoc -I . --grpc_out=. \
 
 GrpcPrograms/$PLATFORM/protoc -I . --cpp_out=. speechly.proto
 ```
+
+= macOS setup
+
+The plugin currently is not production ready for macOS.
+
+Since macOS Mojave, Apple requires special permissions and a premission request
+dialog before accessing microphone. Unreal Engine 4.24 doesn't do that. The
+plugin asks for the permission when starting starting speech recognition, but by
+default macOS terminates any application that does that, IF they do not have
+`NSMicrophoneUsageDescription` defined in the `Info.plist`.
+
+Unreal Engine does not define it microphone permissions for the editor, so
+microphone input does not work on macOS in the editor.
+
+To make microphone work in the packaged application you have to edit the
+`Info.plist`
+Add `<key>NSMicrophoneUsageDescription</key><string>Speech recognition</string>`
+to `Additional Plist Data` found in project packaging settings. This has to be
+every time the package is recreated.
+
+Even with these, the support for the dialog popup is flaky at best, as it's a
+system dialog on top of a fullscreen application.
