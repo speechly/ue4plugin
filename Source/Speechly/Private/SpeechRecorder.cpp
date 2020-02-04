@@ -25,7 +25,7 @@ void FSpeechRecorder::Start()
 		generateFilter();
 
 		FAudioCaptureDeviceParams DeviceParams;
-		DeviceParams.bUseHardwareAEC = true;
+		DeviceParams.bUseHardwareAEC = OutInfo.bSupportsHardwareAEC;
 		DeviceParams.DeviceIndex = INDEX_NONE;
 		FOnCaptureFunction OnCaptureFunction = [this](const float* InAudio, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverFlow) {
 			return this->OnAudioCapture(InAudio, NumFrames, NumChannels, StreamTime, bOverFlow);
