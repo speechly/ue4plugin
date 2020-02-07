@@ -3,13 +3,15 @@
 #include "Runtime/Core/Public/Misc/Paths.h"
 #include "Runtime/Core/Public/Misc/FileHelper.h"
 
-std::string RootsPem =
-#include "roots.pem"
-;
-
 grpc::SslCredentialsOptions SslCredentialOptions = []()
 {
-    return grpc::SslCredentialsOptions{ RootsPem };
+	FString PemPath = FPaths::EngineContentDir() + TEXT("Certificates/ThirdParty/cacert.pem");
+	FString Pem;
+	if (FPaths::FileExists(*PemPath) && FFileHelper::LoadFileToString(Pem, *PemPath))
+	{
+		return grpc::SslCredentialsOptions{ std::string(TCHAR_TO_UTF8(*Pem)) };
+	}
+	return grpc::SslCredentialsOptions{};
 }();
 
 SpeechlyClient::SpeechlyClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }, SampleRate{ SampleRate }
