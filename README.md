@@ -9,6 +9,22 @@ GrpcPrograms/$PLATFORM/protoc -I . --grpc_out=. \
 GrpcPrograms/$PLATFORM/protoc -I . --cpp_out=. speechly.proto
 ```
 
+This generates a bunch of .cc and .h files. Copy the .h files to
+`Source/Speechly/Public` and .cc to `Source/Speechly/Private`.
+
+The .cc files has to be modified to be able to compile with Unreal build system.
+To both files add:
+
+```c++
+#include "IncludeBegin.h"
+```
+
+to the beginning of the file, and to the end add:
+
+```c++
+#include "IncludeEnd.h"
+```
+
 = macOS setup
 
 The plugin currently is not production ready for macOS.
