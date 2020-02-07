@@ -192,5 +192,4 @@ Identity::Service::~Service() {
 
 }  // namespace v1
 
-
 #include "IncludeEnd.h"

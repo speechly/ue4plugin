@@ -51,11 +51,45 @@ bool SpeechlyClient::WLUSync(const std::string& Text)
 	WLUResponse WResponse;
 	if (WLU->Text(&WLUContext, Request, &WResponse).ok())
 	{
-		for (auto& R : WResponse.responses())
+		std::string AudioContext = TCHAR_TO_UTF8(*FGuid::NewGuid().ToString());
+		for (auto& Segment : WResponse.segments())
 		{
-			ResponseQueue.Enqueue(R);
+			for (auto& Token : Segment.tokens())
+			{
+				SLUResponse TranscriptResponse;
+				TranscriptResponse.set_audio_context(AudioContext);
+				TranscriptResponse.set_segment_id(1);
+				SLUTranscript* Transcript = TranscriptResponse.mutable_transcript();
+				Transcript->set_word(Token.word());
+				Transcript->set_index(Token.index());
+				ResponseQueue.Enqueue(TranscriptResponse);
+			}
+
+			for (auto& Entity : Segment.entities())
+			{
+				SLUResponse EntityResponse;
+				EntityResponse.set_audio_context(AudioContext);
+				EntityResponse.set_segment_id(1);
+				SLUEntity* E = EntityResponse.mutable_entity();
+				E->set_entity(Entity.entity());
+				E->set_value(Entity.value());
+				E->set_start_position(Entity.start_position());
+				E->set_end_position(Entity.end_position());
+				ResponseQueue.Enqueue(EntityResponse);
+			}
+
+			if (Segment.has_intent())
+			{
+				SLUResponse IntentResponse;
+				IntentResponse.set_audio_context(AudioContext);
+				IntentResponse.set_segment_id(1);
+				IntentResponse.mutable_intent()->set_intent(Segment.intent().intent());
+				ResponseQueue.Enqueue(IntentResponse);
+			}
 		}
 		SLUResponse FakeEndingResponse;
+		FakeEndingResponse.set_audio_context(AudioContext);
+		FakeEndingResponse.set_segment_id(1);
 		FakeEndingResponse.mutable_finished();
 		ResponseQueue.Enqueue(FakeEndingResponse);
 		return true;

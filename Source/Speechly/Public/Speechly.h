@@ -91,11 +91,11 @@ public:
 private:
 	bool Tick(float DeltaTime);
 
-	template <typename T>
-	FString KeyOfMessage(const T& Message)
+	FString KeyOfMessage(const SLUResponse& Response)
 	{
-		FString Key = FString::Printf(TEXT("%s-%i"), *FString(Message.audio_context().c_str()), Message.segment_id());
-		ContextToKeys.FindOrAdd(Message.audio_context().c_str()).Add(Key);
+		const std::string& AudioContext = Response.audio_context();
+		FString Key = FString::Printf(TEXT("%s-%i"), *FString(AudioContext.c_str()), Response.segment_id());
+		ContextToKeys.FindOrAdd(AudioContext.c_str()).Add(Key);
 		return Key;
 	}
 

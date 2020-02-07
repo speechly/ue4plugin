@@ -120,12 +120,12 @@ bool USpeechly::Tick(float DeltaTime)
 		if (Response.has_started())
 		{
 			bIsBuffering = false;
-			LastAudioContext = Response.started().audio_context().c_str();
+			LastAudioContext = Response.audio_context().c_str();
 		}
 		else if (Response.has_finished())
 		{
 			auto finished = Response.finished();
-			FString Context = finished.audio_context().c_str();
+			FString Context = Response.audio_context().c_str();
 			if (finished.has_error())
 			{
 				Errors.Emplace(Context, finished.error().message().c_str());
@@ -156,7 +156,7 @@ bool USpeechly::Tick(float DeltaTime)
 		}
 		else if (Response.has_transcript())
 		{
-			FString Key = KeyOfMessage(Response.transcript());
+			FString Key = KeyOfMessage(Response);
 			ChangedKeys.Add(Key);
 			FSpeechlyResponse& Out = Responses.FindOrAdd(Key);
 			if (!Out.Transcript.IsEmpty())
@@ -167,7 +167,7 @@ bool USpeechly::Tick(float DeltaTime)
 		}
 		else if (Response.has_entity())
 		{
-			FString Key = KeyOfMessage(Response.entity());
+			FString Key = KeyOfMessage(Response);
 			ChangedKeys.Add(Key);
 			FSpeechlyResponse& Out = Responses.FindOrAdd(Key);
 			FString Entity = Response.entity().entity().c_str();
@@ -176,14 +176,14 @@ bool USpeechly::Tick(float DeltaTime)
 		}
 		else if (Response.has_intent())
 		{
-			FString Key = KeyOfMessage(Response.intent());
+			FString Key = KeyOfMessage(Response);
 			ChangedKeys.Add(Key);
 			FSpeechlyResponse& Out = Responses.FindOrAdd(Key);
 			Out.Intent = Response.intent().intent().c_str();
 		}
 		else if (Response.has_segment_end())
 		{
-			FString Key = KeyOfMessage(Response.intent());
+			FString Key = KeyOfMessage(Response);
 			ChangedKeys.Add(Key);
 			FSpeechlyResponse& Out = Responses.FindOrAdd(Key);
 			Out.bIsFinal = true;

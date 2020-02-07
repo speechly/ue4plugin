@@ -48,7 +48,7 @@ struct TableStruct_speechly_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[17]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[21]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -56,12 +56,6 @@ struct TableStruct_speechly_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_speechly_2eproto;
 namespace v1 {
-class EntityEvent;
-class EntityEventDefaultTypeInternal;
-extern EntityEventDefaultTypeInternal _EntityEvent_default_instance_;
-class IntentEvent;
-class IntentEventDefaultTypeInternal;
-extern IntentEventDefaultTypeInternal _IntentEvent_default_instance_;
 class LoginRequest;
 class LoginRequestDefaultTypeInternal;
 extern LoginRequestDefaultTypeInternal _LoginRequest_default_instance_;
@@ -71,6 +65,9 @@ extern LoginResponseDefaultTypeInternal _LoginResponse_default_instance_;
 class SLUConfig;
 class SLUConfigDefaultTypeInternal;
 extern SLUConfigDefaultTypeInternal _SLUConfig_default_instance_;
+class SLUEntity;
+class SLUEntityDefaultTypeInternal;
+extern SLUEntityDefaultTypeInternal _SLUEntity_default_instance_;
 class SLUError;
 class SLUErrorDefaultTypeInternal;
 extern SLUErrorDefaultTypeInternal _SLUError_default_instance_;
@@ -80,52 +77,71 @@ extern SLUEventDefaultTypeInternal _SLUEvent_default_instance_;
 class SLUFinished;
 class SLUFinishedDefaultTypeInternal;
 extern SLUFinishedDefaultTypeInternal _SLUFinished_default_instance_;
+class SLUIntent;
+class SLUIntentDefaultTypeInternal;
+extern SLUIntentDefaultTypeInternal _SLUIntent_default_instance_;
 class SLURequest;
 class SLURequestDefaultTypeInternal;
 extern SLURequestDefaultTypeInternal _SLURequest_default_instance_;
 class SLUResponse;
 class SLUResponseDefaultTypeInternal;
 extern SLUResponseDefaultTypeInternal _SLUResponse_default_instance_;
+class SLUSegmentEnd;
+class SLUSegmentEndDefaultTypeInternal;
+extern SLUSegmentEndDefaultTypeInternal _SLUSegmentEnd_default_instance_;
 class SLUStarted;
 class SLUStartedDefaultTypeInternal;
 extern SLUStartedDefaultTypeInternal _SLUStarted_default_instance_;
-class SegmentEndEvent;
-class SegmentEndEventDefaultTypeInternal;
-extern SegmentEndEventDefaultTypeInternal _SegmentEndEvent_default_instance_;
-class TentativeEntitiesEvent;
-class TentativeEntitiesEventDefaultTypeInternal;
-extern TentativeEntitiesEventDefaultTypeInternal _TentativeEntitiesEvent_default_instance_;
-class TentativeTranscriptEvent;
-class TentativeTranscriptEventDefaultTypeInternal;
-extern TentativeTranscriptEventDefaultTypeInternal _TentativeTranscriptEvent_default_instance_;
-class TranscriptEvent;
-class TranscriptEventDefaultTypeInternal;
-extern TranscriptEventDefaultTypeInternal _TranscriptEvent_default_instance_;
+class SLUTentativeEntities;
+class SLUTentativeEntitiesDefaultTypeInternal;
+extern SLUTentativeEntitiesDefaultTypeInternal _SLUTentativeEntities_default_instance_;
+class SLUTentativeTranscript;
+class SLUTentativeTranscriptDefaultTypeInternal;
+extern SLUTentativeTranscriptDefaultTypeInternal _SLUTentativeTranscript_default_instance_;
+class SLUTranscript;
+class SLUTranscriptDefaultTypeInternal;
+extern SLUTranscriptDefaultTypeInternal _SLUTranscript_default_instance_;
+class WLUEntity;
+class WLUEntityDefaultTypeInternal;
+extern WLUEntityDefaultTypeInternal _WLUEntity_default_instance_;
+class WLUIntent;
+class WLUIntentDefaultTypeInternal;
+extern WLUIntentDefaultTypeInternal _WLUIntent_default_instance_;
 class WLURequest;
 class WLURequestDefaultTypeInternal;
 extern WLURequestDefaultTypeInternal _WLURequest_default_instance_;
 class WLUResponse;
 class WLUResponseDefaultTypeInternal;
 extern WLUResponseDefaultTypeInternal _WLUResponse_default_instance_;
+class WLUSegment;
+class WLUSegmentDefaultTypeInternal;
+extern WLUSegmentDefaultTypeInternal _WLUSegment_default_instance_;
+class WLUToken;
+class WLUTokenDefaultTypeInternal;
+extern WLUTokenDefaultTypeInternal _WLUToken_default_instance_;
 }  // namespace v1
 PROTOBUF_NAMESPACE_OPEN
-template<> ::v1::EntityEvent* Arena::CreateMaybeMessage<::v1::EntityEvent>(Arena*);
-template<> ::v1::IntentEvent* Arena::CreateMaybeMessage<::v1::IntentEvent>(Arena*);
 template<> ::v1::LoginRequest* Arena::CreateMaybeMessage<::v1::LoginRequest>(Arena*);
 template<> ::v1::LoginResponse* Arena::CreateMaybeMessage<::v1::LoginResponse>(Arena*);
 template<> ::v1::SLUConfig* Arena::CreateMaybeMessage<::v1::SLUConfig>(Arena*);
+template<> ::v1::SLUEntity* Arena::CreateMaybeMessage<::v1::SLUEntity>(Arena*);
 template<> ::v1::SLUError* Arena::CreateMaybeMessage<::v1::SLUError>(Arena*);
 template<> ::v1::SLUEvent* Arena::CreateMaybeMessage<::v1::SLUEvent>(Arena*);
 template<> ::v1::SLUFinished* Arena::CreateMaybeMessage<::v1::SLUFinished>(Arena*);
+template<> ::v1::SLUIntent* Arena::CreateMaybeMessage<::v1::SLUIntent>(Arena*);
 template<> ::v1::SLURequest* Arena::CreateMaybeMessage<::v1::SLURequest>(Arena*);
 template<> ::v1::SLUResponse* Arena::CreateMaybeMessage<::v1::SLUResponse>(Arena*);
+template<> ::v1::SLUSegmentEnd* Arena::CreateMaybeMessage<::v1::SLUSegmentEnd>(Arena*);
 template<> ::v1::SLUStarted* Arena::CreateMaybeMessage<::v1::SLUStarted>(Arena*);
-template<> ::v1::SegmentEndEvent* Arena::CreateMaybeMessage<::v1::SegmentEndEvent>(Arena*);
-template<> ::v1::TentativeEntitiesEvent* Arena::CreateMaybeMessage<::v1::TentativeEntitiesEvent>(Arena*);
-template<> ::v1::TentativeTranscriptEvent* Arena::CreateMaybeMessage<::v1::TentativeTranscriptEvent>(Arena*);
-template<> ::v1::TranscriptEvent* Arena::CreateMaybeMessage<::v1::TranscriptEvent>(Arena*);
+template<> ::v1::SLUTentativeEntities* Arena::CreateMaybeMessage<::v1::SLUTentativeEntities>(Arena*);
+template<> ::v1::SLUTentativeTranscript* Arena::CreateMaybeMessage<::v1::SLUTentativeTranscript>(Arena*);
+template<> ::v1::SLUTranscript* Arena::CreateMaybeMessage<::v1::SLUTranscript>(Arena*);
+template<> ::v1::WLUEntity* Arena::CreateMaybeMessage<::v1::WLUEntity>(Arena*);
+template<> ::v1::WLUIntent* Arena::CreateMaybeMessage<::v1::WLUIntent>(Arena*);
 template<> ::v1::WLURequest* Arena::CreateMaybeMessage<::v1::WLURequest>(Arena*);
 template<> ::v1::WLUResponse* Arena::CreateMaybeMessage<::v1::WLUResponse>(Arena*);
+template<> ::v1::WLUSegment* Arena::CreateMaybeMessage<::v1::WLUSegment>(Arena*);
+template<> ::v1::WLUToken* Arena::CreateMaybeMessage<::v1::WLUToken>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace v1 {
 
@@ -729,15 +745,15 @@ class SLUResponse :
   static const SLUResponse& default_instance();
 
   enum StreamingResponseCase {
-    kTranscript = 1,
-    kEntity = 2,
-    kIntent = 3,
-    kSegmentEnd = 4,
-    kTentativeTranscript = 5,
-    kTentativeEntities = 6,
-    kTentativeIntent = 7,
-    kStarted = 8,
-    kFinished = 9,
+    kTranscript = 3,
+    kEntity = 4,
+    kIntent = 5,
+    kSegmentEnd = 6,
+    kTentativeTranscript = 7,
+    kTentativeEntities = 8,
+    kTentativeIntent = 9,
+    kStarted = 10,
+    kFinished = 11,
     STREAMING_RESPONSE_NOT_SET = 0,
   };
 
@@ -814,82 +830,100 @@ class SLUResponse :
 
   // accessors -------------------------------------------------------
 
-  // .v1.TranscriptEvent transcript = 1;
+  // string audio_context = 1;
+  void clear_audio_context();
+  static const int kAudioContextFieldNumber = 1;
+  const std::string& audio_context() const;
+  void set_audio_context(const std::string& value);
+  void set_audio_context(std::string&& value);
+  void set_audio_context(const char* value);
+  void set_audio_context(const char* value, size_t size);
+  std::string* mutable_audio_context();
+  std::string* release_audio_context();
+  void set_allocated_audio_context(std::string* audio_context);
+
+  // int32 segment_id = 2;
+  void clear_segment_id();
+  static const int kSegmentIdFieldNumber = 2;
+  ::PROTOBUF_NAMESPACE_ID::int32 segment_id() const;
+  void set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // .v1.SLUTranscript transcript = 3;
   bool has_transcript() const;
   void clear_transcript();
-  static const int kTranscriptFieldNumber = 1;
-  const ::v1::TranscriptEvent& transcript() const;
-  ::v1::TranscriptEvent* release_transcript();
-  ::v1::TranscriptEvent* mutable_transcript();
-  void set_allocated_transcript(::v1::TranscriptEvent* transcript);
+  static const int kTranscriptFieldNumber = 3;
+  const ::v1::SLUTranscript& transcript() const;
+  ::v1::SLUTranscript* release_transcript();
+  ::v1::SLUTranscript* mutable_transcript();
+  void set_allocated_transcript(::v1::SLUTranscript* transcript);
 
-  // .v1.EntityEvent entity = 2;
+  // .v1.SLUEntity entity = 4;
   bool has_entity() const;
   void clear_entity();
-  static const int kEntityFieldNumber = 2;
-  const ::v1::EntityEvent& entity() const;
-  ::v1::EntityEvent* release_entity();
-  ::v1::EntityEvent* mutable_entity();
-  void set_allocated_entity(::v1::EntityEvent* entity);
+  static const int kEntityFieldNumber = 4;
+  const ::v1::SLUEntity& entity() const;
+  ::v1::SLUEntity* release_entity();
+  ::v1::SLUEntity* mutable_entity();
+  void set_allocated_entity(::v1::SLUEntity* entity);
 
-  // .v1.IntentEvent intent = 3;
+  // .v1.SLUIntent intent = 5;
   bool has_intent() const;
   void clear_intent();
-  static const int kIntentFieldNumber = 3;
-  const ::v1::IntentEvent& intent() const;
-  ::v1::IntentEvent* release_intent();
-  ::v1::IntentEvent* mutable_intent();
-  void set_allocated_intent(::v1::IntentEvent* intent);
+  static const int kIntentFieldNumber = 5;
+  const ::v1::SLUIntent& intent() const;
+  ::v1::SLUIntent* release_intent();
+  ::v1::SLUIntent* mutable_intent();
+  void set_allocated_intent(::v1::SLUIntent* intent);
 
-  // .v1.SegmentEndEvent segment_end = 4;
+  // .v1.SLUSegmentEnd segment_end = 6;
   bool has_segment_end() const;
   void clear_segment_end();
-  static const int kSegmentEndFieldNumber = 4;
-  const ::v1::SegmentEndEvent& segment_end() const;
-  ::v1::SegmentEndEvent* release_segment_end();
-  ::v1::SegmentEndEvent* mutable_segment_end();
-  void set_allocated_segment_end(::v1::SegmentEndEvent* segment_end);
+  static const int kSegmentEndFieldNumber = 6;
+  const ::v1::SLUSegmentEnd& segment_end() const;
+  ::v1::SLUSegmentEnd* release_segment_end();
+  ::v1::SLUSegmentEnd* mutable_segment_end();
+  void set_allocated_segment_end(::v1::SLUSegmentEnd* segment_end);
 
-  // .v1.TentativeTranscriptEvent tentative_transcript = 5;
+  // .v1.SLUTentativeTranscript tentative_transcript = 7;
   bool has_tentative_transcript() const;
   void clear_tentative_transcript();
-  static const int kTentativeTranscriptFieldNumber = 5;
-  const ::v1::TentativeTranscriptEvent& tentative_transcript() const;
-  ::v1::TentativeTranscriptEvent* release_tentative_transcript();
-  ::v1::TentativeTranscriptEvent* mutable_tentative_transcript();
-  void set_allocated_tentative_transcript(::v1::TentativeTranscriptEvent* tentative_transcript);
+  static const int kTentativeTranscriptFieldNumber = 7;
+  const ::v1::SLUTentativeTranscript& tentative_transcript() const;
+  ::v1::SLUTentativeTranscript* release_tentative_transcript();
+  ::v1::SLUTentativeTranscript* mutable_tentative_transcript();
+  void set_allocated_tentative_transcript(::v1::SLUTentativeTranscript* tentative_transcript);
 
-  // .v1.TentativeEntitiesEvent tentative_entities = 6;
+  // .v1.SLUTentativeEntities tentative_entities = 8;
   bool has_tentative_entities() const;
   void clear_tentative_entities();
-  static const int kTentativeEntitiesFieldNumber = 6;
-  const ::v1::TentativeEntitiesEvent& tentative_entities() const;
-  ::v1::TentativeEntitiesEvent* release_tentative_entities();
-  ::v1::TentativeEntitiesEvent* mutable_tentative_entities();
-  void set_allocated_tentative_entities(::v1::TentativeEntitiesEvent* tentative_entities);
+  static const int kTentativeEntitiesFieldNumber = 8;
+  const ::v1::SLUTentativeEntities& tentative_entities() const;
+  ::v1::SLUTentativeEntities* release_tentative_entities();
+  ::v1::SLUTentativeEntities* mutable_tentative_entities();
+  void set_allocated_tentative_entities(::v1::SLUTentativeEntities* tentative_entities);
 
-  // .v1.IntentEvent tentative_intent = 7;
+  // .v1.SLUIntent tentative_intent = 9;
   bool has_tentative_intent() const;
   void clear_tentative_intent();
-  static const int kTentativeIntentFieldNumber = 7;
-  const ::v1::IntentEvent& tentative_intent() const;
-  ::v1::IntentEvent* release_tentative_intent();
-  ::v1::IntentEvent* mutable_tentative_intent();
-  void set_allocated_tentative_intent(::v1::IntentEvent* tentative_intent);
+  static const int kTentativeIntentFieldNumber = 9;
+  const ::v1::SLUIntent& tentative_intent() const;
+  ::v1::SLUIntent* release_tentative_intent();
+  ::v1::SLUIntent* mutable_tentative_intent();
+  void set_allocated_tentative_intent(::v1::SLUIntent* tentative_intent);
 
-  // .v1.SLUStarted started = 8;
+  // .v1.SLUStarted started = 10;
   bool has_started() const;
   void clear_started();
-  static const int kStartedFieldNumber = 8;
+  static const int kStartedFieldNumber = 10;
   const ::v1::SLUStarted& started() const;
   ::v1::SLUStarted* release_started();
   ::v1::SLUStarted* mutable_started();
   void set_allocated_started(::v1::SLUStarted* started);
 
-  // .v1.SLUFinished finished = 9;
+  // .v1.SLUFinished finished = 11;
   bool has_finished() const;
   void clear_finished();
-  static const int kFinishedFieldNumber = 9;
+  static const int kFinishedFieldNumber = 11;
   const ::v1::SLUFinished& finished() const;
   ::v1::SLUFinished* release_finished();
   ::v1::SLUFinished* mutable_finished();
@@ -914,15 +948,17 @@ class SLUResponse :
   inline void clear_has_streaming_response();
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr audio_context_;
+  ::PROTOBUF_NAMESPACE_ID::int32 segment_id_;
   union StreamingResponseUnion {
     StreamingResponseUnion() {}
-    ::v1::TranscriptEvent* transcript_;
-    ::v1::EntityEvent* entity_;
-    ::v1::IntentEvent* intent_;
-    ::v1::SegmentEndEvent* segment_end_;
-    ::v1::TentativeTranscriptEvent* tentative_transcript_;
-    ::v1::TentativeEntitiesEvent* tentative_entities_;
-    ::v1::IntentEvent* tentative_intent_;
+    ::v1::SLUTranscript* transcript_;
+    ::v1::SLUEntity* entity_;
+    ::v1::SLUIntent* intent_;
+    ::v1::SLUSegmentEnd* segment_end_;
+    ::v1::SLUTentativeTranscript* tentative_transcript_;
+    ::v1::SLUTentativeEntities* tentative_entities_;
+    ::v1::SLUIntent* tentative_intent_;
     ::v1::SLUStarted* started_;
     ::v1::SLUFinished* finished_;
   } streaming_response_;
@@ -933,23 +969,23 @@ class SLUResponse :
 };
 // -------------------------------------------------------------------
 
-class TentativeTranscriptEvent :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.TentativeTranscriptEvent) */ {
+class SLUTentativeTranscript :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.SLUTentativeTranscript) */ {
  public:
-  TentativeTranscriptEvent();
-  virtual ~TentativeTranscriptEvent();
+  SLUTentativeTranscript();
+  virtual ~SLUTentativeTranscript();
 
-  TentativeTranscriptEvent(const TentativeTranscriptEvent& from);
-  TentativeTranscriptEvent(TentativeTranscriptEvent&& from) noexcept
-    : TentativeTranscriptEvent() {
+  SLUTentativeTranscript(const SLUTentativeTranscript& from);
+  SLUTentativeTranscript(SLUTentativeTranscript&& from) noexcept
+    : SLUTentativeTranscript() {
     *this = ::std::move(from);
   }
 
-  inline TentativeTranscriptEvent& operator=(const TentativeTranscriptEvent& from) {
+  inline SLUTentativeTranscript& operator=(const SLUTentativeTranscript& from) {
     CopyFrom(from);
     return *this;
   }
-  inline TentativeTranscriptEvent& operator=(TentativeTranscriptEvent&& from) noexcept {
+  inline SLUTentativeTranscript& operator=(SLUTentativeTranscript&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -967,34 +1003,34 @@ class TentativeTranscriptEvent :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const TentativeTranscriptEvent& default_instance();
+  static const SLUTentativeTranscript& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const TentativeTranscriptEvent* internal_default_instance() {
-    return reinterpret_cast<const TentativeTranscriptEvent*>(
-               &_TentativeTranscriptEvent_default_instance_);
+  static inline const SLUTentativeTranscript* internal_default_instance() {
+    return reinterpret_cast<const SLUTentativeTranscript*>(
+               &_SLUTentativeTranscript_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     4;
 
-  void Swap(TentativeTranscriptEvent* other);
-  friend void swap(TentativeTranscriptEvent& a, TentativeTranscriptEvent& b) {
+  void Swap(SLUTentativeTranscript* other);
+  friend void swap(SLUTentativeTranscript& a, SLUTentativeTranscript& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline TentativeTranscriptEvent* New() const final {
-    return CreateMaybeMessage<TentativeTranscriptEvent>(nullptr);
+  inline SLUTentativeTranscript* New() const final {
+    return CreateMaybeMessage<SLUTentativeTranscript>(nullptr);
   }
 
-  TentativeTranscriptEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<TentativeTranscriptEvent>(arena);
+  SLUTentativeTranscript* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SLUTentativeTranscript>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const TentativeTranscriptEvent& from);
-  void MergeFrom(const TentativeTranscriptEvent& from);
+  void CopyFrom(const SLUTentativeTranscript& from);
+  void MergeFrom(const SLUTentativeTranscript& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1015,10 +1051,10 @@ class TentativeTranscriptEvent :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(TentativeTranscriptEvent* other);
+  void InternalSwap(SLUTentativeTranscript* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "v1.TentativeTranscriptEvent";
+    return "v1.SLUTentativeTranscript";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1042,16 +1078,16 @@ class TentativeTranscriptEvent :
 
   // accessors -------------------------------------------------------
 
-  // repeated .v1.TranscriptEvent tentative_words = 2;
+  // repeated .v1.SLUTranscript tentative_words = 2;
   int tentative_words_size() const;
   void clear_tentative_words();
   static const int kTentativeWordsFieldNumber = 2;
-  ::v1::TranscriptEvent* mutable_tentative_words(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::TranscriptEvent >*
+  ::v1::SLUTranscript* mutable_tentative_words(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUTranscript >*
       mutable_tentative_words();
-  const ::v1::TranscriptEvent& tentative_words(int index) const;
-  ::v1::TranscriptEvent* add_tentative_words();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::TranscriptEvent >&
+  const ::v1::SLUTranscript& tentative_words(int index) const;
+  ::v1::SLUTranscript* add_tentative_words();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUTranscript >&
       tentative_words() const;
 
   // string tentative_transcript = 1;
@@ -1066,35 +1102,35 @@ class TentativeTranscriptEvent :
   std::string* release_tentative_transcript();
   void set_allocated_tentative_transcript(std::string* tentative_transcript);
 
-  // @@protoc_insertion_point(class_scope:v1.TentativeTranscriptEvent)
+  // @@protoc_insertion_point(class_scope:v1.SLUTentativeTranscript)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::TranscriptEvent > tentative_words_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUTranscript > tentative_words_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tentative_transcript_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_speechly_2eproto;
 };
 // -------------------------------------------------------------------
 
-class TranscriptEvent :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.TranscriptEvent) */ {
+class SLUTranscript :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.SLUTranscript) */ {
  public:
-  TranscriptEvent();
-  virtual ~TranscriptEvent();
+  SLUTranscript();
+  virtual ~SLUTranscript();
 
-  TranscriptEvent(const TranscriptEvent& from);
-  TranscriptEvent(TranscriptEvent&& from) noexcept
-    : TranscriptEvent() {
+  SLUTranscript(const SLUTranscript& from);
+  SLUTranscript(SLUTranscript&& from) noexcept
+    : SLUTranscript() {
     *this = ::std::move(from);
   }
 
-  inline TranscriptEvent& operator=(const TranscriptEvent& from) {
+  inline SLUTranscript& operator=(const SLUTranscript& from) {
     CopyFrom(from);
     return *this;
   }
-  inline TranscriptEvent& operator=(TranscriptEvent&& from) noexcept {
+  inline SLUTranscript& operator=(SLUTranscript&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1112,34 +1148,34 @@ class TranscriptEvent :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const TranscriptEvent& default_instance();
+  static const SLUTranscript& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const TranscriptEvent* internal_default_instance() {
-    return reinterpret_cast<const TranscriptEvent*>(
-               &_TranscriptEvent_default_instance_);
+  static inline const SLUTranscript* internal_default_instance() {
+    return reinterpret_cast<const SLUTranscript*>(
+               &_SLUTranscript_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     5;
 
-  void Swap(TranscriptEvent* other);
-  friend void swap(TranscriptEvent& a, TranscriptEvent& b) {
+  void Swap(SLUTranscript* other);
+  friend void swap(SLUTranscript& a, SLUTranscript& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline TranscriptEvent* New() const final {
-    return CreateMaybeMessage<TranscriptEvent>(nullptr);
+  inline SLUTranscript* New() const final {
+    return CreateMaybeMessage<SLUTranscript>(nullptr);
   }
 
-  TranscriptEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<TranscriptEvent>(arena);
+  SLUTranscript* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SLUTranscript>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const TranscriptEvent& from);
-  void MergeFrom(const TranscriptEvent& from);
+  void CopyFrom(const SLUTranscript& from);
+  void MergeFrom(const SLUTranscript& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1160,10 +1196,10 @@ class TranscriptEvent :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(TranscriptEvent* other);
+  void InternalSwap(SLUTranscript* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "v1.TranscriptEvent";
+    return "v1.SLUTranscript";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1187,21 +1223,9 @@ class TranscriptEvent :
 
   // accessors -------------------------------------------------------
 
-  // string audio_context = 1;
-  void clear_audio_context();
-  static const int kAudioContextFieldNumber = 1;
-  const std::string& audio_context() const;
-  void set_audio_context(const std::string& value);
-  void set_audio_context(std::string&& value);
-  void set_audio_context(const char* value);
-  void set_audio_context(const char* value, size_t size);
-  std::string* mutable_audio_context();
-  std::string* release_audio_context();
-  void set_allocated_audio_context(std::string* audio_context);
-
-  // string word = 3;
+  // string word = 1;
   void clear_word();
-  static const int kWordFieldNumber = 3;
+  static const int kWordFieldNumber = 1;
   const std::string& word() const;
   void set_word(const std::string& value);
   void set_word(std::string&& value);
@@ -1211,38 +1235,30 @@ class TranscriptEvent :
   std::string* release_word();
   void set_allocated_word(std::string* word);
 
-  // int32 segment_id = 2;
-  void clear_segment_id();
-  static const int kSegmentIdFieldNumber = 2;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id() const;
-  void set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value);
-
-  // int32 index = 4;
+  // int32 index = 2;
   void clear_index();
-  static const int kIndexFieldNumber = 4;
+  static const int kIndexFieldNumber = 2;
   ::PROTOBUF_NAMESPACE_ID::int32 index() const;
   void set_index(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // int32 start_time = 5;
+  // int32 start_time = 3;
   void clear_start_time();
-  static const int kStartTimeFieldNumber = 5;
+  static const int kStartTimeFieldNumber = 3;
   ::PROTOBUF_NAMESPACE_ID::int32 start_time() const;
   void set_start_time(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // int32 end_time = 6;
+  // int32 end_time = 4;
   void clear_end_time();
-  static const int kEndTimeFieldNumber = 6;
+  static const int kEndTimeFieldNumber = 4;
   ::PROTOBUF_NAMESPACE_ID::int32 end_time() const;
   void set_end_time(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // @@protoc_insertion_point(class_scope:v1.TranscriptEvent)
+  // @@protoc_insertion_point(class_scope:v1.SLUTranscript)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr audio_context_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr word_;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id_;
   ::PROTOBUF_NAMESPACE_ID::int32 index_;
   ::PROTOBUF_NAMESPACE_ID::int32 start_time_;
   ::PROTOBUF_NAMESPACE_ID::int32 end_time_;
@@ -1251,23 +1267,23 @@ class TranscriptEvent :
 };
 // -------------------------------------------------------------------
 
-class TentativeEntitiesEvent :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.TentativeEntitiesEvent) */ {
+class SLUTentativeEntities :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.SLUTentativeEntities) */ {
  public:
-  TentativeEntitiesEvent();
-  virtual ~TentativeEntitiesEvent();
+  SLUTentativeEntities();
+  virtual ~SLUTentativeEntities();
 
-  TentativeEntitiesEvent(const TentativeEntitiesEvent& from);
-  TentativeEntitiesEvent(TentativeEntitiesEvent&& from) noexcept
-    : TentativeEntitiesEvent() {
+  SLUTentativeEntities(const SLUTentativeEntities& from);
+  SLUTentativeEntities(SLUTentativeEntities&& from) noexcept
+    : SLUTentativeEntities() {
     *this = ::std::move(from);
   }
 
-  inline TentativeEntitiesEvent& operator=(const TentativeEntitiesEvent& from) {
+  inline SLUTentativeEntities& operator=(const SLUTentativeEntities& from) {
     CopyFrom(from);
     return *this;
   }
-  inline TentativeEntitiesEvent& operator=(TentativeEntitiesEvent&& from) noexcept {
+  inline SLUTentativeEntities& operator=(SLUTentativeEntities&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1285,34 +1301,34 @@ class TentativeEntitiesEvent :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const TentativeEntitiesEvent& default_instance();
+  static const SLUTentativeEntities& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const TentativeEntitiesEvent* internal_default_instance() {
-    return reinterpret_cast<const TentativeEntitiesEvent*>(
-               &_TentativeEntitiesEvent_default_instance_);
+  static inline const SLUTentativeEntities* internal_default_instance() {
+    return reinterpret_cast<const SLUTentativeEntities*>(
+               &_SLUTentativeEntities_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     6;
 
-  void Swap(TentativeEntitiesEvent* other);
-  friend void swap(TentativeEntitiesEvent& a, TentativeEntitiesEvent& b) {
+  void Swap(SLUTentativeEntities* other);
+  friend void swap(SLUTentativeEntities& a, SLUTentativeEntities& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline TentativeEntitiesEvent* New() const final {
-    return CreateMaybeMessage<TentativeEntitiesEvent>(nullptr);
+  inline SLUTentativeEntities* New() const final {
+    return CreateMaybeMessage<SLUTentativeEntities>(nullptr);
   }
 
-  TentativeEntitiesEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<TentativeEntitiesEvent>(arena);
+  SLUTentativeEntities* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SLUTentativeEntities>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const TentativeEntitiesEvent& from);
-  void MergeFrom(const TentativeEntitiesEvent& from);
+  void CopyFrom(const SLUTentativeEntities& from);
+  void MergeFrom(const SLUTentativeEntities& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1333,10 +1349,10 @@ class TentativeEntitiesEvent :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(TentativeEntitiesEvent* other);
+  void InternalSwap(SLUTentativeEntities* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "v1.TentativeEntitiesEvent";
+    return "v1.SLUTentativeEntities";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1360,46 +1376,46 @@ class TentativeEntitiesEvent :
 
   // accessors -------------------------------------------------------
 
-  // repeated .v1.EntityEvent tentative_entities = 1;
+  // repeated .v1.SLUEntity tentative_entities = 1;
   int tentative_entities_size() const;
   void clear_tentative_entities();
   static const int kTentativeEntitiesFieldNumber = 1;
-  ::v1::EntityEvent* mutable_tentative_entities(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::EntityEvent >*
+  ::v1::SLUEntity* mutable_tentative_entities(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUEntity >*
       mutable_tentative_entities();
-  const ::v1::EntityEvent& tentative_entities(int index) const;
-  ::v1::EntityEvent* add_tentative_entities();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::EntityEvent >&
+  const ::v1::SLUEntity& tentative_entities(int index) const;
+  ::v1::SLUEntity* add_tentative_entities();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUEntity >&
       tentative_entities() const;
 
-  // @@protoc_insertion_point(class_scope:v1.TentativeEntitiesEvent)
+  // @@protoc_insertion_point(class_scope:v1.SLUTentativeEntities)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::EntityEvent > tentative_entities_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUEntity > tentative_entities_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_speechly_2eproto;
 };
 // -------------------------------------------------------------------
 
-class EntityEvent :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.EntityEvent) */ {
+class SLUEntity :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.SLUEntity) */ {
  public:
-  EntityEvent();
-  virtual ~EntityEvent();
+  SLUEntity();
+  virtual ~SLUEntity();
 
-  EntityEvent(const EntityEvent& from);
-  EntityEvent(EntityEvent&& from) noexcept
-    : EntityEvent() {
+  SLUEntity(const SLUEntity& from);
+  SLUEntity(SLUEntity&& from) noexcept
+    : SLUEntity() {
     *this = ::std::move(from);
   }
 
-  inline EntityEvent& operator=(const EntityEvent& from) {
+  inline SLUEntity& operator=(const SLUEntity& from) {
     CopyFrom(from);
     return *this;
   }
-  inline EntityEvent& operator=(EntityEvent&& from) noexcept {
+  inline SLUEntity& operator=(SLUEntity&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1417,34 +1433,34 @@ class EntityEvent :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const EntityEvent& default_instance();
+  static const SLUEntity& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const EntityEvent* internal_default_instance() {
-    return reinterpret_cast<const EntityEvent*>(
-               &_EntityEvent_default_instance_);
+  static inline const SLUEntity* internal_default_instance() {
+    return reinterpret_cast<const SLUEntity*>(
+               &_SLUEntity_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     7;
 
-  void Swap(EntityEvent* other);
-  friend void swap(EntityEvent& a, EntityEvent& b) {
+  void Swap(SLUEntity* other);
+  friend void swap(SLUEntity& a, SLUEntity& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline EntityEvent* New() const final {
-    return CreateMaybeMessage<EntityEvent>(nullptr);
+  inline SLUEntity* New() const final {
+    return CreateMaybeMessage<SLUEntity>(nullptr);
   }
 
-  EntityEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<EntityEvent>(arena);
+  SLUEntity* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SLUEntity>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const EntityEvent& from);
-  void MergeFrom(const EntityEvent& from);
+  void CopyFrom(const SLUEntity& from);
+  void MergeFrom(const SLUEntity& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1465,10 +1481,10 @@ class EntityEvent :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(EntityEvent* other);
+  void InternalSwap(SLUEntity* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "v1.EntityEvent";
+    return "v1.SLUEntity";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1492,21 +1508,9 @@ class EntityEvent :
 
   // accessors -------------------------------------------------------
 
-  // string audio_context = 1;
-  void clear_audio_context();
-  static const int kAudioContextFieldNumber = 1;
-  const std::string& audio_context() const;
-  void set_audio_context(const std::string& value);
-  void set_audio_context(std::string&& value);
-  void set_audio_context(const char* value);
-  void set_audio_context(const char* value, size_t size);
-  std::string* mutable_audio_context();
-  std::string* release_audio_context();
-  void set_allocated_audio_context(std::string* audio_context);
-
-  // string entity = 3;
+  // string entity = 1;
   void clear_entity();
-  static const int kEntityFieldNumber = 3;
+  static const int kEntityFieldNumber = 1;
   const std::string& entity() const;
   void set_entity(const std::string& value);
   void set_entity(std::string&& value);
@@ -1516,9 +1520,9 @@ class EntityEvent :
   std::string* release_entity();
   void set_allocated_entity(std::string* entity);
 
-  // string value = 4;
+  // string value = 2;
   void clear_value();
-  static const int kValueFieldNumber = 4;
+  static const int kValueFieldNumber = 2;
   const std::string& value() const;
   void set_value(const std::string& value);
   void set_value(std::string&& value);
@@ -1528,33 +1532,25 @@ class EntityEvent :
   std::string* release_value();
   void set_allocated_value(std::string* value);
 
-  // int32 segment_id = 2;
-  void clear_segment_id();
-  static const int kSegmentIdFieldNumber = 2;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id() const;
-  void set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value);
-
-  // int32 start_position = 5;
+  // int32 start_position = 3;
   void clear_start_position();
-  static const int kStartPositionFieldNumber = 5;
+  static const int kStartPositionFieldNumber = 3;
   ::PROTOBUF_NAMESPACE_ID::int32 start_position() const;
   void set_start_position(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // int32 end_position = 6;
+  // int32 end_position = 4;
   void clear_end_position();
-  static const int kEndPositionFieldNumber = 6;
+  static const int kEndPositionFieldNumber = 4;
   ::PROTOBUF_NAMESPACE_ID::int32 end_position() const;
   void set_end_position(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // @@protoc_insertion_point(class_scope:v1.EntityEvent)
+  // @@protoc_insertion_point(class_scope:v1.SLUEntity)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr audio_context_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr entity_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id_;
   ::PROTOBUF_NAMESPACE_ID::int32 start_position_;
   ::PROTOBUF_NAMESPACE_ID::int32 end_position_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -1562,23 +1558,23 @@ class EntityEvent :
 };
 // -------------------------------------------------------------------
 
-class IntentEvent :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.IntentEvent) */ {
+class SLUIntent :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.SLUIntent) */ {
  public:
-  IntentEvent();
-  virtual ~IntentEvent();
+  SLUIntent();
+  virtual ~SLUIntent();
 
-  IntentEvent(const IntentEvent& from);
-  IntentEvent(IntentEvent&& from) noexcept
-    : IntentEvent() {
+  SLUIntent(const SLUIntent& from);
+  SLUIntent(SLUIntent&& from) noexcept
+    : SLUIntent() {
     *this = ::std::move(from);
   }
 
-  inline IntentEvent& operator=(const IntentEvent& from) {
+  inline SLUIntent& operator=(const SLUIntent& from) {
     CopyFrom(from);
     return *this;
   }
-  inline IntentEvent& operator=(IntentEvent&& from) noexcept {
+  inline SLUIntent& operator=(SLUIntent&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1596,34 +1592,34 @@ class IntentEvent :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const IntentEvent& default_instance();
+  static const SLUIntent& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const IntentEvent* internal_default_instance() {
-    return reinterpret_cast<const IntentEvent*>(
-               &_IntentEvent_default_instance_);
+  static inline const SLUIntent* internal_default_instance() {
+    return reinterpret_cast<const SLUIntent*>(
+               &_SLUIntent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     8;
 
-  void Swap(IntentEvent* other);
-  friend void swap(IntentEvent& a, IntentEvent& b) {
+  void Swap(SLUIntent* other);
+  friend void swap(SLUIntent& a, SLUIntent& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline IntentEvent* New() const final {
-    return CreateMaybeMessage<IntentEvent>(nullptr);
+  inline SLUIntent* New() const final {
+    return CreateMaybeMessage<SLUIntent>(nullptr);
   }
 
-  IntentEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<IntentEvent>(arena);
+  SLUIntent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SLUIntent>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const IntentEvent& from);
-  void MergeFrom(const IntentEvent& from);
+  void CopyFrom(const SLUIntent& from);
+  void MergeFrom(const SLUIntent& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1644,10 +1640,10 @@ class IntentEvent :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(IntentEvent* other);
+  void InternalSwap(SLUIntent* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "v1.IntentEvent";
+    return "v1.SLUIntent";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1671,21 +1667,9 @@ class IntentEvent :
 
   // accessors -------------------------------------------------------
 
-  // string audio_context = 1;
-  void clear_audio_context();
-  static const int kAudioContextFieldNumber = 1;
-  const std::string& audio_context() const;
-  void set_audio_context(const std::string& value);
-  void set_audio_context(std::string&& value);
-  void set_audio_context(const char* value);
-  void set_audio_context(const char* value, size_t size);
-  std::string* mutable_audio_context();
-  std::string* release_audio_context();
-  void set_allocated_audio_context(std::string* audio_context);
-
-  // string intent = 3;
+  // string intent = 1;
   void clear_intent();
-  static const int kIntentFieldNumber = 3;
+  static const int kIntentFieldNumber = 1;
   const std::string& intent() const;
   void set_intent(const std::string& value);
   void set_intent(std::string&& value);
@@ -1695,42 +1679,34 @@ class IntentEvent :
   std::string* release_intent();
   void set_allocated_intent(std::string* intent);
 
-  // int32 segment_id = 2;
-  void clear_segment_id();
-  static const int kSegmentIdFieldNumber = 2;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id() const;
-  void set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value);
-
-  // @@protoc_insertion_point(class_scope:v1.IntentEvent)
+  // @@protoc_insertion_point(class_scope:v1.SLUIntent)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr audio_context_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr intent_;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_speechly_2eproto;
 };
 // -------------------------------------------------------------------
 
-class SegmentEndEvent :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.SegmentEndEvent) */ {
+class SLUSegmentEnd :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.SLUSegmentEnd) */ {
  public:
-  SegmentEndEvent();
-  virtual ~SegmentEndEvent();
+  SLUSegmentEnd();
+  virtual ~SLUSegmentEnd();
 
-  SegmentEndEvent(const SegmentEndEvent& from);
-  SegmentEndEvent(SegmentEndEvent&& from) noexcept
-    : SegmentEndEvent() {
+  SLUSegmentEnd(const SLUSegmentEnd& from);
+  SLUSegmentEnd(SLUSegmentEnd&& from) noexcept
+    : SLUSegmentEnd() {
     *this = ::std::move(from);
   }
 
-  inline SegmentEndEvent& operator=(const SegmentEndEvent& from) {
+  inline SLUSegmentEnd& operator=(const SLUSegmentEnd& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SegmentEndEvent& operator=(SegmentEndEvent&& from) noexcept {
+  inline SLUSegmentEnd& operator=(SLUSegmentEnd&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1748,34 +1724,34 @@ class SegmentEndEvent :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const SegmentEndEvent& default_instance();
+  static const SLUSegmentEnd& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SegmentEndEvent* internal_default_instance() {
-    return reinterpret_cast<const SegmentEndEvent*>(
-               &_SegmentEndEvent_default_instance_);
+  static inline const SLUSegmentEnd* internal_default_instance() {
+    return reinterpret_cast<const SLUSegmentEnd*>(
+               &_SLUSegmentEnd_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     9;
 
-  void Swap(SegmentEndEvent* other);
-  friend void swap(SegmentEndEvent& a, SegmentEndEvent& b) {
+  void Swap(SLUSegmentEnd* other);
+  friend void swap(SLUSegmentEnd& a, SLUSegmentEnd& b) {
     a.Swap(&b);
   }
 
   // implements Message ----------------------------------------------
 
-  inline SegmentEndEvent* New() const final {
-    return CreateMaybeMessage<SegmentEndEvent>(nullptr);
+  inline SLUSegmentEnd* New() const final {
+    return CreateMaybeMessage<SLUSegmentEnd>(nullptr);
   }
 
-  SegmentEndEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<SegmentEndEvent>(arena);
+  SLUSegmentEnd* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SLUSegmentEnd>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const SegmentEndEvent& from);
-  void MergeFrom(const SegmentEndEvent& from);
+  void CopyFrom(const SLUSegmentEnd& from);
+  void MergeFrom(const SLUSegmentEnd& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1796,10 +1772,10 @@ class SegmentEndEvent :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SegmentEndEvent* other);
+  void InternalSwap(SLUSegmentEnd* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "v1.SegmentEndEvent";
+    return "v1.SLUSegmentEnd";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1823,31 +1799,11 @@ class SegmentEndEvent :
 
   // accessors -------------------------------------------------------
 
-  // string audio_context = 1;
-  void clear_audio_context();
-  static const int kAudioContextFieldNumber = 1;
-  const std::string& audio_context() const;
-  void set_audio_context(const std::string& value);
-  void set_audio_context(std::string&& value);
-  void set_audio_context(const char* value);
-  void set_audio_context(const char* value, size_t size);
-  std::string* mutable_audio_context();
-  std::string* release_audio_context();
-  void set_allocated_audio_context(std::string* audio_context);
-
-  // int32 segment_id = 2;
-  void clear_segment_id();
-  static const int kSegmentIdFieldNumber = 2;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id() const;
-  void set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value);
-
-  // @@protoc_insertion_point(class_scope:v1.SegmentEndEvent)
+  // @@protoc_insertion_point(class_scope:v1.SLUSegmentEnd)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr audio_context_;
-  ::PROTOBUF_NAMESPACE_ID::int32 segment_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_speechly_2eproto;
 };
@@ -1962,24 +1918,11 @@ class SLUStarted :
 
   // accessors -------------------------------------------------------
 
-  // string audio_context = 1;
-  void clear_audio_context();
-  static const int kAudioContextFieldNumber = 1;
-  const std::string& audio_context() const;
-  void set_audio_context(const std::string& value);
-  void set_audio_context(std::string&& value);
-  void set_audio_context(const char* value);
-  void set_audio_context(const char* value, size_t size);
-  std::string* mutable_audio_context();
-  std::string* release_audio_context();
-  void set_allocated_audio_context(std::string* audio_context);
-
   // @@protoc_insertion_point(class_scope:v1.SLUStarted)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr audio_context_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_speechly_2eproto;
 };
@@ -2094,18 +2037,6 @@ class SLUFinished :
 
   // accessors -------------------------------------------------------
 
-  // string audio_context = 1;
-  void clear_audio_context();
-  static const int kAudioContextFieldNumber = 1;
-  const std::string& audio_context() const;
-  void set_audio_context(const std::string& value);
-  void set_audio_context(std::string&& value);
-  void set_audio_context(const char* value);
-  void set_audio_context(const char* value, size_t size);
-  std::string* mutable_audio_context();
-  std::string* release_audio_context();
-  void set_allocated_audio_context(std::string* audio_context);
-
   // .v1.SLUError error = 2;
   bool has_error() const;
   void clear_error();
@@ -2120,7 +2051,6 @@ class SLUFinished :
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr audio_context_;
   ::v1::SLUError* error_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_speechly_2eproto;
@@ -2526,24 +2456,622 @@ class WLUResponse :
 
   // accessors -------------------------------------------------------
 
-  // repeated .v1.SLUResponse responses = 1;
-  int responses_size() const;
-  void clear_responses();
-  static const int kResponsesFieldNumber = 1;
-  ::v1::SLUResponse* mutable_responses(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUResponse >*
-      mutable_responses();
-  const ::v1::SLUResponse& responses(int index) const;
-  ::v1::SLUResponse* add_responses();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUResponse >&
-      responses() const;
+  // repeated .v1.WLUSegment segments = 1;
+  int segments_size() const;
+  void clear_segments();
+  static const int kSegmentsFieldNumber = 1;
+  ::v1::WLUSegment* mutable_segments(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUSegment >*
+      mutable_segments();
+  const ::v1::WLUSegment& segments(int index) const;
+  ::v1::WLUSegment* add_segments();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUSegment >&
+      segments() const;
 
   // @@protoc_insertion_point(class_scope:v1.WLUResponse)
  private:
   class HasBitSetters;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUResponse > responses_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUSegment > segments_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_speechly_2eproto;
+};
+// -------------------------------------------------------------------
+
+class WLUSegment :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.WLUSegment) */ {
+ public:
+  WLUSegment();
+  virtual ~WLUSegment();
+
+  WLUSegment(const WLUSegment& from);
+  WLUSegment(WLUSegment&& from) noexcept
+    : WLUSegment() {
+    *this = ::std::move(from);
+  }
+
+  inline WLUSegment& operator=(const WLUSegment& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WLUSegment& operator=(WLUSegment&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const WLUSegment& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const WLUSegment* internal_default_instance() {
+    return reinterpret_cast<const WLUSegment*>(
+               &_WLUSegment_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  void Swap(WLUSegment* other);
+  friend void swap(WLUSegment& a, WLUSegment& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline WLUSegment* New() const final {
+    return CreateMaybeMessage<WLUSegment>(nullptr);
+  }
+
+  WLUSegment* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<WLUSegment>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const WLUSegment& from);
+  void MergeFrom(const WLUSegment& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(WLUSegment* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "v1.WLUSegment";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_speechly_2eproto);
+    return ::descriptor_table_speechly_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .v1.WLUToken tokens = 2;
+  int tokens_size() const;
+  void clear_tokens();
+  static const int kTokensFieldNumber = 2;
+  ::v1::WLUToken* mutable_tokens(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUToken >*
+      mutable_tokens();
+  const ::v1::WLUToken& tokens(int index) const;
+  ::v1::WLUToken* add_tokens();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUToken >&
+      tokens() const;
+
+  // repeated .v1.WLUEntity entities = 3;
+  int entities_size() const;
+  void clear_entities();
+  static const int kEntitiesFieldNumber = 3;
+  ::v1::WLUEntity* mutable_entities(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUEntity >*
+      mutable_entities();
+  const ::v1::WLUEntity& entities(int index) const;
+  ::v1::WLUEntity* add_entities();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUEntity >&
+      entities() const;
+
+  // string text = 1;
+  void clear_text();
+  static const int kTextFieldNumber = 1;
+  const std::string& text() const;
+  void set_text(const std::string& value);
+  void set_text(std::string&& value);
+  void set_text(const char* value);
+  void set_text(const char* value, size_t size);
+  std::string* mutable_text();
+  std::string* release_text();
+  void set_allocated_text(std::string* text);
+
+  // .v1.WLUIntent intent = 4;
+  bool has_intent() const;
+  void clear_intent();
+  static const int kIntentFieldNumber = 4;
+  const ::v1::WLUIntent& intent() const;
+  ::v1::WLUIntent* release_intent();
+  ::v1::WLUIntent* mutable_intent();
+  void set_allocated_intent(::v1::WLUIntent* intent);
+
+  // @@protoc_insertion_point(class_scope:v1.WLUSegment)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUToken > tokens_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUEntity > entities_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
+  ::v1::WLUIntent* intent_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_speechly_2eproto;
+};
+// -------------------------------------------------------------------
+
+class WLUToken :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.WLUToken) */ {
+ public:
+  WLUToken();
+  virtual ~WLUToken();
+
+  WLUToken(const WLUToken& from);
+  WLUToken(WLUToken&& from) noexcept
+    : WLUToken() {
+    *this = ::std::move(from);
+  }
+
+  inline WLUToken& operator=(const WLUToken& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WLUToken& operator=(WLUToken&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const WLUToken& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const WLUToken* internal_default_instance() {
+    return reinterpret_cast<const WLUToken*>(
+               &_WLUToken_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  void Swap(WLUToken* other);
+  friend void swap(WLUToken& a, WLUToken& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline WLUToken* New() const final {
+    return CreateMaybeMessage<WLUToken>(nullptr);
+  }
+
+  WLUToken* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<WLUToken>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const WLUToken& from);
+  void MergeFrom(const WLUToken& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(WLUToken* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "v1.WLUToken";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_speechly_2eproto);
+    return ::descriptor_table_speechly_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string word = 1;
+  void clear_word();
+  static const int kWordFieldNumber = 1;
+  const std::string& word() const;
+  void set_word(const std::string& value);
+  void set_word(std::string&& value);
+  void set_word(const char* value);
+  void set_word(const char* value, size_t size);
+  std::string* mutable_word();
+  std::string* release_word();
+  void set_allocated_word(std::string* word);
+
+  // int32 index = 2;
+  void clear_index();
+  static const int kIndexFieldNumber = 2;
+  ::PROTOBUF_NAMESPACE_ID::int32 index() const;
+  void set_index(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // @@protoc_insertion_point(class_scope:v1.WLUToken)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr word_;
+  ::PROTOBUF_NAMESPACE_ID::int32 index_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_speechly_2eproto;
+};
+// -------------------------------------------------------------------
+
+class WLUEntity :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.WLUEntity) */ {
+ public:
+  WLUEntity();
+  virtual ~WLUEntity();
+
+  WLUEntity(const WLUEntity& from);
+  WLUEntity(WLUEntity&& from) noexcept
+    : WLUEntity() {
+    *this = ::std::move(from);
+  }
+
+  inline WLUEntity& operator=(const WLUEntity& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WLUEntity& operator=(WLUEntity&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const WLUEntity& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const WLUEntity* internal_default_instance() {
+    return reinterpret_cast<const WLUEntity*>(
+               &_WLUEntity_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  void Swap(WLUEntity* other);
+  friend void swap(WLUEntity& a, WLUEntity& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline WLUEntity* New() const final {
+    return CreateMaybeMessage<WLUEntity>(nullptr);
+  }
+
+  WLUEntity* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<WLUEntity>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const WLUEntity& from);
+  void MergeFrom(const WLUEntity& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(WLUEntity* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "v1.WLUEntity";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_speechly_2eproto);
+    return ::descriptor_table_speechly_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string entity = 1;
+  void clear_entity();
+  static const int kEntityFieldNumber = 1;
+  const std::string& entity() const;
+  void set_entity(const std::string& value);
+  void set_entity(std::string&& value);
+  void set_entity(const char* value);
+  void set_entity(const char* value, size_t size);
+  std::string* mutable_entity();
+  std::string* release_entity();
+  void set_allocated_entity(std::string* entity);
+
+  // string value = 2;
+  void clear_value();
+  static const int kValueFieldNumber = 2;
+  const std::string& value() const;
+  void set_value(const std::string& value);
+  void set_value(std::string&& value);
+  void set_value(const char* value);
+  void set_value(const char* value, size_t size);
+  std::string* mutable_value();
+  std::string* release_value();
+  void set_allocated_value(std::string* value);
+
+  // int32 start_position = 3;
+  void clear_start_position();
+  static const int kStartPositionFieldNumber = 3;
+  ::PROTOBUF_NAMESPACE_ID::int32 start_position() const;
+  void set_start_position(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 end_position = 4;
+  void clear_end_position();
+  static const int kEndPositionFieldNumber = 4;
+  ::PROTOBUF_NAMESPACE_ID::int32 end_position() const;
+  void set_end_position(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // @@protoc_insertion_point(class_scope:v1.WLUEntity)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr entity_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
+  ::PROTOBUF_NAMESPACE_ID::int32 start_position_;
+  ::PROTOBUF_NAMESPACE_ID::int32 end_position_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_speechly_2eproto;
+};
+// -------------------------------------------------------------------
+
+class WLUIntent :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:v1.WLUIntent) */ {
+ public:
+  WLUIntent();
+  virtual ~WLUIntent();
+
+  WLUIntent(const WLUIntent& from);
+  WLUIntent(WLUIntent&& from) noexcept
+    : WLUIntent() {
+    *this = ::std::move(from);
+  }
+
+  inline WLUIntent& operator=(const WLUIntent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WLUIntent& operator=(WLUIntent&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const WLUIntent& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const WLUIntent* internal_default_instance() {
+    return reinterpret_cast<const WLUIntent*>(
+               &_WLUIntent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  void Swap(WLUIntent* other);
+  friend void swap(WLUIntent& a, WLUIntent& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline WLUIntent* New() const final {
+    return CreateMaybeMessage<WLUIntent>(nullptr);
+  }
+
+  WLUIntent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<WLUIntent>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const WLUIntent& from);
+  void MergeFrom(const WLUIntent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(WLUIntent* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "v1.WLUIntent";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_speechly_2eproto);
+    return ::descriptor_table_speechly_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string intent = 1;
+  void clear_intent();
+  static const int kIntentFieldNumber = 1;
+  const std::string& intent() const;
+  void set_intent(const std::string& value);
+  void set_intent(std::string&& value);
+  void set_intent(const char* value);
+  void set_intent(const char* value, size_t size);
+  std::string* mutable_intent();
+  std::string* release_intent();
+  void set_allocated_intent(std::string* intent);
+
+  // @@protoc_insertion_point(class_scope:v1.WLUIntent)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr intent_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_speechly_2eproto;
 };
@@ -2591,7 +3119,7 @@ class LoginRequest :
                &_LoginRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    19;
 
   void Swap(LoginRequest* other);
   friend void swap(LoginRequest& a, LoginRequest& b) {
@@ -2736,7 +3264,7 @@ class LoginResponse :
                &_LoginResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    20;
 
   void Swap(LoginResponse* other);
   friend void swap(LoginResponse& a, LoginResponse& b) {
@@ -3135,7 +3663,72 @@ inline void SLUEvent::set_event(::v1::SLUEvent_Event value) {
 
 // SLUResponse
 
-// .v1.TranscriptEvent transcript = 1;
+// string audio_context = 1;
+inline void SLUResponse::clear_audio_context() {
+  audio_context_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SLUResponse::audio_context() const {
+  // @@protoc_insertion_point(field_get:v1.SLUResponse.audio_context)
+  return audio_context_.GetNoArena();
+}
+inline void SLUResponse::set_audio_context(const std::string& value) {
+  
+  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:v1.SLUResponse.audio_context)
+}
+inline void SLUResponse::set_audio_context(std::string&& value) {
+  
+  audio_context_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:v1.SLUResponse.audio_context)
+}
+inline void SLUResponse::set_audio_context(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:v1.SLUResponse.audio_context)
+}
+inline void SLUResponse::set_audio_context(const char* value, size_t size) {
+  
+  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:v1.SLUResponse.audio_context)
+}
+inline std::string* SLUResponse::mutable_audio_context() {
+  
+  // @@protoc_insertion_point(field_mutable:v1.SLUResponse.audio_context)
+  return audio_context_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SLUResponse::release_audio_context() {
+  // @@protoc_insertion_point(field_release:v1.SLUResponse.audio_context)
+  
+  return audio_context_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SLUResponse::set_allocated_audio_context(std::string* audio_context) {
+  if (audio_context != nullptr) {
+    
+  } else {
+    
+  }
+  audio_context_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), audio_context);
+  // @@protoc_insertion_point(field_set_allocated:v1.SLUResponse.audio_context)
+}
+
+// int32 segment_id = 2;
+inline void SLUResponse::clear_segment_id() {
+  segment_id_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 SLUResponse::segment_id() const {
+  // @@protoc_insertion_point(field_get:v1.SLUResponse.segment_id)
+  return segment_id_;
+}
+inline void SLUResponse::set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  segment_id_ = value;
+  // @@protoc_insertion_point(field_set:v1.SLUResponse.segment_id)
+}
+
+// .v1.SLUTranscript transcript = 3;
 inline bool SLUResponse::has_transcript() const {
   return streaming_response_case() == kTranscript;
 }
@@ -3148,35 +3741,35 @@ inline void SLUResponse::clear_transcript() {
     clear_has_streaming_response();
   }
 }
-inline ::v1::TranscriptEvent* SLUResponse::release_transcript() {
+inline ::v1::SLUTranscript* SLUResponse::release_transcript() {
   // @@protoc_insertion_point(field_release:v1.SLUResponse.transcript)
   if (has_transcript()) {
     clear_has_streaming_response();
-      ::v1::TranscriptEvent* temp = streaming_response_.transcript_;
+      ::v1::SLUTranscript* temp = streaming_response_.transcript_;
     streaming_response_.transcript_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::v1::TranscriptEvent& SLUResponse::transcript() const {
+inline const ::v1::SLUTranscript& SLUResponse::transcript() const {
   // @@protoc_insertion_point(field_get:v1.SLUResponse.transcript)
   return has_transcript()
       ? *streaming_response_.transcript_
-      : *reinterpret_cast< ::v1::TranscriptEvent*>(&::v1::_TranscriptEvent_default_instance_);
+      : *reinterpret_cast< ::v1::SLUTranscript*>(&::v1::_SLUTranscript_default_instance_);
 }
-inline ::v1::TranscriptEvent* SLUResponse::mutable_transcript() {
+inline ::v1::SLUTranscript* SLUResponse::mutable_transcript() {
   if (!has_transcript()) {
     clear_streaming_response();
     set_has_transcript();
-    streaming_response_.transcript_ = CreateMaybeMessage< ::v1::TranscriptEvent >(
+    streaming_response_.transcript_ = CreateMaybeMessage< ::v1::SLUTranscript >(
         GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:v1.SLUResponse.transcript)
   return streaming_response_.transcript_;
 }
 
-// .v1.EntityEvent entity = 2;
+// .v1.SLUEntity entity = 4;
 inline bool SLUResponse::has_entity() const {
   return streaming_response_case() == kEntity;
 }
@@ -3189,35 +3782,35 @@ inline void SLUResponse::clear_entity() {
     clear_has_streaming_response();
   }
 }
-inline ::v1::EntityEvent* SLUResponse::release_entity() {
+inline ::v1::SLUEntity* SLUResponse::release_entity() {
   // @@protoc_insertion_point(field_release:v1.SLUResponse.entity)
   if (has_entity()) {
     clear_has_streaming_response();
-      ::v1::EntityEvent* temp = streaming_response_.entity_;
+      ::v1::SLUEntity* temp = streaming_response_.entity_;
     streaming_response_.entity_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::v1::EntityEvent& SLUResponse::entity() const {
+inline const ::v1::SLUEntity& SLUResponse::entity() const {
   // @@protoc_insertion_point(field_get:v1.SLUResponse.entity)
   return has_entity()
       ? *streaming_response_.entity_
-      : *reinterpret_cast< ::v1::EntityEvent*>(&::v1::_EntityEvent_default_instance_);
+      : *reinterpret_cast< ::v1::SLUEntity*>(&::v1::_SLUEntity_default_instance_);
 }
-inline ::v1::EntityEvent* SLUResponse::mutable_entity() {
+inline ::v1::SLUEntity* SLUResponse::mutable_entity() {
   if (!has_entity()) {
     clear_streaming_response();
     set_has_entity();
-    streaming_response_.entity_ = CreateMaybeMessage< ::v1::EntityEvent >(
+    streaming_response_.entity_ = CreateMaybeMessage< ::v1::SLUEntity >(
         GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:v1.SLUResponse.entity)
   return streaming_response_.entity_;
 }
 
-// .v1.IntentEvent intent = 3;
+// .v1.SLUIntent intent = 5;
 inline bool SLUResponse::has_intent() const {
   return streaming_response_case() == kIntent;
 }
@@ -3230,35 +3823,35 @@ inline void SLUResponse::clear_intent() {
     clear_has_streaming_response();
   }
 }
-inline ::v1::IntentEvent* SLUResponse::release_intent() {
+inline ::v1::SLUIntent* SLUResponse::release_intent() {
   // @@protoc_insertion_point(field_release:v1.SLUResponse.intent)
   if (has_intent()) {
     clear_has_streaming_response();
-      ::v1::IntentEvent* temp = streaming_response_.intent_;
+      ::v1::SLUIntent* temp = streaming_response_.intent_;
     streaming_response_.intent_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::v1::IntentEvent& SLUResponse::intent() const {
+inline const ::v1::SLUIntent& SLUResponse::intent() const {
   // @@protoc_insertion_point(field_get:v1.SLUResponse.intent)
   return has_intent()
       ? *streaming_response_.intent_
-      : *reinterpret_cast< ::v1::IntentEvent*>(&::v1::_IntentEvent_default_instance_);
+      : *reinterpret_cast< ::v1::SLUIntent*>(&::v1::_SLUIntent_default_instance_);
 }
-inline ::v1::IntentEvent* SLUResponse::mutable_intent() {
+inline ::v1::SLUIntent* SLUResponse::mutable_intent() {
   if (!has_intent()) {
     clear_streaming_response();
     set_has_intent();
-    streaming_response_.intent_ = CreateMaybeMessage< ::v1::IntentEvent >(
+    streaming_response_.intent_ = CreateMaybeMessage< ::v1::SLUIntent >(
         GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:v1.SLUResponse.intent)
   return streaming_response_.intent_;
 }
 
-// .v1.SegmentEndEvent segment_end = 4;
+// .v1.SLUSegmentEnd segment_end = 6;
 inline bool SLUResponse::has_segment_end() const {
   return streaming_response_case() == kSegmentEnd;
 }
@@ -3271,35 +3864,35 @@ inline void SLUResponse::clear_segment_end() {
     clear_has_streaming_response();
   }
 }
-inline ::v1::SegmentEndEvent* SLUResponse::release_segment_end() {
+inline ::v1::SLUSegmentEnd* SLUResponse::release_segment_end() {
   // @@protoc_insertion_point(field_release:v1.SLUResponse.segment_end)
   if (has_segment_end()) {
     clear_has_streaming_response();
-      ::v1::SegmentEndEvent* temp = streaming_response_.segment_end_;
+      ::v1::SLUSegmentEnd* temp = streaming_response_.segment_end_;
     streaming_response_.segment_end_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::v1::SegmentEndEvent& SLUResponse::segment_end() const {
+inline const ::v1::SLUSegmentEnd& SLUResponse::segment_end() const {
   // @@protoc_insertion_point(field_get:v1.SLUResponse.segment_end)
   return has_segment_end()
       ? *streaming_response_.segment_end_
-      : *reinterpret_cast< ::v1::SegmentEndEvent*>(&::v1::_SegmentEndEvent_default_instance_);
+      : *reinterpret_cast< ::v1::SLUSegmentEnd*>(&::v1::_SLUSegmentEnd_default_instance_);
 }
-inline ::v1::SegmentEndEvent* SLUResponse::mutable_segment_end() {
+inline ::v1::SLUSegmentEnd* SLUResponse::mutable_segment_end() {
   if (!has_segment_end()) {
     clear_streaming_response();
     set_has_segment_end();
-    streaming_response_.segment_end_ = CreateMaybeMessage< ::v1::SegmentEndEvent >(
+    streaming_response_.segment_end_ = CreateMaybeMessage< ::v1::SLUSegmentEnd >(
         GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:v1.SLUResponse.segment_end)
   return streaming_response_.segment_end_;
 }
 
-// .v1.TentativeTranscriptEvent tentative_transcript = 5;
+// .v1.SLUTentativeTranscript tentative_transcript = 7;
 inline bool SLUResponse::has_tentative_transcript() const {
   return streaming_response_case() == kTentativeTranscript;
 }
@@ -3312,35 +3905,35 @@ inline void SLUResponse::clear_tentative_transcript() {
     clear_has_streaming_response();
   }
 }
-inline ::v1::TentativeTranscriptEvent* SLUResponse::release_tentative_transcript() {
+inline ::v1::SLUTentativeTranscript* SLUResponse::release_tentative_transcript() {
   // @@protoc_insertion_point(field_release:v1.SLUResponse.tentative_transcript)
   if (has_tentative_transcript()) {
     clear_has_streaming_response();
-      ::v1::TentativeTranscriptEvent* temp = streaming_response_.tentative_transcript_;
+      ::v1::SLUTentativeTranscript* temp = streaming_response_.tentative_transcript_;
     streaming_response_.tentative_transcript_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::v1::TentativeTranscriptEvent& SLUResponse::tentative_transcript() const {
+inline const ::v1::SLUTentativeTranscript& SLUResponse::tentative_transcript() const {
   // @@protoc_insertion_point(field_get:v1.SLUResponse.tentative_transcript)
   return has_tentative_transcript()
       ? *streaming_response_.tentative_transcript_
-      : *reinterpret_cast< ::v1::TentativeTranscriptEvent*>(&::v1::_TentativeTranscriptEvent_default_instance_);
+      : *reinterpret_cast< ::v1::SLUTentativeTranscript*>(&::v1::_SLUTentativeTranscript_default_instance_);
 }
-inline ::v1::TentativeTranscriptEvent* SLUResponse::mutable_tentative_transcript() {
+inline ::v1::SLUTentativeTranscript* SLUResponse::mutable_tentative_transcript() {
   if (!has_tentative_transcript()) {
     clear_streaming_response();
     set_has_tentative_transcript();
-    streaming_response_.tentative_transcript_ = CreateMaybeMessage< ::v1::TentativeTranscriptEvent >(
+    streaming_response_.tentative_transcript_ = CreateMaybeMessage< ::v1::SLUTentativeTranscript >(
         GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:v1.SLUResponse.tentative_transcript)
   return streaming_response_.tentative_transcript_;
 }
 
-// .v1.TentativeEntitiesEvent tentative_entities = 6;
+// .v1.SLUTentativeEntities tentative_entities = 8;
 inline bool SLUResponse::has_tentative_entities() const {
   return streaming_response_case() == kTentativeEntities;
 }
@@ -3353,35 +3946,35 @@ inline void SLUResponse::clear_tentative_entities() {
     clear_has_streaming_response();
   }
 }
-inline ::v1::TentativeEntitiesEvent* SLUResponse::release_tentative_entities() {
+inline ::v1::SLUTentativeEntities* SLUResponse::release_tentative_entities() {
   // @@protoc_insertion_point(field_release:v1.SLUResponse.tentative_entities)
   if (has_tentative_entities()) {
     clear_has_streaming_response();
-      ::v1::TentativeEntitiesEvent* temp = streaming_response_.tentative_entities_;
+      ::v1::SLUTentativeEntities* temp = streaming_response_.tentative_entities_;
     streaming_response_.tentative_entities_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::v1::TentativeEntitiesEvent& SLUResponse::tentative_entities() const {
+inline const ::v1::SLUTentativeEntities& SLUResponse::tentative_entities() const {
   // @@protoc_insertion_point(field_get:v1.SLUResponse.tentative_entities)
   return has_tentative_entities()
       ? *streaming_response_.tentative_entities_
-      : *reinterpret_cast< ::v1::TentativeEntitiesEvent*>(&::v1::_TentativeEntitiesEvent_default_instance_);
+      : *reinterpret_cast< ::v1::SLUTentativeEntities*>(&::v1::_SLUTentativeEntities_default_instance_);
 }
-inline ::v1::TentativeEntitiesEvent* SLUResponse::mutable_tentative_entities() {
+inline ::v1::SLUTentativeEntities* SLUResponse::mutable_tentative_entities() {
   if (!has_tentative_entities()) {
     clear_streaming_response();
     set_has_tentative_entities();
-    streaming_response_.tentative_entities_ = CreateMaybeMessage< ::v1::TentativeEntitiesEvent >(
+    streaming_response_.tentative_entities_ = CreateMaybeMessage< ::v1::SLUTentativeEntities >(
         GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:v1.SLUResponse.tentative_entities)
   return streaming_response_.tentative_entities_;
 }
 
-// .v1.IntentEvent tentative_intent = 7;
+// .v1.SLUIntent tentative_intent = 9;
 inline bool SLUResponse::has_tentative_intent() const {
   return streaming_response_case() == kTentativeIntent;
 }
@@ -3394,35 +3987,35 @@ inline void SLUResponse::clear_tentative_intent() {
     clear_has_streaming_response();
   }
 }
-inline ::v1::IntentEvent* SLUResponse::release_tentative_intent() {
+inline ::v1::SLUIntent* SLUResponse::release_tentative_intent() {
   // @@protoc_insertion_point(field_release:v1.SLUResponse.tentative_intent)
   if (has_tentative_intent()) {
     clear_has_streaming_response();
-      ::v1::IntentEvent* temp = streaming_response_.tentative_intent_;
+      ::v1::SLUIntent* temp = streaming_response_.tentative_intent_;
     streaming_response_.tentative_intent_ = nullptr;
     return temp;
   } else {
     return nullptr;
   }
 }
-inline const ::v1::IntentEvent& SLUResponse::tentative_intent() const {
+inline const ::v1::SLUIntent& SLUResponse::tentative_intent() const {
   // @@protoc_insertion_point(field_get:v1.SLUResponse.tentative_intent)
   return has_tentative_intent()
       ? *streaming_response_.tentative_intent_
-      : *reinterpret_cast< ::v1::IntentEvent*>(&::v1::_IntentEvent_default_instance_);
+      : *reinterpret_cast< ::v1::SLUIntent*>(&::v1::_SLUIntent_default_instance_);
 }
-inline ::v1::IntentEvent* SLUResponse::mutable_tentative_intent() {
+inline ::v1::SLUIntent* SLUResponse::mutable_tentative_intent() {
   if (!has_tentative_intent()) {
     clear_streaming_response();
     set_has_tentative_intent();
-    streaming_response_.tentative_intent_ = CreateMaybeMessage< ::v1::IntentEvent >(
+    streaming_response_.tentative_intent_ = CreateMaybeMessage< ::v1::SLUIntent >(
         GetArenaNoVirtual());
   }
   // @@protoc_insertion_point(field_mutable:v1.SLUResponse.tentative_intent)
   return streaming_response_.tentative_intent_;
 }
 
-// .v1.SLUStarted started = 8;
+// .v1.SLUStarted started = 10;
 inline bool SLUResponse::has_started() const {
   return streaming_response_case() == kStarted;
 }
@@ -3463,7 +4056,7 @@ inline ::v1::SLUStarted* SLUResponse::mutable_started() {
   return streaming_response_.started_;
 }
 
-// .v1.SLUFinished finished = 9;
+// .v1.SLUFinished finished = 11;
 inline bool SLUResponse::has_finished() const {
   return streaming_response_case() == kFinished;
 }
@@ -3515,782 +4108,420 @@ inline SLUResponse::StreamingResponseCase SLUResponse::streaming_response_case()
 }
 // -------------------------------------------------------------------
 
-// TentativeTranscriptEvent
+// SLUTentativeTranscript
 
 // string tentative_transcript = 1;
-inline void TentativeTranscriptEvent::clear_tentative_transcript() {
+inline void SLUTentativeTranscript::clear_tentative_transcript() {
   tentative_transcript_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& TentativeTranscriptEvent::tentative_transcript() const {
-  // @@protoc_insertion_point(field_get:v1.TentativeTranscriptEvent.tentative_transcript)
+inline const std::string& SLUTentativeTranscript::tentative_transcript() const {
+  // @@protoc_insertion_point(field_get:v1.SLUTentativeTranscript.tentative_transcript)
   return tentative_transcript_.GetNoArena();
 }
-inline void TentativeTranscriptEvent::set_tentative_transcript(const std::string& value) {
+inline void SLUTentativeTranscript::set_tentative_transcript(const std::string& value) {
   
   tentative_transcript_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.TentativeTranscriptEvent.tentative_transcript)
+  // @@protoc_insertion_point(field_set:v1.SLUTentativeTranscript.tentative_transcript)
 }
-inline void TentativeTranscriptEvent::set_tentative_transcript(std::string&& value) {
+inline void SLUTentativeTranscript::set_tentative_transcript(std::string&& value) {
   
   tentative_transcript_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.TentativeTranscriptEvent.tentative_transcript)
+  // @@protoc_insertion_point(field_set_rvalue:v1.SLUTentativeTranscript.tentative_transcript)
 }
-inline void TentativeTranscriptEvent::set_tentative_transcript(const char* value) {
+inline void SLUTentativeTranscript::set_tentative_transcript(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   tentative_transcript_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.TentativeTranscriptEvent.tentative_transcript)
+  // @@protoc_insertion_point(field_set_char:v1.SLUTentativeTranscript.tentative_transcript)
 }
-inline void TentativeTranscriptEvent::set_tentative_transcript(const char* value, size_t size) {
+inline void SLUTentativeTranscript::set_tentative_transcript(const char* value, size_t size) {
   
   tentative_transcript_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.TentativeTranscriptEvent.tentative_transcript)
+  // @@protoc_insertion_point(field_set_pointer:v1.SLUTentativeTranscript.tentative_transcript)
 }
-inline std::string* TentativeTranscriptEvent::mutable_tentative_transcript() {
+inline std::string* SLUTentativeTranscript::mutable_tentative_transcript() {
   
-  // @@protoc_insertion_point(field_mutable:v1.TentativeTranscriptEvent.tentative_transcript)
+  // @@protoc_insertion_point(field_mutable:v1.SLUTentativeTranscript.tentative_transcript)
   return tentative_transcript_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* TentativeTranscriptEvent::release_tentative_transcript() {
-  // @@protoc_insertion_point(field_release:v1.TentativeTranscriptEvent.tentative_transcript)
+inline std::string* SLUTentativeTranscript::release_tentative_transcript() {
+  // @@protoc_insertion_point(field_release:v1.SLUTentativeTranscript.tentative_transcript)
   
   return tentative_transcript_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void TentativeTranscriptEvent::set_allocated_tentative_transcript(std::string* tentative_transcript) {
+inline void SLUTentativeTranscript::set_allocated_tentative_transcript(std::string* tentative_transcript) {
   if (tentative_transcript != nullptr) {
     
   } else {
     
   }
   tentative_transcript_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), tentative_transcript);
-  // @@protoc_insertion_point(field_set_allocated:v1.TentativeTranscriptEvent.tentative_transcript)
+  // @@protoc_insertion_point(field_set_allocated:v1.SLUTentativeTranscript.tentative_transcript)
 }
 
-// repeated .v1.TranscriptEvent tentative_words = 2;
-inline int TentativeTranscriptEvent::tentative_words_size() const {
+// repeated .v1.SLUTranscript tentative_words = 2;
+inline int SLUTentativeTranscript::tentative_words_size() const {
   return tentative_words_.size();
 }
-inline void TentativeTranscriptEvent::clear_tentative_words() {
+inline void SLUTentativeTranscript::clear_tentative_words() {
   tentative_words_.Clear();
 }
-inline ::v1::TranscriptEvent* TentativeTranscriptEvent::mutable_tentative_words(int index) {
-  // @@protoc_insertion_point(field_mutable:v1.TentativeTranscriptEvent.tentative_words)
+inline ::v1::SLUTranscript* SLUTentativeTranscript::mutable_tentative_words(int index) {
+  // @@protoc_insertion_point(field_mutable:v1.SLUTentativeTranscript.tentative_words)
   return tentative_words_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::TranscriptEvent >*
-TentativeTranscriptEvent::mutable_tentative_words() {
-  // @@protoc_insertion_point(field_mutable_list:v1.TentativeTranscriptEvent.tentative_words)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUTranscript >*
+SLUTentativeTranscript::mutable_tentative_words() {
+  // @@protoc_insertion_point(field_mutable_list:v1.SLUTentativeTranscript.tentative_words)
   return &tentative_words_;
 }
-inline const ::v1::TranscriptEvent& TentativeTranscriptEvent::tentative_words(int index) const {
-  // @@protoc_insertion_point(field_get:v1.TentativeTranscriptEvent.tentative_words)
+inline const ::v1::SLUTranscript& SLUTentativeTranscript::tentative_words(int index) const {
+  // @@protoc_insertion_point(field_get:v1.SLUTentativeTranscript.tentative_words)
   return tentative_words_.Get(index);
 }
-inline ::v1::TranscriptEvent* TentativeTranscriptEvent::add_tentative_words() {
-  // @@protoc_insertion_point(field_add:v1.TentativeTranscriptEvent.tentative_words)
+inline ::v1::SLUTranscript* SLUTentativeTranscript::add_tentative_words() {
+  // @@protoc_insertion_point(field_add:v1.SLUTentativeTranscript.tentative_words)
   return tentative_words_.Add();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::TranscriptEvent >&
-TentativeTranscriptEvent::tentative_words() const {
-  // @@protoc_insertion_point(field_list:v1.TentativeTranscriptEvent.tentative_words)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUTranscript >&
+SLUTentativeTranscript::tentative_words() const {
+  // @@protoc_insertion_point(field_list:v1.SLUTentativeTranscript.tentative_words)
   return tentative_words_;
 }
 
 // -------------------------------------------------------------------
 
-// TranscriptEvent
+// SLUTranscript
 
-// string audio_context = 1;
-inline void TranscriptEvent::clear_audio_context() {
-  audio_context_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& TranscriptEvent::audio_context() const {
-  // @@protoc_insertion_point(field_get:v1.TranscriptEvent.audio_context)
-  return audio_context_.GetNoArena();
-}
-inline void TranscriptEvent::set_audio_context(const std::string& value) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.TranscriptEvent.audio_context)
-}
-inline void TranscriptEvent::set_audio_context(std::string&& value) {
-  
-  audio_context_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.TranscriptEvent.audio_context)
-}
-inline void TranscriptEvent::set_audio_context(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.TranscriptEvent.audio_context)
-}
-inline void TranscriptEvent::set_audio_context(const char* value, size_t size) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.TranscriptEvent.audio_context)
-}
-inline std::string* TranscriptEvent::mutable_audio_context() {
-  
-  // @@protoc_insertion_point(field_mutable:v1.TranscriptEvent.audio_context)
-  return audio_context_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* TranscriptEvent::release_audio_context() {
-  // @@protoc_insertion_point(field_release:v1.TranscriptEvent.audio_context)
-  
-  return audio_context_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void TranscriptEvent::set_allocated_audio_context(std::string* audio_context) {
-  if (audio_context != nullptr) {
-    
-  } else {
-    
-  }
-  audio_context_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), audio_context);
-  // @@protoc_insertion_point(field_set_allocated:v1.TranscriptEvent.audio_context)
-}
-
-// int32 segment_id = 2;
-inline void TranscriptEvent::clear_segment_id() {
-  segment_id_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 TranscriptEvent::segment_id() const {
-  // @@protoc_insertion_point(field_get:v1.TranscriptEvent.segment_id)
-  return segment_id_;
-}
-inline void TranscriptEvent::set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  segment_id_ = value;
-  // @@protoc_insertion_point(field_set:v1.TranscriptEvent.segment_id)
-}
-
-// string word = 3;
-inline void TranscriptEvent::clear_word() {
+// string word = 1;
+inline void SLUTranscript::clear_word() {
   word_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& TranscriptEvent::word() const {
-  // @@protoc_insertion_point(field_get:v1.TranscriptEvent.word)
+inline const std::string& SLUTranscript::word() const {
+  // @@protoc_insertion_point(field_get:v1.SLUTranscript.word)
   return word_.GetNoArena();
 }
-inline void TranscriptEvent::set_word(const std::string& value) {
+inline void SLUTranscript::set_word(const std::string& value) {
   
   word_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.TranscriptEvent.word)
+  // @@protoc_insertion_point(field_set:v1.SLUTranscript.word)
 }
-inline void TranscriptEvent::set_word(std::string&& value) {
+inline void SLUTranscript::set_word(std::string&& value) {
   
   word_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.TranscriptEvent.word)
+  // @@protoc_insertion_point(field_set_rvalue:v1.SLUTranscript.word)
 }
-inline void TranscriptEvent::set_word(const char* value) {
+inline void SLUTranscript::set_word(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   word_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.TranscriptEvent.word)
+  // @@protoc_insertion_point(field_set_char:v1.SLUTranscript.word)
 }
-inline void TranscriptEvent::set_word(const char* value, size_t size) {
+inline void SLUTranscript::set_word(const char* value, size_t size) {
   
   word_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.TranscriptEvent.word)
+  // @@protoc_insertion_point(field_set_pointer:v1.SLUTranscript.word)
 }
-inline std::string* TranscriptEvent::mutable_word() {
+inline std::string* SLUTranscript::mutable_word() {
   
-  // @@protoc_insertion_point(field_mutable:v1.TranscriptEvent.word)
+  // @@protoc_insertion_point(field_mutable:v1.SLUTranscript.word)
   return word_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* TranscriptEvent::release_word() {
-  // @@protoc_insertion_point(field_release:v1.TranscriptEvent.word)
+inline std::string* SLUTranscript::release_word() {
+  // @@protoc_insertion_point(field_release:v1.SLUTranscript.word)
   
   return word_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void TranscriptEvent::set_allocated_word(std::string* word) {
+inline void SLUTranscript::set_allocated_word(std::string* word) {
   if (word != nullptr) {
     
   } else {
     
   }
   word_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), word);
-  // @@protoc_insertion_point(field_set_allocated:v1.TranscriptEvent.word)
+  // @@protoc_insertion_point(field_set_allocated:v1.SLUTranscript.word)
 }
 
-// int32 index = 4;
-inline void TranscriptEvent::clear_index() {
+// int32 index = 2;
+inline void SLUTranscript::clear_index() {
   index_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 TranscriptEvent::index() const {
-  // @@protoc_insertion_point(field_get:v1.TranscriptEvent.index)
+inline ::PROTOBUF_NAMESPACE_ID::int32 SLUTranscript::index() const {
+  // @@protoc_insertion_point(field_get:v1.SLUTranscript.index)
   return index_;
 }
-inline void TranscriptEvent::set_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void SLUTranscript::set_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   index_ = value;
-  // @@protoc_insertion_point(field_set:v1.TranscriptEvent.index)
+  // @@protoc_insertion_point(field_set:v1.SLUTranscript.index)
 }
 
-// int32 start_time = 5;
-inline void TranscriptEvent::clear_start_time() {
+// int32 start_time = 3;
+inline void SLUTranscript::clear_start_time() {
   start_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 TranscriptEvent::start_time() const {
-  // @@protoc_insertion_point(field_get:v1.TranscriptEvent.start_time)
+inline ::PROTOBUF_NAMESPACE_ID::int32 SLUTranscript::start_time() const {
+  // @@protoc_insertion_point(field_get:v1.SLUTranscript.start_time)
   return start_time_;
 }
-inline void TranscriptEvent::set_start_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void SLUTranscript::set_start_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   start_time_ = value;
-  // @@protoc_insertion_point(field_set:v1.TranscriptEvent.start_time)
+  // @@protoc_insertion_point(field_set:v1.SLUTranscript.start_time)
 }
 
-// int32 end_time = 6;
-inline void TranscriptEvent::clear_end_time() {
+// int32 end_time = 4;
+inline void SLUTranscript::clear_end_time() {
   end_time_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 TranscriptEvent::end_time() const {
-  // @@protoc_insertion_point(field_get:v1.TranscriptEvent.end_time)
+inline ::PROTOBUF_NAMESPACE_ID::int32 SLUTranscript::end_time() const {
+  // @@protoc_insertion_point(field_get:v1.SLUTranscript.end_time)
   return end_time_;
 }
-inline void TranscriptEvent::set_end_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void SLUTranscript::set_end_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   end_time_ = value;
-  // @@protoc_insertion_point(field_set:v1.TranscriptEvent.end_time)
+  // @@protoc_insertion_point(field_set:v1.SLUTranscript.end_time)
 }
 
 // -------------------------------------------------------------------
 
-// TentativeEntitiesEvent
+// SLUTentativeEntities
 
-// repeated .v1.EntityEvent tentative_entities = 1;
-inline int TentativeEntitiesEvent::tentative_entities_size() const {
+// repeated .v1.SLUEntity tentative_entities = 1;
+inline int SLUTentativeEntities::tentative_entities_size() const {
   return tentative_entities_.size();
 }
-inline void TentativeEntitiesEvent::clear_tentative_entities() {
+inline void SLUTentativeEntities::clear_tentative_entities() {
   tentative_entities_.Clear();
 }
-inline ::v1::EntityEvent* TentativeEntitiesEvent::mutable_tentative_entities(int index) {
-  // @@protoc_insertion_point(field_mutable:v1.TentativeEntitiesEvent.tentative_entities)
+inline ::v1::SLUEntity* SLUTentativeEntities::mutable_tentative_entities(int index) {
+  // @@protoc_insertion_point(field_mutable:v1.SLUTentativeEntities.tentative_entities)
   return tentative_entities_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::EntityEvent >*
-TentativeEntitiesEvent::mutable_tentative_entities() {
-  // @@protoc_insertion_point(field_mutable_list:v1.TentativeEntitiesEvent.tentative_entities)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUEntity >*
+SLUTentativeEntities::mutable_tentative_entities() {
+  // @@protoc_insertion_point(field_mutable_list:v1.SLUTentativeEntities.tentative_entities)
   return &tentative_entities_;
 }
-inline const ::v1::EntityEvent& TentativeEntitiesEvent::tentative_entities(int index) const {
-  // @@protoc_insertion_point(field_get:v1.TentativeEntitiesEvent.tentative_entities)
+inline const ::v1::SLUEntity& SLUTentativeEntities::tentative_entities(int index) const {
+  // @@protoc_insertion_point(field_get:v1.SLUTentativeEntities.tentative_entities)
   return tentative_entities_.Get(index);
 }
-inline ::v1::EntityEvent* TentativeEntitiesEvent::add_tentative_entities() {
-  // @@protoc_insertion_point(field_add:v1.TentativeEntitiesEvent.tentative_entities)
+inline ::v1::SLUEntity* SLUTentativeEntities::add_tentative_entities() {
+  // @@protoc_insertion_point(field_add:v1.SLUTentativeEntities.tentative_entities)
   return tentative_entities_.Add();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::EntityEvent >&
-TentativeEntitiesEvent::tentative_entities() const {
-  // @@protoc_insertion_point(field_list:v1.TentativeEntitiesEvent.tentative_entities)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUEntity >&
+SLUTentativeEntities::tentative_entities() const {
+  // @@protoc_insertion_point(field_list:v1.SLUTentativeEntities.tentative_entities)
   return tentative_entities_;
 }
 
 // -------------------------------------------------------------------
 
-// EntityEvent
+// SLUEntity
 
-// string audio_context = 1;
-inline void EntityEvent::clear_audio_context() {
-  audio_context_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& EntityEvent::audio_context() const {
-  // @@protoc_insertion_point(field_get:v1.EntityEvent.audio_context)
-  return audio_context_.GetNoArena();
-}
-inline void EntityEvent::set_audio_context(const std::string& value) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.EntityEvent.audio_context)
-}
-inline void EntityEvent::set_audio_context(std::string&& value) {
-  
-  audio_context_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.EntityEvent.audio_context)
-}
-inline void EntityEvent::set_audio_context(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.EntityEvent.audio_context)
-}
-inline void EntityEvent::set_audio_context(const char* value, size_t size) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.EntityEvent.audio_context)
-}
-inline std::string* EntityEvent::mutable_audio_context() {
-  
-  // @@protoc_insertion_point(field_mutable:v1.EntityEvent.audio_context)
-  return audio_context_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* EntityEvent::release_audio_context() {
-  // @@protoc_insertion_point(field_release:v1.EntityEvent.audio_context)
-  
-  return audio_context_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void EntityEvent::set_allocated_audio_context(std::string* audio_context) {
-  if (audio_context != nullptr) {
-    
-  } else {
-    
-  }
-  audio_context_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), audio_context);
-  // @@protoc_insertion_point(field_set_allocated:v1.EntityEvent.audio_context)
-}
-
-// int32 segment_id = 2;
-inline void EntityEvent::clear_segment_id() {
-  segment_id_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 EntityEvent::segment_id() const {
-  // @@protoc_insertion_point(field_get:v1.EntityEvent.segment_id)
-  return segment_id_;
-}
-inline void EntityEvent::set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  segment_id_ = value;
-  // @@protoc_insertion_point(field_set:v1.EntityEvent.segment_id)
-}
-
-// string entity = 3;
-inline void EntityEvent::clear_entity() {
+// string entity = 1;
+inline void SLUEntity::clear_entity() {
   entity_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& EntityEvent::entity() const {
-  // @@protoc_insertion_point(field_get:v1.EntityEvent.entity)
+inline const std::string& SLUEntity::entity() const {
+  // @@protoc_insertion_point(field_get:v1.SLUEntity.entity)
   return entity_.GetNoArena();
 }
-inline void EntityEvent::set_entity(const std::string& value) {
+inline void SLUEntity::set_entity(const std::string& value) {
   
   entity_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.EntityEvent.entity)
+  // @@protoc_insertion_point(field_set:v1.SLUEntity.entity)
 }
-inline void EntityEvent::set_entity(std::string&& value) {
+inline void SLUEntity::set_entity(std::string&& value) {
   
   entity_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.EntityEvent.entity)
+  // @@protoc_insertion_point(field_set_rvalue:v1.SLUEntity.entity)
 }
-inline void EntityEvent::set_entity(const char* value) {
+inline void SLUEntity::set_entity(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   entity_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.EntityEvent.entity)
+  // @@protoc_insertion_point(field_set_char:v1.SLUEntity.entity)
 }
-inline void EntityEvent::set_entity(const char* value, size_t size) {
+inline void SLUEntity::set_entity(const char* value, size_t size) {
   
   entity_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.EntityEvent.entity)
+  // @@protoc_insertion_point(field_set_pointer:v1.SLUEntity.entity)
 }
-inline std::string* EntityEvent::mutable_entity() {
+inline std::string* SLUEntity::mutable_entity() {
   
-  // @@protoc_insertion_point(field_mutable:v1.EntityEvent.entity)
+  // @@protoc_insertion_point(field_mutable:v1.SLUEntity.entity)
   return entity_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* EntityEvent::release_entity() {
-  // @@protoc_insertion_point(field_release:v1.EntityEvent.entity)
+inline std::string* SLUEntity::release_entity() {
+  // @@protoc_insertion_point(field_release:v1.SLUEntity.entity)
   
   return entity_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void EntityEvent::set_allocated_entity(std::string* entity) {
+inline void SLUEntity::set_allocated_entity(std::string* entity) {
   if (entity != nullptr) {
     
   } else {
     
   }
   entity_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), entity);
-  // @@protoc_insertion_point(field_set_allocated:v1.EntityEvent.entity)
+  // @@protoc_insertion_point(field_set_allocated:v1.SLUEntity.entity)
 }
 
-// string value = 4;
-inline void EntityEvent::clear_value() {
+// string value = 2;
+inline void SLUEntity::clear_value() {
   value_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& EntityEvent::value() const {
-  // @@protoc_insertion_point(field_get:v1.EntityEvent.value)
+inline const std::string& SLUEntity::value() const {
+  // @@protoc_insertion_point(field_get:v1.SLUEntity.value)
   return value_.GetNoArena();
 }
-inline void EntityEvent::set_value(const std::string& value) {
+inline void SLUEntity::set_value(const std::string& value) {
   
   value_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.EntityEvent.value)
+  // @@protoc_insertion_point(field_set:v1.SLUEntity.value)
 }
-inline void EntityEvent::set_value(std::string&& value) {
+inline void SLUEntity::set_value(std::string&& value) {
   
   value_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.EntityEvent.value)
+  // @@protoc_insertion_point(field_set_rvalue:v1.SLUEntity.value)
 }
-inline void EntityEvent::set_value(const char* value) {
+inline void SLUEntity::set_value(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   value_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.EntityEvent.value)
+  // @@protoc_insertion_point(field_set_char:v1.SLUEntity.value)
 }
-inline void EntityEvent::set_value(const char* value, size_t size) {
+inline void SLUEntity::set_value(const char* value, size_t size) {
   
   value_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.EntityEvent.value)
+  // @@protoc_insertion_point(field_set_pointer:v1.SLUEntity.value)
 }
-inline std::string* EntityEvent::mutable_value() {
+inline std::string* SLUEntity::mutable_value() {
   
-  // @@protoc_insertion_point(field_mutable:v1.EntityEvent.value)
+  // @@protoc_insertion_point(field_mutable:v1.SLUEntity.value)
   return value_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* EntityEvent::release_value() {
-  // @@protoc_insertion_point(field_release:v1.EntityEvent.value)
+inline std::string* SLUEntity::release_value() {
+  // @@protoc_insertion_point(field_release:v1.SLUEntity.value)
   
   return value_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void EntityEvent::set_allocated_value(std::string* value) {
+inline void SLUEntity::set_allocated_value(std::string* value) {
   if (value != nullptr) {
     
   } else {
     
   }
   value_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set_allocated:v1.EntityEvent.value)
+  // @@protoc_insertion_point(field_set_allocated:v1.SLUEntity.value)
 }
 
-// int32 start_position = 5;
-inline void EntityEvent::clear_start_position() {
+// int32 start_position = 3;
+inline void SLUEntity::clear_start_position() {
   start_position_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 EntityEvent::start_position() const {
-  // @@protoc_insertion_point(field_get:v1.EntityEvent.start_position)
+inline ::PROTOBUF_NAMESPACE_ID::int32 SLUEntity::start_position() const {
+  // @@protoc_insertion_point(field_get:v1.SLUEntity.start_position)
   return start_position_;
 }
-inline void EntityEvent::set_start_position(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void SLUEntity::set_start_position(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   start_position_ = value;
-  // @@protoc_insertion_point(field_set:v1.EntityEvent.start_position)
+  // @@protoc_insertion_point(field_set:v1.SLUEntity.start_position)
 }
 
-// int32 end_position = 6;
-inline void EntityEvent::clear_end_position() {
+// int32 end_position = 4;
+inline void SLUEntity::clear_end_position() {
   end_position_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 EntityEvent::end_position() const {
-  // @@protoc_insertion_point(field_get:v1.EntityEvent.end_position)
+inline ::PROTOBUF_NAMESPACE_ID::int32 SLUEntity::end_position() const {
+  // @@protoc_insertion_point(field_get:v1.SLUEntity.end_position)
   return end_position_;
 }
-inline void EntityEvent::set_end_position(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void SLUEntity::set_end_position(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   end_position_ = value;
-  // @@protoc_insertion_point(field_set:v1.EntityEvent.end_position)
+  // @@protoc_insertion_point(field_set:v1.SLUEntity.end_position)
 }
 
 // -------------------------------------------------------------------
 
-// IntentEvent
+// SLUIntent
 
-// string audio_context = 1;
-inline void IntentEvent::clear_audio_context() {
-  audio_context_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& IntentEvent::audio_context() const {
-  // @@protoc_insertion_point(field_get:v1.IntentEvent.audio_context)
-  return audio_context_.GetNoArena();
-}
-inline void IntentEvent::set_audio_context(const std::string& value) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.IntentEvent.audio_context)
-}
-inline void IntentEvent::set_audio_context(std::string&& value) {
-  
-  audio_context_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.IntentEvent.audio_context)
-}
-inline void IntentEvent::set_audio_context(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.IntentEvent.audio_context)
-}
-inline void IntentEvent::set_audio_context(const char* value, size_t size) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.IntentEvent.audio_context)
-}
-inline std::string* IntentEvent::mutable_audio_context() {
-  
-  // @@protoc_insertion_point(field_mutable:v1.IntentEvent.audio_context)
-  return audio_context_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* IntentEvent::release_audio_context() {
-  // @@protoc_insertion_point(field_release:v1.IntentEvent.audio_context)
-  
-  return audio_context_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void IntentEvent::set_allocated_audio_context(std::string* audio_context) {
-  if (audio_context != nullptr) {
-    
-  } else {
-    
-  }
-  audio_context_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), audio_context);
-  // @@protoc_insertion_point(field_set_allocated:v1.IntentEvent.audio_context)
-}
-
-// int32 segment_id = 2;
-inline void IntentEvent::clear_segment_id() {
-  segment_id_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 IntentEvent::segment_id() const {
-  // @@protoc_insertion_point(field_get:v1.IntentEvent.segment_id)
-  return segment_id_;
-}
-inline void IntentEvent::set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  segment_id_ = value;
-  // @@protoc_insertion_point(field_set:v1.IntentEvent.segment_id)
-}
-
-// string intent = 3;
-inline void IntentEvent::clear_intent() {
+// string intent = 1;
+inline void SLUIntent::clear_intent() {
   intent_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& IntentEvent::intent() const {
-  // @@protoc_insertion_point(field_get:v1.IntentEvent.intent)
+inline const std::string& SLUIntent::intent() const {
+  // @@protoc_insertion_point(field_get:v1.SLUIntent.intent)
   return intent_.GetNoArena();
 }
-inline void IntentEvent::set_intent(const std::string& value) {
+inline void SLUIntent::set_intent(const std::string& value) {
   
   intent_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.IntentEvent.intent)
+  // @@protoc_insertion_point(field_set:v1.SLUIntent.intent)
 }
-inline void IntentEvent::set_intent(std::string&& value) {
+inline void SLUIntent::set_intent(std::string&& value) {
   
   intent_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.IntentEvent.intent)
+  // @@protoc_insertion_point(field_set_rvalue:v1.SLUIntent.intent)
 }
-inline void IntentEvent::set_intent(const char* value) {
+inline void SLUIntent::set_intent(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   intent_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.IntentEvent.intent)
+  // @@protoc_insertion_point(field_set_char:v1.SLUIntent.intent)
 }
-inline void IntentEvent::set_intent(const char* value, size_t size) {
+inline void SLUIntent::set_intent(const char* value, size_t size) {
   
   intent_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.IntentEvent.intent)
+  // @@protoc_insertion_point(field_set_pointer:v1.SLUIntent.intent)
 }
-inline std::string* IntentEvent::mutable_intent() {
+inline std::string* SLUIntent::mutable_intent() {
   
-  // @@protoc_insertion_point(field_mutable:v1.IntentEvent.intent)
+  // @@protoc_insertion_point(field_mutable:v1.SLUIntent.intent)
   return intent_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* IntentEvent::release_intent() {
-  // @@protoc_insertion_point(field_release:v1.IntentEvent.intent)
+inline std::string* SLUIntent::release_intent() {
+  // @@protoc_insertion_point(field_release:v1.SLUIntent.intent)
   
   return intent_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void IntentEvent::set_allocated_intent(std::string* intent) {
+inline void SLUIntent::set_allocated_intent(std::string* intent) {
   if (intent != nullptr) {
     
   } else {
     
   }
   intent_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), intent);
-  // @@protoc_insertion_point(field_set_allocated:v1.IntentEvent.intent)
+  // @@protoc_insertion_point(field_set_allocated:v1.SLUIntent.intent)
 }
 
 // -------------------------------------------------------------------
 
-// SegmentEndEvent
-
-// string audio_context = 1;
-inline void SegmentEndEvent::clear_audio_context() {
-  audio_context_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& SegmentEndEvent::audio_context() const {
-  // @@protoc_insertion_point(field_get:v1.SegmentEndEvent.audio_context)
-  return audio_context_.GetNoArena();
-}
-inline void SegmentEndEvent::set_audio_context(const std::string& value) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.SegmentEndEvent.audio_context)
-}
-inline void SegmentEndEvent::set_audio_context(std::string&& value) {
-  
-  audio_context_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.SegmentEndEvent.audio_context)
-}
-inline void SegmentEndEvent::set_audio_context(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.SegmentEndEvent.audio_context)
-}
-inline void SegmentEndEvent::set_audio_context(const char* value, size_t size) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.SegmentEndEvent.audio_context)
-}
-inline std::string* SegmentEndEvent::mutable_audio_context() {
-  
-  // @@protoc_insertion_point(field_mutable:v1.SegmentEndEvent.audio_context)
-  return audio_context_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* SegmentEndEvent::release_audio_context() {
-  // @@protoc_insertion_point(field_release:v1.SegmentEndEvent.audio_context)
-  
-  return audio_context_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void SegmentEndEvent::set_allocated_audio_context(std::string* audio_context) {
-  if (audio_context != nullptr) {
-    
-  } else {
-    
-  }
-  audio_context_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), audio_context);
-  // @@protoc_insertion_point(field_set_allocated:v1.SegmentEndEvent.audio_context)
-}
-
-// int32 segment_id = 2;
-inline void SegmentEndEvent::clear_segment_id() {
-  segment_id_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 SegmentEndEvent::segment_id() const {
-  // @@protoc_insertion_point(field_get:v1.SegmentEndEvent.segment_id)
-  return segment_id_;
-}
-inline void SegmentEndEvent::set_segment_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  segment_id_ = value;
-  // @@protoc_insertion_point(field_set:v1.SegmentEndEvent.segment_id)
-}
+// SLUSegmentEnd
 
 // -------------------------------------------------------------------
 
 // SLUStarted
 
-// string audio_context = 1;
-inline void SLUStarted::clear_audio_context() {
-  audio_context_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& SLUStarted::audio_context() const {
-  // @@protoc_insertion_point(field_get:v1.SLUStarted.audio_context)
-  return audio_context_.GetNoArena();
-}
-inline void SLUStarted::set_audio_context(const std::string& value) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.SLUStarted.audio_context)
-}
-inline void SLUStarted::set_audio_context(std::string&& value) {
-  
-  audio_context_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.SLUStarted.audio_context)
-}
-inline void SLUStarted::set_audio_context(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.SLUStarted.audio_context)
-}
-inline void SLUStarted::set_audio_context(const char* value, size_t size) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.SLUStarted.audio_context)
-}
-inline std::string* SLUStarted::mutable_audio_context() {
-  
-  // @@protoc_insertion_point(field_mutable:v1.SLUStarted.audio_context)
-  return audio_context_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* SLUStarted::release_audio_context() {
-  // @@protoc_insertion_point(field_release:v1.SLUStarted.audio_context)
-  
-  return audio_context_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void SLUStarted::set_allocated_audio_context(std::string* audio_context) {
-  if (audio_context != nullptr) {
-    
-  } else {
-    
-  }
-  audio_context_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), audio_context);
-  // @@protoc_insertion_point(field_set_allocated:v1.SLUStarted.audio_context)
-}
-
 // -------------------------------------------------------------------
 
 // SLUFinished
-
-// string audio_context = 1;
-inline void SLUFinished::clear_audio_context() {
-  audio_context_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& SLUFinished::audio_context() const {
-  // @@protoc_insertion_point(field_get:v1.SLUFinished.audio_context)
-  return audio_context_.GetNoArena();
-}
-inline void SLUFinished::set_audio_context(const std::string& value) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:v1.SLUFinished.audio_context)
-}
-inline void SLUFinished::set_audio_context(std::string&& value) {
-  
-  audio_context_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:v1.SLUFinished.audio_context)
-}
-inline void SLUFinished::set_audio_context(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:v1.SLUFinished.audio_context)
-}
-inline void SLUFinished::set_audio_context(const char* value, size_t size) {
-  
-  audio_context_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:v1.SLUFinished.audio_context)
-}
-inline std::string* SLUFinished::mutable_audio_context() {
-  
-  // @@protoc_insertion_point(field_mutable:v1.SLUFinished.audio_context)
-  return audio_context_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* SLUFinished::release_audio_context() {
-  // @@protoc_insertion_point(field_release:v1.SLUFinished.audio_context)
-  
-  return audio_context_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void SLUFinished::set_allocated_audio_context(std::string* audio_context) {
-  if (audio_context != nullptr) {
-    
-  } else {
-    
-  }
-  audio_context_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), audio_context);
-  // @@protoc_insertion_point(field_set_allocated:v1.SLUFinished.audio_context)
-}
 
 // .v1.SLUError error = 2;
 inline bool SLUFinished::has_error() const {
@@ -4559,34 +4790,458 @@ inline void WLURequest::set_allocated_text(std::string* text) {
 
 // WLUResponse
 
-// repeated .v1.SLUResponse responses = 1;
-inline int WLUResponse::responses_size() const {
-  return responses_.size();
+// repeated .v1.WLUSegment segments = 1;
+inline int WLUResponse::segments_size() const {
+  return segments_.size();
 }
-inline void WLUResponse::clear_responses() {
-  responses_.Clear();
+inline void WLUResponse::clear_segments() {
+  segments_.Clear();
 }
-inline ::v1::SLUResponse* WLUResponse::mutable_responses(int index) {
-  // @@protoc_insertion_point(field_mutable:v1.WLUResponse.responses)
-  return responses_.Mutable(index);
+inline ::v1::WLUSegment* WLUResponse::mutable_segments(int index) {
+  // @@protoc_insertion_point(field_mutable:v1.WLUResponse.segments)
+  return segments_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUResponse >*
-WLUResponse::mutable_responses() {
-  // @@protoc_insertion_point(field_mutable_list:v1.WLUResponse.responses)
-  return &responses_;
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUSegment >*
+WLUResponse::mutable_segments() {
+  // @@protoc_insertion_point(field_mutable_list:v1.WLUResponse.segments)
+  return &segments_;
 }
-inline const ::v1::SLUResponse& WLUResponse::responses(int index) const {
-  // @@protoc_insertion_point(field_get:v1.WLUResponse.responses)
-  return responses_.Get(index);
+inline const ::v1::WLUSegment& WLUResponse::segments(int index) const {
+  // @@protoc_insertion_point(field_get:v1.WLUResponse.segments)
+  return segments_.Get(index);
 }
-inline ::v1::SLUResponse* WLUResponse::add_responses() {
-  // @@protoc_insertion_point(field_add:v1.WLUResponse.responses)
-  return responses_.Add();
+inline ::v1::WLUSegment* WLUResponse::add_segments() {
+  // @@protoc_insertion_point(field_add:v1.WLUResponse.segments)
+  return segments_.Add();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::SLUResponse >&
-WLUResponse::responses() const {
-  // @@protoc_insertion_point(field_list:v1.WLUResponse.responses)
-  return responses_;
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUSegment >&
+WLUResponse::segments() const {
+  // @@protoc_insertion_point(field_list:v1.WLUResponse.segments)
+  return segments_;
+}
+
+// -------------------------------------------------------------------
+
+// WLUSegment
+
+// string text = 1;
+inline void WLUSegment::clear_text() {
+  text_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& WLUSegment::text() const {
+  // @@protoc_insertion_point(field_get:v1.WLUSegment.text)
+  return text_.GetNoArena();
+}
+inline void WLUSegment::set_text(const std::string& value) {
+  
+  text_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:v1.WLUSegment.text)
+}
+inline void WLUSegment::set_text(std::string&& value) {
+  
+  text_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:v1.WLUSegment.text)
+}
+inline void WLUSegment::set_text(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  text_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:v1.WLUSegment.text)
+}
+inline void WLUSegment::set_text(const char* value, size_t size) {
+  
+  text_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:v1.WLUSegment.text)
+}
+inline std::string* WLUSegment::mutable_text() {
+  
+  // @@protoc_insertion_point(field_mutable:v1.WLUSegment.text)
+  return text_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* WLUSegment::release_text() {
+  // @@protoc_insertion_point(field_release:v1.WLUSegment.text)
+  
+  return text_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void WLUSegment::set_allocated_text(std::string* text) {
+  if (text != nullptr) {
+    
+  } else {
+    
+  }
+  text_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), text);
+  // @@protoc_insertion_point(field_set_allocated:v1.WLUSegment.text)
+}
+
+// repeated .v1.WLUToken tokens = 2;
+inline int WLUSegment::tokens_size() const {
+  return tokens_.size();
+}
+inline void WLUSegment::clear_tokens() {
+  tokens_.Clear();
+}
+inline ::v1::WLUToken* WLUSegment::mutable_tokens(int index) {
+  // @@protoc_insertion_point(field_mutable:v1.WLUSegment.tokens)
+  return tokens_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUToken >*
+WLUSegment::mutable_tokens() {
+  // @@protoc_insertion_point(field_mutable_list:v1.WLUSegment.tokens)
+  return &tokens_;
+}
+inline const ::v1::WLUToken& WLUSegment::tokens(int index) const {
+  // @@protoc_insertion_point(field_get:v1.WLUSegment.tokens)
+  return tokens_.Get(index);
+}
+inline ::v1::WLUToken* WLUSegment::add_tokens() {
+  // @@protoc_insertion_point(field_add:v1.WLUSegment.tokens)
+  return tokens_.Add();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUToken >&
+WLUSegment::tokens() const {
+  // @@protoc_insertion_point(field_list:v1.WLUSegment.tokens)
+  return tokens_;
+}
+
+// repeated .v1.WLUEntity entities = 3;
+inline int WLUSegment::entities_size() const {
+  return entities_.size();
+}
+inline void WLUSegment::clear_entities() {
+  entities_.Clear();
+}
+inline ::v1::WLUEntity* WLUSegment::mutable_entities(int index) {
+  // @@protoc_insertion_point(field_mutable:v1.WLUSegment.entities)
+  return entities_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUEntity >*
+WLUSegment::mutable_entities() {
+  // @@protoc_insertion_point(field_mutable_list:v1.WLUSegment.entities)
+  return &entities_;
+}
+inline const ::v1::WLUEntity& WLUSegment::entities(int index) const {
+  // @@protoc_insertion_point(field_get:v1.WLUSegment.entities)
+  return entities_.Get(index);
+}
+inline ::v1::WLUEntity* WLUSegment::add_entities() {
+  // @@protoc_insertion_point(field_add:v1.WLUSegment.entities)
+  return entities_.Add();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::v1::WLUEntity >&
+WLUSegment::entities() const {
+  // @@protoc_insertion_point(field_list:v1.WLUSegment.entities)
+  return entities_;
+}
+
+// .v1.WLUIntent intent = 4;
+inline bool WLUSegment::has_intent() const {
+  return this != internal_default_instance() && intent_ != nullptr;
+}
+inline void WLUSegment::clear_intent() {
+  if (GetArenaNoVirtual() == nullptr && intent_ != nullptr) {
+    delete intent_;
+  }
+  intent_ = nullptr;
+}
+inline const ::v1::WLUIntent& WLUSegment::intent() const {
+  const ::v1::WLUIntent* p = intent_;
+  // @@protoc_insertion_point(field_get:v1.WLUSegment.intent)
+  return p != nullptr ? *p : *reinterpret_cast<const ::v1::WLUIntent*>(
+      &::v1::_WLUIntent_default_instance_);
+}
+inline ::v1::WLUIntent* WLUSegment::release_intent() {
+  // @@protoc_insertion_point(field_release:v1.WLUSegment.intent)
+  
+  ::v1::WLUIntent* temp = intent_;
+  intent_ = nullptr;
+  return temp;
+}
+inline ::v1::WLUIntent* WLUSegment::mutable_intent() {
+  
+  if (intent_ == nullptr) {
+    auto* p = CreateMaybeMessage<::v1::WLUIntent>(GetArenaNoVirtual());
+    intent_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:v1.WLUSegment.intent)
+  return intent_;
+}
+inline void WLUSegment::set_allocated_intent(::v1::WLUIntent* intent) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete intent_;
+  }
+  if (intent) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      intent = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, intent, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  intent_ = intent;
+  // @@protoc_insertion_point(field_set_allocated:v1.WLUSegment.intent)
+}
+
+// -------------------------------------------------------------------
+
+// WLUToken
+
+// string word = 1;
+inline void WLUToken::clear_word() {
+  word_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& WLUToken::word() const {
+  // @@protoc_insertion_point(field_get:v1.WLUToken.word)
+  return word_.GetNoArena();
+}
+inline void WLUToken::set_word(const std::string& value) {
+  
+  word_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:v1.WLUToken.word)
+}
+inline void WLUToken::set_word(std::string&& value) {
+  
+  word_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:v1.WLUToken.word)
+}
+inline void WLUToken::set_word(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  word_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:v1.WLUToken.word)
+}
+inline void WLUToken::set_word(const char* value, size_t size) {
+  
+  word_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:v1.WLUToken.word)
+}
+inline std::string* WLUToken::mutable_word() {
+  
+  // @@protoc_insertion_point(field_mutable:v1.WLUToken.word)
+  return word_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* WLUToken::release_word() {
+  // @@protoc_insertion_point(field_release:v1.WLUToken.word)
+  
+  return word_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void WLUToken::set_allocated_word(std::string* word) {
+  if (word != nullptr) {
+    
+  } else {
+    
+  }
+  word_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), word);
+  // @@protoc_insertion_point(field_set_allocated:v1.WLUToken.word)
+}
+
+// int32 index = 2;
+inline void WLUToken::clear_index() {
+  index_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 WLUToken::index() const {
+  // @@protoc_insertion_point(field_get:v1.WLUToken.index)
+  return index_;
+}
+inline void WLUToken::set_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  index_ = value;
+  // @@protoc_insertion_point(field_set:v1.WLUToken.index)
+}
+
+// -------------------------------------------------------------------
+
+// WLUEntity
+
+// string entity = 1;
+inline void WLUEntity::clear_entity() {
+  entity_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& WLUEntity::entity() const {
+  // @@protoc_insertion_point(field_get:v1.WLUEntity.entity)
+  return entity_.GetNoArena();
+}
+inline void WLUEntity::set_entity(const std::string& value) {
+  
+  entity_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:v1.WLUEntity.entity)
+}
+inline void WLUEntity::set_entity(std::string&& value) {
+  
+  entity_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:v1.WLUEntity.entity)
+}
+inline void WLUEntity::set_entity(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  entity_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:v1.WLUEntity.entity)
+}
+inline void WLUEntity::set_entity(const char* value, size_t size) {
+  
+  entity_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:v1.WLUEntity.entity)
+}
+inline std::string* WLUEntity::mutable_entity() {
+  
+  // @@protoc_insertion_point(field_mutable:v1.WLUEntity.entity)
+  return entity_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* WLUEntity::release_entity() {
+  // @@protoc_insertion_point(field_release:v1.WLUEntity.entity)
+  
+  return entity_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void WLUEntity::set_allocated_entity(std::string* entity) {
+  if (entity != nullptr) {
+    
+  } else {
+    
+  }
+  entity_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), entity);
+  // @@protoc_insertion_point(field_set_allocated:v1.WLUEntity.entity)
+}
+
+// string value = 2;
+inline void WLUEntity::clear_value() {
+  value_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& WLUEntity::value() const {
+  // @@protoc_insertion_point(field_get:v1.WLUEntity.value)
+  return value_.GetNoArena();
+}
+inline void WLUEntity::set_value(const std::string& value) {
+  
+  value_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:v1.WLUEntity.value)
+}
+inline void WLUEntity::set_value(std::string&& value) {
+  
+  value_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:v1.WLUEntity.value)
+}
+inline void WLUEntity::set_value(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  value_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:v1.WLUEntity.value)
+}
+inline void WLUEntity::set_value(const char* value, size_t size) {
+  
+  value_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:v1.WLUEntity.value)
+}
+inline std::string* WLUEntity::mutable_value() {
+  
+  // @@protoc_insertion_point(field_mutable:v1.WLUEntity.value)
+  return value_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* WLUEntity::release_value() {
+  // @@protoc_insertion_point(field_release:v1.WLUEntity.value)
+  
+  return value_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void WLUEntity::set_allocated_value(std::string* value) {
+  if (value != nullptr) {
+    
+  } else {
+    
+  }
+  value_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set_allocated:v1.WLUEntity.value)
+}
+
+// int32 start_position = 3;
+inline void WLUEntity::clear_start_position() {
+  start_position_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 WLUEntity::start_position() const {
+  // @@protoc_insertion_point(field_get:v1.WLUEntity.start_position)
+  return start_position_;
+}
+inline void WLUEntity::set_start_position(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  start_position_ = value;
+  // @@protoc_insertion_point(field_set:v1.WLUEntity.start_position)
+}
+
+// int32 end_position = 4;
+inline void WLUEntity::clear_end_position() {
+  end_position_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 WLUEntity::end_position() const {
+  // @@protoc_insertion_point(field_get:v1.WLUEntity.end_position)
+  return end_position_;
+}
+inline void WLUEntity::set_end_position(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  end_position_ = value;
+  // @@protoc_insertion_point(field_set:v1.WLUEntity.end_position)
+}
+
+// -------------------------------------------------------------------
+
+// WLUIntent
+
+// string intent = 1;
+inline void WLUIntent::clear_intent() {
+  intent_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& WLUIntent::intent() const {
+  // @@protoc_insertion_point(field_get:v1.WLUIntent.intent)
+  return intent_.GetNoArena();
+}
+inline void WLUIntent::set_intent(const std::string& value) {
+  
+  intent_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:v1.WLUIntent.intent)
+}
+inline void WLUIntent::set_intent(std::string&& value) {
+  
+  intent_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:v1.WLUIntent.intent)
+}
+inline void WLUIntent::set_intent(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  intent_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:v1.WLUIntent.intent)
+}
+inline void WLUIntent::set_intent(const char* value, size_t size) {
+  
+  intent_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:v1.WLUIntent.intent)
+}
+inline std::string* WLUIntent::mutable_intent() {
+  
+  // @@protoc_insertion_point(field_mutable:v1.WLUIntent.intent)
+  return intent_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* WLUIntent::release_intent() {
+  // @@protoc_insertion_point(field_release:v1.WLUIntent.intent)
+  
+  return intent_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void WLUIntent::set_allocated_intent(std::string* intent) {
+  if (intent != nullptr) {
+    
+  } else {
+    
+  }
+  intent_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), intent);
+  // @@protoc_insertion_point(field_set_allocated:v1.WLUIntent.intent)
 }
 
 // -------------------------------------------------------------------
@@ -4753,6 +5408,14 @@ inline void LoginResponse::set_allocated_token(std::string* token) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

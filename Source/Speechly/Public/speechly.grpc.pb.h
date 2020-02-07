@@ -257,6 +257,9 @@ class WLU final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    // Send text and get the intents, entities and transcripts as
+    // a response.
+    // *Note* The maximum message size is 16KB
     virtual ::grpc::Status Text(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::v1::WLUResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::v1::WLUResponse>> AsyncText(::grpc::ClientContext* context, const ::v1::WLURequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::v1::WLUResponse>>(AsyncTextRaw(context, request, cq));
@@ -267,6 +270,9 @@ class WLU final {
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
+      // Send text and get the intents, entities and transcripts as
+      // a response.
+      // *Note* The maximum message size is 16KB
       virtual void Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Text(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::v1::WLUResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Text(::grpc::ClientContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
@@ -315,6 +321,9 @@ class WLU final {
    public:
     Service();
     virtual ~Service();
+    // Send text and get the intents, entities and transcripts as
+    // a response.
+    // *Note* The maximum message size is 16KB
     virtual ::grpc::Status Text(::grpc::ServerContext* context, const ::v1::WLURequest* request, ::v1::WLUResponse* response);
   };
   template <class BaseClass>
