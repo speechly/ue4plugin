@@ -115,7 +115,8 @@ bool SpeechlyClient::Init()
 	if (!Status.ok())
 	{
 		UE_LOG(LogSG, Error, TEXT("Could not call login"));
-		SetError("Could not login");
+        FString Message = Status.error_message().c_str();
+		SetError(FString::Printf(TEXT("Could not login: %s"), *Message));
 		Channel.reset();
 		return false;
 	}
