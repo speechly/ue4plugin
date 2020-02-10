@@ -395,4 +395,5 @@ void SpeechlyClient::SetError(const FString& Message)
 	UE_LOG(LogSG, Error, TEXT("%s"), *Message);
 	bHasError = true;
 	bIsRunning = false;
+    ErrorMessage = Message;
 }

@@ -27,6 +27,10 @@ public:
 	{
 		return bHasError;
 	}
+    FString GetError() const
+    {
+        return ErrorMessage;
+    }
 	bool WLUSync(const std::string& Text);
 
 	virtual bool Init() override;
@@ -68,6 +72,7 @@ private:
 
 	bool bIsRunning{ true };
 	bool bHasError{ false };
+    FString ErrorMessage;
 	TQueue<SLURequest, EQueueMode::Mpsc> RequestQueue;
 	TQueue<SLUResponse, EQueueMode::Mpsc> ResponseQueue;
 };

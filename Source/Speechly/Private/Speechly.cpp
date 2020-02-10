@@ -99,7 +99,14 @@ bool USpeechly::Tick(float DeltaTime)
 {
 	if (!IsConnected())
 	{
-		OnSpeechlyError.Broadcast("", "Disconnected");
+        if (Client->HasError())
+        {
+            OnSpeechlyError.Broadcast("", FString::Printf(TEXT("Disconnected: %s"), *Client->GetError()));
+        }
+        else
+        {
+            OnSpeechlyError.Broadcast("", "Disconnected");
+        }
 		return false;
 	}
 
