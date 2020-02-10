@@ -3,21 +3,20 @@
 #include "Runtime/Core/Public/Misc/Paths.h"
 #include "Runtime/Core/Public/Misc/FileHelper.h"
 
-grpc::SslCredentialsOptions SslCredentialOptions = []()
-{
-	FString PemPath = FPaths::EngineContentDir() + TEXT("Certificates/ThirdParty/cacert.pem");
-	FString Pem;
-	if (FPaths::FileExists(*PemPath) && FFileHelper::LoadFileToString(Pem, *PemPath))
-	{
-		return grpc::SslCredentialsOptions{ std::string(TCHAR_TO_UTF8(*Pem)) };
-	}
-    UE_LOG(LogSG, Warning, TEXT("Could not load root certificates, might not connect to Speechly server"));
-	return grpc::SslCredentialsOptions{};
-}();
-
 SpeechlyClient::SpeechlyClient(const std::string& Address, const std::string& DeviceId, const std::string& AppId, const std::string& LanguageCode, int SampleRate) : Address{ Address }, DeviceId{ DeviceId }, AppId{ AppId }, LanguageCode{ LanguageCode }, SampleRate{ SampleRate }
 {
-	Credentials = grpc::SslCredentials(SslCredentialOptions);
+    grpc::SslCredentialsOptions SslCredentialsOptions;
+    FString PemPath = FPaths::EngineContentDir() + TEXT("Certificates/ThirdParty/cacert.pem");
+    FString Pem;
+    if (FPaths::FileExists(*PemPath) && FFileHelper::LoadFileToString(Pem, *PemPath))
+    {
+        SslCredentialsOptions = grpc::SslCredentialsOptions{ std::string(TCHAR_TO_UTF8(*Pem)) };
+    }
+    else
+    {
+        UE_LOG(LogSG, Warning, TEXT("Could not load root certificates, might not connect to Speechly server"));
+    }
+	Credentials = grpc::SslCredentials(SslCredentialsOptions);
 }
 
 bool SpeechlyClient::Write(const SLURequest& Request)

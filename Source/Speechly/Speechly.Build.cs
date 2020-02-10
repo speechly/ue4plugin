@@ -45,5 +45,12 @@ public class Speechly : ModuleRules
 
         AddEngineThirdPartyPrivateStaticDependencies(Target, "OpenSSL");
         AddEngineThirdPartyPrivateStaticDependencies(Target, "zlib");
+        
+        string EngineCertFile = Path.Combine(EngineDirectory, "Content", "Certificates", "ThirdParty", "cacert.pem");
+        if (!File.Exists(EngineCertFile))
+        {
+            throw new Exception("Requires a cacert.pem file to build");
+        }
+        RuntimeDependencies.Add(EngineCertFile, StagedFileType.NonUFS);
     }
 }
