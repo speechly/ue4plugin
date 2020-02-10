@@ -11,6 +11,7 @@ grpc::SslCredentialsOptions SslCredentialOptions = []()
 	{
 		return grpc::SslCredentialsOptions{ std::string(TCHAR_TO_UTF8(*Pem)) };
 	}
+    UE_LOG(LogSG, Warning, TEXT("Could not load root certificates, might not connect to Speechly server"));
 	return grpc::SslCredentialsOptions{};
 }();
 
