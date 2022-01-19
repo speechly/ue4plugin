@@ -1,3 +1,5 @@
+= DISCLAIMER: The contents of this repository, including the instructions below, are no longer up to date. They is provided as extra documentation for those interested in Unreal integration. To get this up and running, the very least one should do is to [update the gRPC protos](https://github.com/speechly/api/tree/master/cpp).
+
 = How to build gRPC
 
 Run:
