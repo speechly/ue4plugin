@@ -1,6 +1,8 @@
-= DISCLAIMER: The contents of this repository, including the instructions below, are no longer up to date. They is provided as extra documentation for those interested in Unreal integration. To get this up and running, the very least one should do is to [update the gRPC protos](https://github.com/speechly/api/tree/master/cpp).
+# Please note!
 
-= How to build gRPC
+The contents of this repository, including the instructions below, are no longer up to date. They are provided as extra documentation for those interested in Unreal integration. To get this up and running, the very least one should do is to [update the gRPC protos](https://github.com/speechly/api/tree/master/cpp).
+
+# How to build gRPC
 
 Run:
 
@@ -27,7 +29,7 @@ to the beginning of the file, and to the end add:
 #include "IncludeEnd.h"
 ```
 
-= macOS setup
+# macOS setup
 
 The plugin currently is not production ready for macOS.
 
