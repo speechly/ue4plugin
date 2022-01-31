@@ -1,6 +1,7 @@
 #include "Speechly.h"
 
 #include "Containers/Ticker.h"
+#include "Misc/Guid.h"
 
 DEFINE_LOG_CATEGORY(LogSG);
 
@@ -34,8 +35,11 @@ void USpeechly::Connect(const FString& AppId, const FString& LanguageCode)
 	Responses.Empty();
 	ContextToKeys.Empty();
 
-	FString DeviceId = FGenericPlatformMisc::GetDeviceId();
-	Client.Reset(new SpeechlyClient("api.speechly.com", std::string(TCHAR_TO_UTF8(*DeviceId)), std::string(TCHAR_TO_UTF8(*AppId)), std::string(TCHAR_TO_UTF8(*LanguageCode)), sg::kSampleRate));
+	FGuid DeviceId(FGenericPlatformMisc::GetDeviceId());
+	if (!DeviceId.IsValid()) {
+		DeviceId = FGuid::NewGuid();
+	}
+	Client.Reset(new SpeechlyClient("api.speechly.com", std::string(TCHAR_TO_UTF8(*DeviceId.ToString(EGuidFormats::DigitsWithHyphens))), std::string(TCHAR_TO_UTF8(*AppId)), std::string(TCHAR_TO_UTF8(*LanguageCode)), sg::kSampleRate));
 	ClientThread = FRunnableThread::Create(Client.Get(), TEXT("SpeechlyClient"), 0);
 	FTicker::GetCoreTicker().RemoveTicker(TickerHandle);
 	TickerHandle = FTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateLambda([this](float TimeDelta) { return Tick(TimeDelta); }));

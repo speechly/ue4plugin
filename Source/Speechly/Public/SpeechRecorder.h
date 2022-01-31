@@ -27,7 +27,7 @@ public:
 	virtual ~FSpeechRecorder();
 	void Start();
 	void Stop();
-	void OnAudioCapture(const float* InAudio, int32 NumFrames, int32 NumChannels, double StreamTime, bool bOverflow);
+	void OnAudioCapture(const float* InAudio, int32 NumFrames, int32 NumChannels, int32 SampleRate, double StreamTime, bool bOverflow);
 
 	ISpeechAudioCallback* Callback;
 
