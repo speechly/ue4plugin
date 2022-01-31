@@ -1,6 +1,6 @@
 #if PLATFORM_WINDOWS
 #pragma warning(push)
-#pragma warning(disable : 4005)
+//#pragma warning(disable : 4005)
 #pragma warning(disable : 4125)
 #pragma warning(disable : 4582)
 #pragma warning(disable : 4583)

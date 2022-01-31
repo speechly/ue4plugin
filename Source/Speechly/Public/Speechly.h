@@ -5,7 +5,7 @@
 
 #include "CoreMinimal.h"
 #include "HAL/RunnableThread.h"
-#include "LogMacros.h"
+#include "Logging/LogMacros.h"
 
 #include "Speechly.generated.h"
 

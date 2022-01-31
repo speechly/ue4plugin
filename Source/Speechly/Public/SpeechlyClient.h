@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Runnable.h"
+#include "HAL/Runnable.h"
 #include "Containers/Queue.h"
 
 #include <memory>
@@ -10,11 +10,14 @@
 #include "IncludeBegin.h"
 THIRD_PARTY_INCLUDES_START
 #include "grpc++/grpc++.h"
-#include "speechly.grpc.pb.h"
+#include "speechly/identity/v1/identity.grpc.pb.h"
+#include "speechly/slu/v1/slu.grpc.pb.h"
+#include "speechly/slu/v1/wlu.grpc.pb.h"
 THIRD_PARTY_INCLUDES_END
 #include "IncludeEnd.h"
 
-using namespace v1;
+using namespace speechly::identity::v1;
+using namespace speechly::slu::v1;
 
 // GRPC threaded client
 class SPEECHLY_API SpeechlyClient : public FRunnable
