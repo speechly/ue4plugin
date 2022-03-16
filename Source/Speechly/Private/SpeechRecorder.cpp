@@ -87,8 +87,8 @@ void FSpeechRecorder::Start()
 		FAudioCaptureDeviceParams DeviceParams;
 		DeviceParams.bUseHardwareAEC = OutInfo.bSupportsHardwareAEC;
 		DeviceParams.DeviceIndex = INDEX_NONE;
-		FOnCaptureFunction OnCaptureFunction = [this](const float* InAudio, int32 NumFrames, int32 NumChannels, int32 SampleRate, double StreamTime, bool bOverFlow) {
-			return this->OnAudioCapture(InAudio, NumFrames, NumChannels, SampleRate, StreamTime, bOverFlow);
+		FOnCaptureFunction OnCaptureFunction = [this](const float* InAudio, int32 NumFrames, int32 NumChannels, int32 _SampleRate, double StreamTime, bool bOverFlow) {
+			return this->OnAudioCapture(InAudio, NumFrames, NumChannels, _SampleRate, StreamTime, bOverFlow);
 		};
 		verifyf(AudioCapture.OpenCaptureStream(DeviceParams, OnCaptureFunction, NumFramesDesired), TEXT("Could not open capture stream"));
 
